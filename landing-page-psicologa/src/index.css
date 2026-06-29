@@ -1,0 +1,171 @@
+@import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap");
+
+/* ============================================================
+   DESIGN TOKENS
+   ============================================================ */
+@theme {
+  --color-sand-50: #faf8f4;
+  --color-sand-100: #f3ede3;
+  --color-sand-200: #e8ddd0;
+  --color-sand-300: #d5c5b2;
+  --color-sand-400: #c0a98e;
+  --color-sand-500: #a68c6d;
+
+  --color-terra-100: #f2ebe3;
+  --color-terra-200: #d9c5b0;
+  --color-terra-300: #c4a882;
+  --color-terra-400: #b08d65;
+  --color-terra-500: #9a7350;
+  --color-terra-600: #7c5b3c;
+
+  --color-olive-100: #eff0ea;
+  --color-olive-200: #d4d8c8;
+  --color-olive-300: #b5bda0;
+  --color-olive-400: #909e78;
+  --color-olive-500: #6e7d58;
+  --color-olive-600: #546042;
+
+  --color-warm-900: #1e1a17;
+  --color-warm-800: #2d2824;
+  --color-warm-700: #3d3630;
+  --color-warm-600: #5a5048;
+
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-2xl: 40px;
+}
+
+/* ============================================================
+   BASE STYLES
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-sand-50);
+  color: var(--color-warm-800);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ============================================================
+   TYPOGRAPHY UTILITIES
+   ============================================================ */
+.font-serif { font-family: var(--font-serif); }
+.font-sans  { font-family: var(--font-sans); }
+
+/* ============================================================
+   CUSTOM KEYFRAMES & ANIMATIONS
+   ============================================================ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes revealText {
+  from { clip-path: inset(0 100% 0 0); }
+  to   { clip-path: inset(0 0% 0 0); }
+}
+
+@keyframes lineGrow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+@keyframes pulse-soft {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.7; }
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(6px); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.animate-fade-in {
+  animation: fadeIn 1s ease both;
+}
+.animate-reveal-text {
+  animation: revealText 1.2s cubic-bezier(0.77, 0, 0.175, 1) both;
+}
+.animate-line-grow {
+  animation: lineGrow 1s cubic-bezier(0.77, 0, 0.175, 1) both;
+  transform-origin: left;
+}
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+.animate-scroll-bounce {
+  animation: scrollBounce 1.5s ease-in-out infinite;
+}
+
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+.delay-900 { animation-delay: 0.9s; }
+.delay-1000 { animation-delay: 1s; }
+.delay-1200 { animation-delay: 1.2s; }
+
+/* ============================================================
+   SCROLLBAR CUSTOMIZATION
+   ============================================================ */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--color-sand-50); }
+::-webkit-scrollbar-thumb { background: var(--color-terra-300); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-terra-400); }
+
+/* ============================================================
+   SELECTION COLOR
+   ============================================================ */
+::selection { background-color: var(--color-terra-200); color: var(--color-warm-800); }
+
+/* ============================================================
+   SECTION DIVIDER
+   ============================================================ */
+.divider-ornament {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.divider-ornament::before,
+.divider-ornament::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-terra-300), transparent);
+}

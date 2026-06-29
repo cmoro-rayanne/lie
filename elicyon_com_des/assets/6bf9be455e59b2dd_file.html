@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <title>ASIMOV Design Systems</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Voltaire&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f7f8;
+      --surface: #ffffff;
+      --border: #e4e4e7;
+      --border-soft: #f0f0f1;
+      --text: #18181b;
+      --text-muted: #71717a;
+      --text-xs: #a1a1aa;
+      --accent: #18181b;
+      --accent-bg: #18181b;
+      --pill-bg: #f4f4f5;
+      --pill-active-bg: #18181b;
+      --pill-active-text: #ffffff;
+      --shadow-card: 0 1px 3px rgba(0,0,0,.07), 0 4px 12px rgba(0,0,0,.04);
+      --shadow-card-hover: 0 4px 12px rgba(0,0,0,.10), 0 12px 32px rgba(0,0,0,.07);
+      --radius: 10px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Top bar ── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      gap: 20px;
+    }
+
+    .logo {
+      font-family: 'Voltaire', sans-serif;
+      font-size: 22px;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      color: var(--text);
+      white-space: nowrap;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .logo-asimov { text-transform: uppercase; font-size: 22px; }
+    .logo-sub { font-size: 13px; color: #a1a1aa; letter-spacing: 0.08em; text-transform: uppercase; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+
+    .topbar-search {
+      flex: 1;
+      max-width: 480px;
+      position: relative;
+    }
+    .topbar-search svg {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      pointer-events: none;
+    }
+    .topbar-search input {
+      width: 100%;
+      height: 34px;
+      background: var(--pill-bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text);
+      padding: 0 12px 0 32px;
+      outline: none;
+      transition: border-color .15s, background .15s;
+    }
+    .topbar-search input:focus {
+      background: white;
+      border-color: #a1a1aa;
+    }
+    .topbar-search input::placeholder { color: var(--text-muted); }
+
+    .topbar-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .count-badge {
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--pill-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 3px 10px;
+      white-space: nowrap;
+    }
+
+    /* ── Filters bar ── */
+    .filters-bar {
+      position: sticky;
+      top: 52px;
+      z-index: 40;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-soft);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      overflow-x: auto;
+    }
+    .filters-bar::-webkit-scrollbar { display: none; }
+
+    .pill {
+      height: 30px;
+      padding: 0 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--pill-bg);
+      color: var(--text-muted);
+      font-size: 12.5px;
+      font-weight: 500;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .pill:hover { border-color: #a1a1aa; color: var(--text); background: white; }
+    .pill.on {
+      background: var(--pill-active-bg);
+      border-color: var(--pill-active-bg);
+      color: var(--pill-active-text);
+    }
+    .pill-sep {
+      width: 1px;
+      height: 18px;
+      background: var(--border);
+      margin: 0 4px;
+      flex-shrink: 0;
+    }
+
+    /* ── Grid ── */
+    .grid-wrap {
+      padding: 28px;
+      max-width: 1800px;
+      margin: 0 auto;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(1, 1fr);
+    }
+    @media (min-width: 600px)  { .grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 900px)  { .grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 1500px) { .grid { grid-template-columns: repeat(4, 1fr); } }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: box-shadow .2s, transform .2s, border-color .2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      box-shadow: var(--shadow-card-hover);
+      transform: translateY(-2px);
+      border-color: #d4d4d8;
+    }
+
+    .card-preview {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      position: relative;
+      background: #f0f0f0;
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .card-preview iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 1280px;
+      height: 800px;
+      border: none;
+      pointer-events: none;
+      transform-origin: top left;
+      background: #f4f4f5;
+    }
+    .card-preview img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      background: #f4f4f5;
+    }
+    .card-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f4f4f5;
+      color: #a1a1aa;
+      font-size: 11px;
+      gap: 6px;
+    }
+    .card-placeholder svg { opacity: 0.5; }
+
+    .card-body {
+      padding: 11px 13px 12px;
+    }
+    .card-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.4;
+    }
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 5px;
+    }
+    .tag {
+      font-size: 10.5px;
+      font-weight: 500;
+      padding: 2px 7px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+    }
+    .tag-dark   { background: #18181b; color: #fff; }
+    .tag-light  { background: #e4f0ff; color: #1d4ed8; }
+    .tag-comp   { background: #ecfdf5; color: #059669; }
+
+    .card-actions {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* ── Empty state ── */
+    .empty {
+      grid-column: 1 / -1;
+      padding: 80px 20px;
+      text-align: center;
+      color: var(--text-muted);
+    }
+    .empty p { font-size: 14px; }
+    .empty small { font-size: 12px; opacity: .7; }
+
+    /* ── Buttons ── */
+    .icon-btn {
+      width: 26px; height: 26px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: white;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: color .12s, border-color .12s, background .12s;
+    }
+    .icon-btn:hover { color: var(--text); border-color: #a1a1aa; background: var(--pill-bg); }
+    .icon-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .icon-btn.done { color: #16a34a; border-color: #bbf7d0; background: #f0fdf4; }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<body>
+
+<!-- ── Top bar ──────────────────────────────────────────── -->
+<header class="topbar">
+  <div class="logo"><span class="logo-asimov">Asimov</span><span class="logo-sub">Design Systems</span></div>
+  <div class="topbar-search">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.6">
+      <circle cx="6" cy="6" r="4.5"/><line x1="9.5" y1="9.5" x2="13" y2="13"/>
+    </svg>
+    <input type="text" placeholder="Buscar designs..." id="searchInput" oninput="onSearch(this.value)" />
+  </div>
+  <div class="topbar-right">
+    <span class="count-badge" id="countBadge">— designs</span>
+  </div>
+</header>
+
+<!-- ── Filters ──────────────────────────────────────────── -->
+<div class="filters-bar" id="filtersBar">
+  <button class="pill on" data-cat="all" onclick="setFilter('all')">Todos</button>
+  <button class="pill" data-cat="1_temas_escuros" onclick="setFilter('1_temas_escuros')">◑ Temas Escuros</button>
+  <button class="pill" data-cat="2_temas_claros" onclick="setFilter('2_temas_claros')">○ Temas Claros</button>
+  <button class="pill" data-cat="3_componentes" onclick="setFilter('3_componentes')">◈ Componentes</button>
+</div>
+
+<!-- ── Grid ─────────────────────────────────────────────── -->
+<div class="grid-wrap">
+  <div class="grid" id="grid"></div>
+</div>
+
+<script>
+  // ── Data ──────────────────────────────────────────────────────────────────
+
+  const CATS = {
+    '1_temas_escuros': { label: 'Temas Escuros', short: 'Escuro', icon: '◑', tagClass: 'tag-dark' },
+    '2_temas_claros':  { label: 'Temas Claros',  short: 'Claro',  icon: '○', tagClass: 'tag-light' },
+    '3_componentes':   { label: 'Componentes',   short: 'Comp.',  icon: '◈', tagClass: 'tag-comp' },
+  };
+
+  let ALL        = [];
+  let designById = {};
+
+  // ── State ─────────────────────────────────────────────────────────────────
+
+  let activeFilter = 'all';
+  let query        = '';
+
+  const PREVIEW_FILE = 'design-system.html';
+  const previewHtmlPath = d => `${d.path}/${PREVIEW_FILE}`;
+
+  // Scale calculado a partir da largura real do grid (4 colunas, gap 16px, padding 48px)
+  function calcCols(w) {
+    if (w >= 1500) return 4;
+    if (w >= 900)  return 3;
+    if (w >= 600)  return 2;
+    return 1;
+  }
+
+  function calcScale() {
+    const wrap  = document.querySelector('.grid-wrap');
+    const w     = wrap.clientWidth;
+    const cols  = calcCols(w);
+    const cardW = (w - 56 - 20 * (cols - 1)) / cols; // 56 = padding 28px×2
+    return cardW / 1280;
+  }
+
+  // ── Filter ────────────────────────────────────────────────────────────────
+
+  function visibleDesigns() {
+    let list = ALL;
+    if (activeFilter !== 'all') {
+      list = list.filter(d => d.cat === activeFilter);
+    }
+    if (query) {
+      const q = query.toLowerCase();
+      list = list.filter(d => d.name.toLowerCase().includes(q) || d.folder.toLowerCase().includes(q));
+    }
+    return list;
+  }
+
+  function setFilter(cat) {
+    activeFilter = cat;
+    document.querySelectorAll('.pill').forEach(el => {
+      el.classList.toggle('on', el.dataset.cat === cat);
+    });
+    renderGrid();
+  }
+
+  function onSearch(val) {
+    query = val.trim().toLowerCase();
+    renderGrid();
+  }
+
+  // ── Grid ──────────────────────────────────────────────────────────────────
+
+  // Janela móvel: só os iframes na zona "viva" (próximos do viewport) ficam
+  // renderizando. Quando saem da zona, o src vai pra about:blank — libera a
+  // memória/CPU e a página se descarrega. Quando voltam pra perto, recarrega.
+  // Reduz drasticamente o custo da gallery quando há muitos templates.
+  const ALIVE_MARGIN_PX = 1200;
+  const MAX_CONCURRENT  = 3;
+
+  let loadingCount = 0;
+  const loadQueue  = [];
+
+  function flushQueue() {
+    while (loadingCount < MAX_CONCURRENT && loadQueue.length) {
+      const { iframe, src } = loadQueue.shift();
+      loadingCount++;
+      iframe.src = src;
+      iframe.addEventListener('load', () => {
+        loadingCount--;
+        const ph = iframe.parentElement?.querySelector('.card-placeholder');
+        if (ph) ph.style.opacity = '0';
+        flushQueue();
+      }, { once: true });
+    }
+  }
+
+  function loadIframe(iframe) {
+    if (!iframe.dataset.src) return; // já carregada
+    const src = iframe.dataset.src;
+    iframe.removeAttribute('data-src');
+    loadQueue.push({ iframe, src });
+    flushQueue();
+  }
+
+  function unloadIframe(iframe) {
+    if (iframe.dataset.src) return; // já descarregada
+    if (!iframe.src || iframe.src === 'about:blank') return;
+    // Tira da fila se ainda não foi carregada
+    const idx = loadQueue.findIndex(i => i.iframe === iframe);
+    if (idx >= 0) loadQueue.splice(idx, 1);
+    iframe.dataset.src = iframe.src;
+    iframe.src = 'about:blank';
+    const ph = iframe.parentElement?.querySelector('.card-placeholder');
+    if (ph) ph.style.opacity = '1';
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      const iframe = entry.target.querySelector('iframe');
+      if (!iframe) return;
+      if (entry.isIntersecting) loadIframe(iframe);
+      else unloadIframe(iframe);
+    });
+  }, { rootMargin: `${ALIVE_MARGIN_PX}px` });
+
+  const ICON_PREVIEW = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5.5 2H2v9h9V7.5M8 2h3m0 0v3m0-3L5.5 7.5"/></svg>`;
+  const ICON_DL      = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6"><line x1="6.5" y1="1.5" x2="6.5" y2="8.5"/><polyline points="4,6.5 6.5,9 9,6.5"/><path d="M2 10.5v.5a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1v-.5"/></svg>`;
+  const ICON_SPIN    = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.6" style="animation:spin .8s linear infinite"><path d="M6.5 1.5A5 5 0 1 1 2 9"/></svg>`;
+  const ICON_OK      = `<svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="2"><polyline points="2,7 5,10 11,3"/></svg>`;
+
+  function renderGrid() {
+    const grid = document.getElementById('grid');
+    grid.innerHTML = '';
+
+    // Reset load state on re-render
+    observer.disconnect();
+    loadQueue.length = 0;
+    loadingCount = 0;
+
+    const list = visibleDesigns();
+    document.getElementById('countBadge').textContent =
+      list.length === ALL.length ? `${ALL.length} designs` : `${list.length} de ${ALL.length}`;
+
+    if (!list.length) {
+      grid.innerHTML = `<div class="empty"><p>Nenhum design encontrado</p><br><small>Tente outro filtro ou termo de busca</small></div>`;
+      return;
+    }
+
+    list.forEach(d => {
+      const cat = CATS[d.cat];
+
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.dataset.id = d.id;
+
+      const preview = document.createElement('div');
+      preview.className = 'card-preview';
+
+      const ph = document.createElement('div');
+      ph.className = 'card-placeholder';
+      ph.innerHTML = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><rect x="2" y="2" width="12" height="12" rx="2"/><path d="M2 6h12"/></svg> carregando`;
+      preview.appendChild(ph);
+
+      // Tenta o screenshot estático (gerado por scripts/generate-previews.mjs).
+      // Se não existir, cai pro iframe ao vivo do sistema antigo.
+      const img = document.createElement('img');
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.alt = d.name;
+      img.src = `${d.path}/assets/preview.jpg`;
+      img.addEventListener('load', () => { ph.style.opacity = '0'; });
+      img.addEventListener('error', () => {
+        img.remove();
+        mountIframeFallback(preview, d);
+      });
+      preview.appendChild(img);
+
+      card.appendChild(preview);
+      const body = document.createElement('div');
+      body.className = 'card-body';
+      body.innerHTML = `
+        <div class="card-name">${d.name}</div>
+        <div class="card-meta">
+          <span class="tag ${cat.tagClass}">${cat.icon} ${cat.short}</span>
+          <div class="card-actions">
+            <button class="icon-btn" onclick="openPreview(${d.id})" title="Abrir preview em nova aba">${ICON_PREVIEW}</button>
+            <button class="icon-btn" id="dl-${d.id}" onclick="downloadDesign(${d.id})" title="Baixar como .zip">${ICON_DL}</button>
+          </div>
+        </div>`;
+      card.appendChild(body);
+      grid.appendChild(card);
+    });
+  }
+
+  function mountIframeFallback(preview, d) {
+    const previewScale = calcScale();
+    const cardW   = Math.round(previewScale * 1280);
+    const iframeH = Math.round((cardW - 76) / previewScale);
+
+    const iframe = document.createElement('iframe');
+    iframe.loading = 'lazy';
+    iframe.tabIndex = -1;
+    iframe.setAttribute('data-src', previewHtmlPath(d));
+    iframe.style.cssText = `transform:scale(${previewScale.toFixed(5)});width:1280px;height:${iframeH}px;`;
+    preview.appendChild(iframe);
+    observer.observe(preview);
+  }
+
+  // ── Preview externo ───────────────────────────────────────────────────────
+
+  function openPreview(id) {
+    const d = designById[id];
+    if (!d) return;
+    window.open(previewHtmlPath(d), '_blank', 'noopener');
+  }
+
+  // ── Download ──────────────────────────────────────────────────────────────
+
+  async function downloadDesign(id) {
+    if (location.protocol === 'file:') {
+      alert('O download requer HTTP.\n\nNo terminal, dentro da pasta "Design Systems":\n  python3 -m http.server 8080\n\nDepois acesse:\n  http://localhost:8080/');
+      return;
+    }
+
+    const d   = designById[id];
+    const btn = document.getElementById(`dl-${id}`);
+    btn.disabled = true;
+    btn.innerHTML = ICON_SPIN;
+
+    try {
+      const zip    = new JSZip();
+      const folder = zip.folder(d.folder);
+      const assets = new Set();
+
+      async function addHtml(file) {
+        const r = await fetch(`${d.path}/${file}`);
+        if (!r.ok) return;
+        const text = await r.text();
+        folder.file(file, text);
+        new DOMParser().parseFromString(text, 'text/html')
+          .querySelectorAll('[src],[href]')
+          .forEach(el => {
+            const v = el.getAttribute('src') || el.getAttribute('href');
+            if (v && !/^(https?:|\/\/|data:|#|mailto:)/.test(v)) assets.add(v);
+          });
+      }
+
+      await addHtml(PREVIEW_FILE);
+
+      // STACK.md é opcional — inclui se existir na pasta do template
+      try {
+        const r = await fetch(`${d.path}/STACK.md`);
+        if (r.ok) folder.file('STACK.md', await r.blob());
+      } catch {}
+
+      await Promise.all([...assets].map(async p => {
+        try {
+          const r = await fetch(`${d.path}/${p}`);
+          if (r.ok) folder.file(p, await r.blob());
+        } catch {}
+      }));
+
+      const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 6 } });
+      const url  = URL.createObjectURL(blob);
+      Object.assign(document.createElement('a'), { href: url, download: `${d.folder}.zip` }).click();
+      setTimeout(() => URL.revokeObjectURL(url), 2000);
+
+      btn.innerHTML = ICON_OK;
+      btn.classList.add('done');
+      setTimeout(() => { btn.disabled = false; btn.innerHTML = ICON_DL; btn.classList.remove('done'); }, 2500);
+
+    } catch (e) {
+      console.error(e);
+      btn.disabled = false;
+      btn.innerHTML = ICON_DL;
+    }
+  }
+
+  // ── Discovery ─────────────────────────────────────────────────────────────
+
+  // Ordena in-place: mais novos primeiro, empate desfeito pelo nome. Datas em
+  // ISO 8601 ordenam cronologicamente como string.
+  function sortByCreatedDesc(list) {
+    list.sort((a, b) =>
+      (b.created || '').localeCompare(a.created || '') || a.name.localeCompare(b.name));
+  }
+
+  async function loadManifest() {
+    const r = await fetch('./gallery-manifest.json', { cache: 'no-cache' });
+    if (!r.ok) throw new Error(`Falha ao carregar manifest: ${r.status}`);
+    const entries = await r.json();
+    sortByCreatedDesc(entries);
+    entries.forEach((d, i) => d.id = i);
+    return entries;
+  }
+
+  // Localhost (Python http.server) responde listagem de diretório, então dá pra
+  // descobrir templates direto do filesystem sem precisar rodar o build script.
+  // Em produção (Vercel) isso falha e a gente cai no manifest pré-gerado.
+  async function discoverFromDirListing() {
+    const cats = ['1_temas_escuros', '2_temas_claros', '3_componentes'];
+    const catLabels = {
+      '1_temas_escuros': 'Temas Escuros',
+      '2_temas_claros':  'Temas Claros',
+      '3_componentes':   'Componentes',
+    };
+
+    function folderToName(folder) {
+      return folder
+        .replace(/\.(aura\.build|art|com|io|net|org)(\b.*)?$/, '')
+        .split(/[-_.]+/)
+        .filter(Boolean)
+        .map(w => isNaN(w) ? w.charAt(0).toUpperCase() + w.slice(1) : w)
+        .join(' ')
+        .trim() || folder;
+    }
+    async function fileExists(path) {
+      try { return (await fetch(path, { method: 'HEAD' })).ok; } catch { return false; }
+    }
+    async function listFolders(catPath) {
+      const r = await fetch(`${catPath}/`, { headers: { Accept: 'text/html' } });
+      if (!r.ok) throw new Error(`listing ${catPath} falhou: ${r.status}`);
+      const text = await r.text();
+      // Detecta página HTML real (não listagem) — Vercel devolve um HTML que não
+      // é índice. Heurística: listagem do Python tem links pra subpastas.
+      const doc = new DOMParser().parseFromString(text, 'text/html');
+      const dirs = [...doc.querySelectorAll('a[href]')]
+        .map(a => a.getAttribute('href'))
+        .filter(h => h && h.endsWith('/') && h !== '../' && !h.startsWith('/') && !h.startsWith('?') && !h.startsWith('http'))
+        .map(h => decodeURIComponent(h.slice(0, -1)));
+      if (!dirs.length) throw new Error(`sem subpastas em ${catPath}`);
+      return dirs;
+    }
+
+    const results = [];
+    await Promise.all(cats.map(async cat => {
+      let folders;
+      try { folders = await listFolders(cat); } catch { return; }
+      await Promise.all(folders.map(async folder => {
+        const path = `${cat}/${folder}`;
+        if (!(await fileExists(`${path}/${PREVIEW_FILE}`))) return;
+        results.push({ cat, folder, name: folderToName(folder), path });
+      }));
+    }));
+
+    if (!results.length) throw new Error('descoberta dinâmica não achou nada');
+    return results;
+  }
+
+  // A descoberta dinâmica (listagem de diretório) não traz data de criação.
+  // Puxa as datas do manifest pré-gerado; pastas ainda não indexadas entram
+  // como recém-criadas e vão para o topo.
+  async function mergeCreatedDates(results) {
+    const dates = {};
+    try {
+      const r = await fetch('./gallery-manifest.json', { cache: 'no-cache' });
+      if (r.ok) {
+        for (const e of await r.json()) {
+          if (e && e.created) dates[e.path] = e.created;
+        }
+      }
+    } catch { /* sem manifest — tudo vira recém-criado */ }
+    const now = new Date().toISOString();
+    results.forEach((d) => { d.created = dates[d.path] || now; });
+    sortByCreatedDesc(results);
+    results.forEach((d, i) => d.id = i);
+  }
+
+  async function discoverDesigns() {
+    const isLocal = ['localhost', '127.0.0.1', '0.0.0.0'].includes(location.hostname);
+    if (isLocal) {
+      try {
+        const results = await discoverFromDirListing();
+        await mergeCreatedDates(results);
+        return results;
+      } catch (e) {
+        console.warn('Descoberta dinâmica falhou, usando manifest:', e.message);
+      }
+    }
+    return await loadManifest();
+  }
+
+  // ── Init ──────────────────────────────────────────────────────────────────
+
+  async function init() {
+    document.getElementById('grid').innerHTML = `
+      <div class="empty">
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6"
+          style="animation:spin .8s linear infinite;opacity:.4">
+          <path d="M10 2a8 8 0 1 1-5.66 2.34"/>
+        </svg>
+        <p>Carregando designs...</p>
+      </div>`;
+
+    try {
+      ALL = await discoverDesigns();
+    } catch (err) {
+      console.error(err);
+      document.getElementById('grid').innerHTML = `
+        <div class="empty">
+          <p>Não foi possível descobrir designs</p>
+          <small>Rode <code style="background:#f4f4f5;padding:2px 6px;border-radius:4px;font-family:monospace">python3 -m http.server 8000</code> a partir da raiz e abra via http://localhost:8000.</small>
+        </div>`;
+      document.getElementById('countBadge').textContent = '—';
+      return;
+    }
+
+    designById = Object.fromEntries(ALL.map(d => [d.id, d]));
+    renderGrid();
+  }
+
+  init();
+
+  window.addEventListener('resize', () => {
+    const scale   = calcScale();
+    const cardW   = Math.round(scale * 1280);
+    const iframeH = Math.round((cardW - 76) / scale);
+    document.querySelectorAll('.card-preview iframe').forEach(iframe => {
+      iframe.style.transform = `scale(${scale.toFixed(5)})`;
+      iframe.style.height    = `${iframeH}px`;
+    });
+  });
+</script>
+</body>
+</html>
