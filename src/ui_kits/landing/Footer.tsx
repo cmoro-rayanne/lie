@@ -57,9 +57,9 @@ function Footer() {
         <div style={{ height: 1, background: 'linear-gradient(90deg, transparent, rgba(192,169,130,0.15), transparent)', marginBottom: 24 }} />
 
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', fontWeight: 300, color: 'rgba(192,169,130,0.35)' }}>© {year} Ilê · Eliana Lino · CRP 9424/12. Todos os direitos reservados.</p>
-          <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.72rem', fontWeight: 300, color: 'rgba(192,169,130,0.3)', display: 'inline-flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
-            Feito com <span style={{ color: 'rgba(192,130,100,0.5)', display: 'inline-flex' }}><Heart size={11} /></span> e cuidado por{' '}
+          <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.75rem', fontWeight: 300, color: 'rgba(192,169,130,0.65)' }}>© {year} Ilê · Eliana Lino · CRP 9424/12. Todos os direitos reservados.</p>
+          <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.72rem', fontWeight: 300, color: 'rgba(192,169,130,0.65)', display: 'inline-flex', alignItems: 'center', gap: 6, flexWrap: 'wrap' }}>
+            Feito com <span style={{ color: 'rgba(192,130,100,0.65)', display: 'inline-flex' }}><Heart size={11} /></span> e cuidado por{' '}
             <a href="https://www.rmoro.com.br/" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none' }}>
               <img src={logoHorizontal} alt="r.moro" style={{ height: 20, width: 'auto', display: 'inline-block', opacity: 0.45, transition: 'opacity .3s ease' }}
                 onMouseEnter={(e) => e.currentTarget.style.opacity = '0.95'}

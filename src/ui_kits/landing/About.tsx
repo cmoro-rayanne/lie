@@ -1,4 +1,5 @@
-import 'react';
+import React from 'react';
+import sobreEliana from '../../uploads/sobre-eliana.png';
 
 function About() {
   const { SectionHeading, Divider } = window.ElianaLinoDesignSystem_6994f2;
@@ -8,8 +9,8 @@ function About() {
       <div className="about-grid" style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 var(--gutter)', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 'clamp(48px,6vw,96px)', alignItems: 'center' }}>
         <div style={{ position: 'relative', opacity: inView ? 1 : 0, transform: inView ? 'translateX(0)' : 'translateX(-48px)', transition: 'opacity 1s ease, transform 1s var(--ease-out-expo)' }}>
           <div style={{ position: 'relative', aspectRatio: '4/5', borderRadius: 'var(--radius-lg)', overflow: 'hidden', background: 'var(--color-sand-200)' }}>
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop" alt="Eliana Lino"
-              style={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.96) contrast(1.04) saturate(0.9)' }} />
+            <img src={sobreEliana} alt="Eliana Lino"
+              style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: '42% 40%', filter: 'brightness(0.96) contrast(1.04) saturate(0.9)' }} />
           </div>
           <div style={{ position: 'absolute', top: -16, left: -16, width: 80, height: 80, border: '1px solid var(--color-terra-200)', borderRadius: 'var(--radius-sm)', opacity: 0.7, zIndex: -1 }} />
           <div style={{ position: 'absolute', bottom: -16, right: -16, width: 120, height: 120, border: '1px solid var(--color-terra-200)', borderRadius: 'var(--radius-sm)', opacity: 0.7, zIndex: -1 }} />
