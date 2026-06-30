@@ -5,6 +5,7 @@ import About from './About';
 import Abordagem from './Abordagem';
 import Atuacao from './Atuacao';
 import Grupos from './Grupos';
+import Projetos from './Projetos';
 import Quote from './Quote';
 import Testimonials from './Testimonials';
 import Contact from './Contact';
@@ -40,7 +41,8 @@ export default function LandingPage() {
         <Abordagem />
         <Atuacao />
         <Grupos />
-        <Testimonials />
+        <Projetos />
+        {/* <Testimonials /> */}
         <Contact />
       </main>
       <Footer />

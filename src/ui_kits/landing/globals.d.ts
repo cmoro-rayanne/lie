@@ -37,6 +37,7 @@ declare global {
     Abordagem: React.ComponentType<any>;
     Atuacao: React.ComponentType<any>;
     Grupos: React.ComponentType<any>;
+    Projetos: React.ComponentType<any>;
     Contact: React.ComponentType<any>;
     Footer: React.ComponentType<any>;
     WhatsAppFab: React.ComponentType<any>;
