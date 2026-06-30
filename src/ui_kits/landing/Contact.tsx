@@ -40,7 +40,7 @@ function Contact() {
         mensagem: message
       })
     })
-    .then((res) => {
+    .then(() => {
       setBusy(false);
       setSent(true);
       setName('');

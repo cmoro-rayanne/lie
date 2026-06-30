@@ -7,7 +7,7 @@ import Atuacao from './Atuacao';
 import Grupos from './Grupos';
 import Projetos from './Projetos';
 import Quote from './Quote';
-import Testimonials from './Testimonials';
+// import Testimonials from './Testimonials';
 import Contact from './Contact';
 import Footer, { WhatsAppFab } from './Footer';
 

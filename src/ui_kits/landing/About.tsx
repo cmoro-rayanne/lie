@@ -1,4 +1,4 @@
-import React from 'react';
+import 'react';
 import sobreEliana from '../../uploads/sobre-eliana.png';
 
 function About() {

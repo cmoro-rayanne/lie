@@ -1,4 +1,4 @@
-import React from 'react';
+import 'react';
 import projetosImg from '../../uploads/projetos-criativos.png';
 
 function Projetos() {
