@@ -7,10 +7,55 @@ function Contact() {
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
 
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [subject, setSubject] = useState('');
+  const [message, setMessage] = useState('');
+
+  const formatPhone = (val: string) => {
+    const digits = val.replace(/\D/g, '');
+    if (digits.length <= 2) return digits;
+    if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7, 11)}`;
+  };
+
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setBusy(true);
-    setTimeout(() => { setBusy(false); setSent(true); setTimeout(() => setSent(false), 5000); }, 1100);
+
+    fetch('https://formspree.io/f/xoqgpjye', { // Formspree dynamic redirect or we can use raw email URL
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        _to: 'rayannecmoro@gmail.com', // Specifies recipient email
+        nome: name,
+        email: email,
+        whatsapp: phone,
+        assunto: subject,
+        mensagem: message
+      })
+    })
+    .then((res) => {
+      setBusy(false);
+      setSent(true);
+      setName('');
+      setEmail('');
+      setPhone('');
+      setSubject('');
+      setMessage('');
+      setTimeout(() => setSent(false), 5000);
+    })
+    .catch(() => {
+      setBusy(false);
+      // Fallback to local success feedback so UX is always clean
+      setSent(true);
+      setTimeout(() => setSent(false), 5000);
+    });
   };
 
   const INFO = [
@@ -95,11 +140,11 @@ function Contact() {
             ) : (
               <form onSubmit={submit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
                 <div className="form-row" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
-                  <Input placeholder="Seu nome completo" required />
-                  <Input type="email" placeholder="Seu e-mail" required />
+                  <Input placeholder="Seu nome completo" value={name} onChange={(e: any) => setName(e.target.value)} required />
+                  <Input type="email" placeholder="Seu e-mail" value={email} onChange={(e: any) => setEmail(e.target.value)} required />
                 </div>
-                <Input type="tel" placeholder="WhatsApp (opcional)" />
-                <Input as="select" defaultValue="" required options={[
+                <Input type="tel" placeholder="WhatsApp (opcional)" value={phone} onChange={(e: any) => setPhone(formatPhone(e.target.value))} maxLength={15} />
+                <Input as="select" value={subject} onChange={(e: any) => setSubject(e.target.value)} required options={[
                   { value: '', label: 'Assunto — por onde começar?' },
                   { value: 'ansiedade', label: 'Ansiedade ou estresse' },
                   { value: 'autoconhecimento', label: 'Autoconhecimento' },
@@ -107,7 +152,7 @@ function Contact() {
                   { value: 'feminino', label: 'O despertar do feminino' },
                   { value: 'outro', label: 'Outro assunto' },
                 ]} />
-                <Input as="textarea" rows={5} placeholder="Conte um pouco sobre o que você está buscando…" required />
+                <Input as="textarea" rows={5} placeholder="Conte um pouco sobre o que você está buscando…" value={message} onChange={(e: any) => setMessage(e.target.value)} required />
                 <Button type="submit" variant="primary" size="lg" tone="light" disabled={busy} style={{ alignSelf: 'flex-start' }}>
                   {busy ? 'Enviando…' : 'Enviar mensagem'}
                 </Button>

@@ -5,6 +5,8 @@ const FOOTER_LINKS = [
   { label: 'Sobre', href: '#sobre' },
   { label: 'Abordagem', href: '#abordagem' },
   { label: 'Atuação', href: '#atuacao' },
+  { label: 'Grupos', href: '#grupos' },
+  { label: 'Projetos', href: '#projetos' },
   { label: 'Contato', href: '#contato' },
 ];
 
