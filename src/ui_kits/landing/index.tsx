@@ -4,6 +4,7 @@ import Hero from './Hero';
 import About from './About';
 import Abordagem from './Abordagem';
 import Atuacao from './Atuacao';
+import Grupos from './Grupos';
 import Quote from './Quote';
 import Testimonials from './Testimonials';
 import Contact from './Contact';
@@ -35,9 +36,10 @@ export default function LandingPage() {
       <main>
         <Hero />
         <About />
+        <Quote />
         <Abordagem />
         <Atuacao />
-        <Quote />
+        <Grupos />
         <Testimonials />
         <Contact />
       </main>
