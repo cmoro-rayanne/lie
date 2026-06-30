@@ -1,0 +1,24 @@
+<!-- @dsCard group="Colors" viewport="700x170" name="Semantic roles" subtitle="What each color is actually for" -->
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 24px; background: var(--bg-page); font-family: var(--font-sans); }
+  .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .cell { border-radius: var(--radius-md); padding: 14px; border: 1px solid var(--border-soft); }
+  .dot { width: 22px; height: 22px; border-radius: 6px; margin-bottom: 10px; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06); }
+  .r { font-size: 0.7rem; font-weight: 600; color: var(--text-strong); }
+  .v { font-size: 0.62rem; color: var(--text-muted); }
+</style></head>
+<body>
+<div class="grid">
+  <div class="cell"><div class="dot" style="background:var(--accent)"></div><div class="r">accent</div><div class="v">CTAs · links · emphasis</div></div>
+  <div class="cell"><div class="dot" style="background:var(--accent-go)"></div><div class="r">accent-go</div><div class="v">conversion banner</div></div>
+  <div class="cell"><div class="dot" style="background:var(--text-strong)"></div><div class="r">text-strong</div><div class="v">headings</div></div>
+  <div class="cell"><div class="dot" style="background:var(--text-muted)"></div><div class="r">text-muted</div><div class="v">supporting copy</div></div>
+  <div class="cell"><div class="dot" style="background:var(--bg-page)"></div><div class="r">bg-page</div><div class="v">default ground</div></div>
+  <div class="cell"><div class="dot" style="background:var(--bg-warm)"></div><div class="r">bg-warm</div><div class="v">alternating section</div></div>
+  <div class="cell"><div class="dot" style="background:var(--border-soft)"></div><div class="r">border-soft</div><div class="v">hairline borders</div></div>
+  <div class="cell"><div class="dot" style="background:var(--surface-ink)"></div><div class="r">surface-ink</div><div class="v">dark blocks</div></div>
+</div>
+</body></html>

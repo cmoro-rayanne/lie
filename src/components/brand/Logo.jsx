@@ -1,12 +1,9 @@
 import React from 'react';
 
-interface RingMarkProps {
-  size?: number;
-  mono?: string | null;
-  style?: React.CSSProperties;
-}
-
-function RingMark({ size = 88, mono = null, style = {} }: RingMarkProps) {
+/* The three nested rings — terracotta, olive, sand-gold — that form the Ilê
+   mark. Recreated as clean vector so it scales and recolors. Bottoms converge,
+   tops fan open: layers of consciousness nesting inward. */
+function RingMark({ size = 88, mono = null, style = {} }) {
   const terra = mono || 'var(--color-terra-400)';
   const olive = mono || 'var(--color-olive-500)';
   const gold = mono || 'var(--color-terra-300)';
@@ -21,14 +18,10 @@ function RingMark({ size = 88, mono = null, style = {} }: RingMarkProps) {
   );
 }
 
-export interface LogoProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: 'full' | 'inline' | 'mark' | 'wordmark' | 'stacked';
-  size?: number;
-  tone?: 'light' | 'dark';
-  mono?: string | null;
-  showTagline?: boolean;
-}
-
+/**
+ * Logo — the Ilê brand mark. Three nested rings (terracotta/olive/sand) over the
+ * "Ilê" serif wordmark and the "Psicologia e Consciência" tagline.
+ */
 export function Logo({
   variant = 'full',
   size = 120,
@@ -37,7 +30,7 @@ export function Logo({
   showTagline = true,
   style = {},
   ...rest
-}: LogoProps) {
+}) {
   const onDark = tone === 'dark';
   const ringColor = mono || (onDark ? 'rgba(192,169,130,0.9)' : null);
   const wordColor = onDark ? 'rgba(240,225,205,0.95)' : 'var(--color-terra-500)';
@@ -45,15 +38,15 @@ export function Logo({
   const lineColor = onDark ? 'rgba(192,169,130,0.45)' : 'var(--color-olive-300)';
   const dotColor = onDark ? 'var(--color-gold)' : 'var(--color-terra-400)';
 
-  const renderWord = (fs: string) => (
+  const Word = ({ fs }) => (
     <span style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: fs, lineHeight: 0.9, color: wordColor, letterSpacing: '0.01em' }}>Ilê</span>
   );
-  const renderTagline = (fs: string) => (
+  const Tagline = ({ fs }) => (
     <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 500, fontSize: fs, letterSpacing: '0.26em', textTransform: 'uppercase', color: tagColor, whiteSpace: 'nowrap' }}>
       Psicologia e Consciência
     </span>
   );
-  const renderDivider = (w: string) => (
+  const Divider = ({ w }) => (
     <div style={{ display: 'flex', alignItems: 'center', gap: '10px', width: w }}>
       <span style={{ flex: 1, height: '1px', background: lineColor }} />
       <span style={{ width: '5px', height: '5px', borderRadius: '50%', background: dotColor }} />
@@ -67,7 +60,7 @@ export function Logo({
       <div style={{ display: 'flex', alignItems: 'center', gap: size * 0.18, ...style }} {...rest}>
         <RingMark size={size} mono={ringColor} />
         <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
-          {renderWord(`${size * 0.5}px`)}
+          <Word fs={`${size * 0.5}px`} />
           {showTagline && (
             <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 500, fontSize: `${size * 0.1}px`, letterSpacing: '0.24em', textTransform: 'uppercase', color: tagColor, marginTop: '4px' }}>
               Psicologia e Consciência
@@ -87,9 +80,9 @@ export function Logo({
   if (variant === 'wordmark') {
     return (
       <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: size * 0.14, ...style }} {...rest}>
-        {renderWord(`${size * 0.62}px`)}
-        {showTagline && renderTagline(`${size * 0.12}px`)}
-        {showTagline && renderDivider(`${size * 1.7}px`)}
+        <Word fs={`${size * 0.62}px`} />
+        {showTagline && <Tagline fs={`${size * 0.12}px`} />}
+        {showTagline && <Divider w={`${size * 1.7}px`} />}
       </div>
     );
   }
@@ -99,11 +92,11 @@ export function Logo({
   return (
     <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', ...style }} {...rest}>
       <RingMark size={size} mono={ringColor} style={{ marginBottom: -size * 0.06 }} />
-      {renderWord(`${size * 0.62}px`)}
+      <Word fs={`${size * 0.62}px`} />
       {full && showTagline && (
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: size * 0.1, marginTop: size * 0.12 }}>
-          {renderTagline(`${size * 0.12}px`)}
-          {renderDivider(`${size * 1.9}px`)}
+          <Tagline fs={`${size * 0.12}px`} />
+          <Divider w={`${size * 1.9}px`} />
         </div>
       )}
     </div>

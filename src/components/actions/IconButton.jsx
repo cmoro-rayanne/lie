@@ -1,15 +1,9 @@
 import React, { useState } from 'react';
-import type { ReactNode } from 'react';
 
-export interface IconButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  children: ReactNode;
-  size?: 'sm' | 'md' | 'lg';
-  variant?: 'outline' | 'soft';
-  tone?: 'light' | 'dark';
-  href?: string;
-  'aria-label'?: string;
-}
-
+/**
+ * IconButton — round, outlined control used for carousel navigation,
+ * social links and other icon-only actions. Fills with terracotta on hover.
+ */
 export function IconButton({
   children,
   size = 'md',
@@ -20,7 +14,7 @@ export function IconButton({
   onClick,
   style = {},
   ...rest
-}: IconButtonProps) {
+}) {
   const [hover, setHover] = useState(false);
 
   const dims = { sm: 38, md: 44, lg: 56 }[size];
@@ -46,7 +40,7 @@ export function IconButton({
   };
   const p = palettes[variant];
 
-  const composed: React.CSSProperties = {
+  const composed = {
     width: dims,
     height: dims,
     borderRadius: variant === 'soft' ? 'var(--radius-sm)' : '50%',
@@ -69,16 +63,7 @@ export function IconButton({
   };
 
   if (href) {
-    const anchorRest = rest as unknown as React.AnchorHTMLAttributes<HTMLAnchorElement>;
-    return (
-      <a href={href} aria-label={ariaLabel} style={composed} {...handlers} {...anchorRest}>
-        {children}
-      </a>
-    );
+    return <a href={href} aria-label={ariaLabel} style={composed} {...handlers} {...rest}>{children}</a>;
   }
-  return (
-    <button aria-label={ariaLabel} onClick={onClick} style={composed} {...handlers} {...rest}>
-      {children}
-    </button>
-  );
+  return <button aria-label={ariaLabel} onClick={onClick} style={composed} {...handlers} {...rest}>{children}</button>;
 }

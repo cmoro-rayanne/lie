@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
-import type { ReactNode } from 'react';
 
-export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
-  tone?: 'dark' | 'light';
-  icon?: ReactNode;
-  iconPosition?: 'left' | 'right';
-  href?: string;
-}
-
+/**
+ * Button — Eliana Lino's primary call to action.
+ * Uppercase, letter-spaced sans label. Soft terracotta gradient (primary),
+ * or a quiet outline (secondary/ghost). Lifts gently on hover.
+ */
 export function Button({
   children,
   variant = 'primary',
@@ -21,9 +16,10 @@ export function Button({
   onClick,
   type = 'button',
   disabled = false,
+  fullWidth = false,
   style = {},
   ...rest
-}: ButtonProps) {
+}) {
   const [hover, setHover] = useState(false);
 
   const sizes = {
@@ -32,10 +28,11 @@ export function Button({
     lg: { padding: '15px 38px', fontSize: '0.8rem' },
   };
 
+  // On dark surfaces the outline/ghost use cream; on light, terracotta.
   const cream = 'rgba(235,220,200,0.85)';
   const onDark = tone === 'dark';
 
-  const base: React.CSSProperties = {
+  const base = {
     fontFamily: 'var(--font-sans)',
     fontWeight: variant === 'primary' ? 500 : 400,
     letterSpacing: 'var(--tracking-label)',
@@ -46,6 +43,7 @@ export function Button({
     alignItems: 'center',
     justifyContent: 'center',
     gap: '10px',
+    width: fullWidth ? '100%' : 'auto',
     cursor: disabled ? 'not-allowed' : 'pointer',
     transition: 'all 0.35s var(--ease-out-expo)',
     whiteSpace: 'nowrap',
@@ -80,7 +78,7 @@ export function Button({
     },
   };
 
-  const composed: React.CSSProperties = { ...base, ...variants[variant], ...style };
+  const composed = { ...base, ...variants[variant], ...style };
   const inner = (
     <>
       {icon && iconPosition === 'left' ? <span style={{ display: 'inline-flex' }}>{icon}</span> : null}
@@ -95,10 +93,8 @@ export function Button({
   };
 
   if (href && !disabled) {
-    // If it's a link, we cast standard anchor attrs.
-    const anchorRest = rest as unknown as React.AnchorHTMLAttributes<HTMLAnchorElement>;
     return (
-      <a href={href} style={composed} {...handlers} {...anchorRest}>{inner}</a>
+      <a href={href} style={composed} {...handlers} {...rest}>{inner}</a>
     );
   }
   return (

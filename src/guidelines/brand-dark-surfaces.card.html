@@ -1,0 +1,19 @@
+<!-- @dsCard group="Brand" viewport="700x180" name="Dark surfaces & gold lettering" subtitle="Hero / quote / ink gradients with concentric circles" -->
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); font-family: var(--font-sans); }
+  .p { height: 180px; position: relative; overflow: hidden; display: flex; align-items: flex-end; padding: 18px; }
+  .ring { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); border-radius: 50%; border: 1px solid rgba(192,169,130,0.12); }
+  .r1 { width: 180px; height: 180px; }
+  .r2 { width: 120px; height: 120px; }
+  .t { position: relative; z-index: 1; }
+  .name { font-family: var(--font-serif); font-style: italic; font-size: 1.1rem; color: rgba(240,230,215,0.92); }
+  .lbl { font-size: 0.52rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--color-gold-soft); margin-top: 4px; }
+</style></head>
+<body>
+  <div class="p" style="background:var(--grad-hero)"><div class="ring r1"></div><div class="ring r2"></div><div class="t"><div class="name">grad-hero</div><div class="lbl">Hero</div></div></div>
+  <div class="p" style="background:var(--grad-quote)"><div class="ring r1"></div><div class="ring r2"></div><div class="t"><div class="name">grad-quote</div><div class="lbl">Quote blocks</div></div></div>
+  <div class="p" style="background:var(--grad-ink)"><div class="ring r1"></div><div class="ring r2"></div><div class="t"><div class="name">grad-ink</div><div class="lbl">Grupos / footer</div></div></div>
+</body></html>
