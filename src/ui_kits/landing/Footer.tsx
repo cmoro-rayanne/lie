@@ -81,4 +81,3 @@ export function WhatsAppFab() {
 }
 window.WhatsAppFab = WhatsAppFab;
 export default Footer;
-export { WhatsAppFab };
