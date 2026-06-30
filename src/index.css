@@ -40,6 +40,7 @@
   --radius-lg: 16px;
   --radius-xl: 24px;
   --radius-2xl: 40px;
+  --radius-pill: 999px;
 }
 
 /* ============================================================
@@ -168,4 +169,97 @@ body {
   flex: 1;
   height: 1px;
   background: linear-gradient(90deg, transparent, var(--color-terra-300), transparent);
+}
+
+/* ============================================================
+   SEMANTIC DESIGN TOKENS (referenced by components)
+   ============================================================ */
+:root {
+  /* Backgrounds */
+  --bg-page: #faf8f4;
+  --bg-warm: #f5efe6;
+  --bg-subtle: #f0ebe2;
+
+  /* Surfaces */
+  --surface-card: #faf8f4;
+  --surface-raised: #f5f0e8;
+
+  /* Borders */
+  --border-soft: rgba(192, 160, 110, 0.2);
+  --border-accent: rgba(176, 141, 101, 0.5);
+
+  /* Text */
+  --text-strong: #2d2824;
+  --text-body: #4a4038;
+  --text-muted: #7a6a58;
+  --text-on-ink: rgba(240, 225, 205, 0.92);
+
+  /* Accent colors */
+  --accent: #b08d65;
+  --accent-go: #6e7d58;
+  --color-gold: #c4a882;
+  --color-gold-soft: rgba(196, 168, 130, 0.7);
+  --error: #c0392b;
+
+  /* Gradients */
+  --grad-hero: linear-gradient(150deg, #2d2824 0%, #3d3630 35%, #2a2520 65%, #1e1a17 100%);
+  --grad-cta: linear-gradient(135deg, #c4a882, #b08d65);
+  --grad-quote: linear-gradient(160deg, #2a2520 0%, #3d3630 50%, #2d2824 100%);
+  --grad-line: linear-gradient(90deg, rgba(192, 160, 110, 0.8), transparent);
+
+  /* Typography scale */
+  --text-display: clamp(2.8rem, 5.5vw, 4.2rem);
+  --text-h2: clamp(2rem, 3.5vw, 2.8rem);
+  --text-base: 1rem;
+  --eyebrow-size: 0.68rem;
+  --eyebrow-track: 0.26em;
+  --tracking-tight: -0.01em;
+  --tracking-label: 0.14em;
+  --leading-tight: 1.15;
+  --leading-relaxed: 1.85;
+
+  /* Layout */
+  --container: 1200px;
+  --gutter: clamp(24px, 5vw, 72px);
+  --section-y: clamp(80px, 10vw, 140px);
+
+  /* Shadows */
+  --shadow-cta: 0 16px 48px rgba(176, 141, 101, 0.35);
+  --shadow-card: 0 8px 32px rgba(60, 45, 30, 0.12);
+  --shadow-soft: 0 4px 16px rgba(60, 45, 30, 0.08);
+  --shadow-float: 0 4px 24px rgba(60, 45, 30, 0.15);
+
+  /* Easing */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
+}
+
+/* ============================================================
+   RESPONSIVE GRID HELPERS
+   ============================================================ */
+@media (max-width: 768px) {
+  .nav-desktop { display: none !important; }
+  .nav-burger  { display: flex !important; }
+
+  .about-grid,
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .atuacao-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .testimonial-grid {
+    grid-template-columns: 1fr !important;
+    gap: 48px !important;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr !important;
+  }
 }
