@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
+import { Logo } from '../../components/brand/Logo';
 
 function Hero() {
-  const { Button, Logo } = window.ElianaLinoDesignSystem_6994f2;
+  const { Button } = window.ElianaLinoDesignSystem_6994f2;
   const { ChevronDown } = window.Icons;
   const [loaded, setLoaded] = useState<boolean>(false);
   const decoRef = useRef<HTMLDivElement>(null);
@@ -40,7 +41,7 @@ function Hero() {
             <line x1="240" y1="10" x2="240" y2="470" stroke="rgba(192,160,110,0.08)" strokeWidth="0.5" />
             <line x1="10" y1="240" x2="470" y2="240" stroke="rgba(192,160,110,0.08)" strokeWidth="0.5" />
           </svg>
-          <Logo variant="mark" size={300} mono="rgba(192,160,110,0.7)" />
+          <Logo variant="full" size={240} mono="rgba(192,160,110,0.7)" />
         </div>
       </div>
 
@@ -66,10 +67,12 @@ function Hero() {
         </div>
       </div>
 
-      <div style={{ position: 'absolute', bottom: '32px', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', color: 'rgba(192,160,110,0.7)', opacity: loaded ? 0.7 : 0, transition: 'opacity 1s ease 1.4s' }}>
+      <a href="#sobre" style={{ cursor: 'pointer', position: 'absolute', bottom: '32px', left: '50%', transform: 'translateX(-50%)', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px', color: 'rgba(192,160,110,0.7)', textDecoration: 'none', opacity: loaded ? 0.7 : 0, transition: 'opacity 1s ease 1.4s, color 0.3s ease' }}
+        onMouseEnter={(e) => e.currentTarget.style.color = '#f5efe8'}
+        onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(192,160,110,0.7)'}>
         <span style={{ fontFamily: 'var(--font-sans)', fontSize: '0.6rem', letterSpacing: '0.26em', textTransform: 'uppercase' }}>Explorar</span>
         <span className="animate-scroll-bounce" style={{ display: 'inline-flex' }}><ChevronDown size={15} /></span>
-      </div>
+      </a>
     </section>
   );
 }

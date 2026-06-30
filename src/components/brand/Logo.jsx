@@ -33,10 +33,10 @@ export function Logo({
 }) {
   const onDark = tone === 'dark';
   const ringColor = mono || (onDark ? 'rgba(192,169,130,0.9)' : null);
-  const wordColor = onDark ? 'rgba(240,225,205,0.95)' : 'var(--color-terra-500)';
-  const tagColor = onDark ? 'var(--color-gold-soft)' : 'var(--color-olive-500)';
-  const lineColor = onDark ? 'rgba(192,169,130,0.45)' : 'var(--color-olive-300)';
-  const dotColor = onDark ? 'var(--color-gold)' : 'var(--color-terra-400)';
+  const wordColor = mono || (onDark ? 'rgba(240,225,205,0.95)' : 'var(--color-terra-500)');
+  const tagColor = mono || (onDark ? 'var(--color-gold-soft)' : 'var(--color-olive-500)');
+  const lineColor = mono || (onDark ? 'rgba(192,169,130,0.45)' : 'var(--color-olive-300)');
+  const dotColor = mono || (onDark ? 'var(--color-gold)' : 'var(--color-terra-400)');
 
   const Word = ({ fs }) => (
     <span style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: fs, lineHeight: 0.9, color: wordColor, letterSpacing: '0.01em' }}>Ilê</span>
