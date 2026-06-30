@@ -1,0 +1,71 @@
+<!-- @dsCard group="Landing" viewport="1280x760" name="Ilê — Landing page" subtitle="Full single-page recreation · interactive" -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ilê — Psicologia e Consciência | Eliana Lino</title>
+<link rel="stylesheet" href="../../styles.css" />
+<style>
+  body { background: var(--bg-page); }
+  @media (max-width: 860px) {
+    .about-grid, .contact-grid, .testimonial-grid, .atuacao-grid, .footer-grid { grid-template-columns: 1fr !important; }
+    .testimonial-grid { gap: 48px !important; }
+    .footer-grid { gap: 36px !important; }
+    .form-row { grid-template-columns: 1fr !important; }
+  }
+  @media (max-width: 768px) {
+    .nav-desktop { display: none !important; }
+    .nav-burger { display: flex !important; }
+  }
+  @media (min-width: 769px) {
+    .mobile-menu { display: none !important; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+<script src="../../_ds_bundle.js"></script>
+
+<script type="text/babel" src="helpers.jsx"></script>
+<script type="text/babel" src="icons.jsx"></script>
+<script type="text/babel" src="Navbar.jsx"></script>
+<script type="text/babel" src="Hero.jsx"></script>
+<script type="text/babel" src="About.jsx"></script>
+<script type="text/babel" src="Atuacao.jsx"></script>
+<script type="text/babel" src="Quote.jsx"></script>
+<script type="text/babel" src="Testimonials.jsx"></script>
+<script type="text/babel" src="Contact.jsx"></script>
+<script type="text/babel" src="Footer.jsx"></script>
+
+<script type="text/babel" data-presets="react">
+  function App() {
+    const { Navbar, Hero, About, Atuacao, Quote, Testimonials, Contact, Footer, WhatsAppFab } = window;
+    return (
+      <React.Fragment>
+        <Navbar />
+        <main>
+          <Hero />
+          <About />
+          <Atuacao />
+          <Quote />
+          <Testimonials />
+          <Contact />
+        </main>
+        <Footer />
+        <WhatsAppFab />
+      </React.Fragment>
+    );
+  }
+  function boot() {
+    if (!window.Navbar || !window.Footer || !window.ElianaLinoDesignSystem_6994f2) { setTimeout(boot, 40); return; }
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  }
+  boot();
+</script>
+</body>
+</html>

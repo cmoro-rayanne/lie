@@ -1,0 +1,18 @@
+<!-- @dsCard group="Brand" viewport="700x170" name="Gradient dividers" subtitle="Thin terracotta rules — the recurring flourish" -->
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="UTF-8" />
+<link rel="stylesheet" href="../styles.css" />
+<style>
+  body { margin: 0; padding: 32px; background: var(--bg-page); font-family: var(--font-sans); display: flex; flex-direction: column; gap: 26px; }
+  .meta { font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+  .left { width: 72px; height: 1px; background: var(--grad-line); }
+  .center { width: 220px; height: 1px; background: linear-gradient(90deg, transparent, var(--color-terra-300), transparent); margin: 0 auto; }
+  .orn { display: flex; align-items: center; gap: 16px; }
+  .orn::before, .orn::after { content:''; flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--color-terra-300), transparent); }
+  .orn span { font-family: var(--font-serif); color: var(--color-terra-400); }
+</style></head>
+<body>
+  <div><div class="meta">line · left-anchored (under headings)</div><div class="left"></div></div>
+  <div><div class="meta">center · short fade</div><div class="center"></div></div>
+  <div><div class="meta">ornament · full-width with centered mark</div><div class="orn"><span>◇</span></div></div>
+</body></html>
