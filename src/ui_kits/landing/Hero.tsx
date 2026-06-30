@@ -49,11 +49,11 @@ function Hero() {
           Psicologia Clínica · Autoconhecimento · Consciência
         </p>
         <div style={{ maxWidth: 'min(680px, 56vw)', marginBottom: '40px' }}>
-          <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--text-display)', fontWeight: 300, lineHeight: 1.12, color: '#f5efe8', letterSpacing: '-0.01em', ...fade('0.2s') }}>
-            “Através da experiência de vida, podemos crescer e nos aproximar de quem
+          <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--text-h2)', fontWeight: 300, lineHeight: 1.12, color: '#f5efe8', letterSpacing: '-0.01em', ...fade('0.2s') }}>
+            “Uma boa escuta pode ressignificar as
           </h1>
-          <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--text-display)', fontWeight: 300, lineHeight: 1.12, color: 'transparent', fontStyle: 'italic', WebkitTextStroke: '1px rgba(192,160,110,0.75)', ...fade('0.38s') }}>
-            verdadeiramente somos.”
+          <h1 style={{ fontFamily: 'var(--font-serif)', fontSize: 'var(--text-h2)', fontWeight: 300, lineHeight: 1.12, color: 'transparent', fontStyle: 'italic', WebkitTextStroke: '1px rgba(192,160,110,0.75)', ...fade('0.38s') }}>
+            experiências vividas e as relações que construímos.”
           </h1>
         </div>
         <div style={{ width: '72px', height: '1px', marginBottom: '32px', background: 'linear-gradient(90deg, rgba(192,160,110,0.8), transparent)', transformOrigin: 'left', transform: loaded ? 'scaleX(1)' : 'scaleX(0)', transition: 'transform 1.4s var(--ease-in-out-quint) 0.55s' }} />

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 function Contact() {
   const { SectionHeading, Divider, Button, IconButton, Input } = window.ElianaLinoDesignSystem_6994f2;
-  const { Phone, Mail, MapPin, MessageCircle, Instagram, Linkedin } = window.Icons;
+  const { Phone, Mail, MapPin, MessageCircle, Instagram } = window.Icons;
   const { ref, inView } = window.useInView(0.1);
   const [sent, setSent] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -14,9 +14,33 @@ function Contact() {
   };
 
   const INFO = [
-    { icon: <Phone size={18} />, label: 'Telefone / WhatsApp', value: '+55 (11) 99999-9999' },
-    { icon: <Mail size={18} />, label: 'E-mail', value: 'contato@ile.com.br' },
-    { icon: <MapPin size={18} />, label: 'Endereço', value: 'Av. Paulista, 1000 — São Paulo, SP' },
+    {
+      icon: <Phone size={18} />,
+      label: 'Telefone / WhatsApp',
+      value: (
+        <a href="https://wa.me/5548999212332" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s ease' }}
+          onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+          onMouseLeave={(e) => e.currentTarget.style.color = 'inherit'}>
+          (48) 99921-2332
+        </a>
+      )
+    },
+    {
+      icon: <Mail size={18} />,
+      label: 'E-mail',
+      value: (
+        <a href="mailto:contato@elianalino.com.br" style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s ease' }}
+          onMouseEnter={(e) => e.currentTarget.style.color = 'var(--accent)'}
+          onMouseLeave={(e) => e.currentTarget.style.color = 'inherit'}>
+          contato@elianalino.com.br
+        </a>
+      )
+    },
+    {
+      icon: <MapPin size={18} />,
+      label: 'Endereço',
+      value: 'Rodovia Dr. Antônio Luiz Moura Gonzaga, 3339 - Rio Tavares, Florianópolis - SC, 88048-301 Sala 102, bloco C'
+    },
   ];
 
   return (
@@ -28,7 +52,7 @@ function Contact() {
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.7rem', fontWeight: 500, letterSpacing: '0.28em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.65)', marginBottom: 20 }}>Pronto para começar?</p>
           <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(2rem,4vw,3rem)', fontWeight: 400, lineHeight: 1.2, color: '#fff', marginBottom: 16, letterSpacing: '-0.01em' }}>O primeiro passo começa com uma conversa.</h2>
           <p style={{ fontFamily: 'var(--font-sans)', fontSize: '1rem', fontWeight: 300, color: 'rgba(255,255,255,0.78)', marginBottom: 40 }}>Agende uma conversa de acolhimento e descubra como a terapia pode caminhar com você.</p>
-          <a href="#contato" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-sans)', fontSize: '0.8rem', fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', textDecoration: 'none', padding: '16px 40px', background: '#fff', color: 'var(--color-olive-600)', borderRadius: 'var(--radius-sm)', transition: 'all .3s ease' }}
+          <a href="https://wa.me/5548999212332" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, fontFamily: 'var(--font-sans)', fontSize: '0.8rem', fontWeight: 500, letterSpacing: '0.14em', textTransform: 'uppercase', textDecoration: 'none', padding: '16px 40px', background: '#fff', color: 'var(--color-olive-600)', borderRadius: 'var(--radius-sm)', transition: 'all .3s ease' }}
             onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.2)'; }}
             onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = 'none'; }}>
             <MessageCircle size={16} /> Agendar via WhatsApp
@@ -57,8 +81,7 @@ function Contact() {
               ))}
             </div>
             <div style={{ display: 'flex', gap: 12 }}>
-              <IconButton variant="soft" aria-label="Instagram" href="#"><Instagram size={18} /></IconButton>
-              <IconButton variant="soft" aria-label="LinkedIn" href="#"><Linkedin size={18} /></IconButton>
+              <IconButton variant="soft" aria-label="Instagram" href="https://www.instagram.com/eliana_lino/" target="_blank"><Instagram size={18} /></IconButton>
             </div>
           </div>
 
