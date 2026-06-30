@@ -91,12 +91,12 @@ export function Logo({
   const full = variant !== 'stacked';
   return (
     <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', ...style }} {...rest}>
-      <RingMark size={size} mono={ringColor} style={{ marginBottom: -size * 0.06 }} />
-      <Word fs={`${size * 0.62}px`} />
+      <RingMark size={size} mono={ringColor} style={{ marginBottom: size * 0.03 }} />
+      <Word fs={`${size * 0.32}px`} />
       {full && showTagline && (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: size * 0.1, marginTop: size * 0.12 }}>
-          <Tagline fs={`${size * 0.12}px`} />
-          <Divider w={`${size * 1.9}px`} />
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: size * 0.1, marginTop: size * 0.06 }}>
+          <Tagline fs={`${size * 0.06}px`} />
+          <Divider w={`${size * 0.6}px`} />
         </div>
       )}
     </div>

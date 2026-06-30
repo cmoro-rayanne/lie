@@ -2,6 +2,7 @@ import 'react';
 import Navbar from './Navbar';
 import Hero from './Hero';
 import About from './About';
+import Abordagem from './Abordagem';
 import Atuacao from './Atuacao';
 import Quote from './Quote';
 import Testimonials from './Testimonials';
@@ -34,6 +35,7 @@ export default function LandingPage() {
       <main>
         <Hero />
         <About />
+        <Abordagem />
         <Atuacao />
         <Quote />
         <Testimonials />

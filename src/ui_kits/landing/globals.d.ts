@@ -34,6 +34,7 @@ declare global {
       Linkedin: React.ComponentType<any>;
     };
     About: React.ComponentType<any>;
+    Abordagem: React.ComponentType<any>;
     Atuacao: React.ComponentType<any>;
     Contact: React.ComponentType<any>;
     Footer: React.ComponentType<any>;
