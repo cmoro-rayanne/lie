@@ -19,4 +19,4 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        server-dir: ./ # Ajuste para a pasta do seu servidor
+        server-dir: ./raya4557/ # Ajuste para a pasta do seu servidor
