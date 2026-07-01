@@ -5,6 +5,7 @@ function Hero() {
   const { Button } = window.ElianaLinoDesignSystem_6994f2;
   const { ChevronDown } = window.Icons;
   const [loaded, setLoaded] = useState<boolean>(false);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
   const decoRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -15,8 +16,18 @@ function Hero() {
       const y = (e.clientY / window.innerHeight - 0.5) * 10;
       decoRef.current.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
     };
+    
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    handleResize();
+    
     window.addEventListener('mousemove', onMove, { passive: true });
-    return () => { clearTimeout(t); window.removeEventListener('mousemove', onMove); };
+    window.addEventListener('resize', handleResize);
+    
+    return () => { 
+      clearTimeout(t); 
+      window.removeEventListener('mousemove', onMove); 
+      window.removeEventListener('resize', handleResize); 
+    };
   }, []);
 
   const fade = (d: string) => ({
@@ -41,7 +52,7 @@ function Hero() {
             <line x1="240" y1="10" x2="240" y2="470" stroke="rgba(192,160,110,0.08)" strokeWidth="0.5" />
             <line x1="10" y1="240" x2="470" y2="240" stroke="rgba(192,160,110,0.08)" strokeWidth="0.5" />
           </svg>
-          <Logo variant="full" size={240} mono="rgba(192,160,110,0.7)" />
+          <Logo variant="full" size={isMobile ? 120 : 240} mono="rgba(192,160,110,0.7)" />
         </div>
       </div>
 
