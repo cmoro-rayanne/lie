@@ -1,6 +1,7 @@
 import './init';
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 
 // Load side-effect files to populate window.ElianaLinoDesignSystem_6994f2, window.Icons, window.useInView
 import './_ds_bundle.js';
@@ -13,5 +14,6 @@ import LandingPage from './ui_kits/landing';
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <LandingPage />
+    <SpeedInsights />
   </StrictMode>
 );
