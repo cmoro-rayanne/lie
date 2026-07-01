@@ -13,7 +13,7 @@ import Footer, { WhatsAppFab } from './Footer';
 
 // Import design system CSS
 import '../../styles.css';
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from '@vercel/analytics/react';
 
 export default function LandingPage() {
   return (
