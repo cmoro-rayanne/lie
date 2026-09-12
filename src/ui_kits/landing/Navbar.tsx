@@ -23,7 +23,9 @@ function Navbar() {
 
   return (
     <header style={{
-      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: open ? 2000 : 100,
+      width: '100%',
+      height: open ? '100%' : 'auto',
       transition: 'background .5s ease, box-shadow .5s ease, padding .4s ease',
       background: scrolled ? 'rgba(250,248,244,0.92)' : 'transparent',
       backdropFilter: scrolled ? 'blur(20px)' : 'none',
@@ -62,11 +64,27 @@ function Navbar() {
       </nav>
 
       <div className="mobile-menu" style={{
-        position: 'fixed', inset: 0, zIndex: 99, background: 'var(--bg-page)',
+        position: 'fixed', inset: 0, zIndex: 1000, background: 'var(--color-sand-50)',
         display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: '32px',
         transition: 'opacity .4s ease, visibility .4s ease',
         opacity: open ? 1 : 0, visibility: open ? 'visible' : 'hidden',
       }}>
+        {/* Dedicated close button inside mobile menu */}
+        <button aria-label="Fechar menu" onClick={() => setOpen(false)}
+          style={{ 
+            position: 'absolute', 
+            top: '24px', 
+            right: 'var(--gutter)', 
+            background: 'none', 
+            border: 'none', 
+            cursor: 'pointer', 
+            padding: 8, 
+            color: 'var(--text-strong)' 
+          }}
+        >
+          <X size={28} />
+        </button>
+
         {NAV_LINKS.map((l) => (
           <a key={l.href} href={l.href} onClick={() => setOpen(false)} style={{
             fontFamily: 'var(--font-serif)', fontSize: '1.8rem', color: 'var(--text-strong)', textDecoration: 'none', letterSpacing: '0.06em',
