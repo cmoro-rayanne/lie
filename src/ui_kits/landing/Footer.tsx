@@ -4,8 +4,8 @@ import logoHorizontal from '../../uploads/logo-horizontal.png';
 const FOOTER_LINKS = [
   { label: 'Sobre', href: '#sobre' },
   { label: 'Abordagem', href: '#abordagem' },
-  { label: 'Atuação', href: '#atuacao' },
   { label: 'Grupos', href: '#grupos' },
+  { label: 'Atuação', href: '#atuacao' },
   { label: 'Projetos', href: '#projetos' },
   { label: 'Contato', href: '#contato' },
 ];

@@ -202,7 +202,7 @@ body {
   --error: #c0392b;
 
   /* Gradients */
-  --grad-hero: linear-gradient(150deg, #2d2824 0%, #3d3630 35%, #2a2520 65%, #1e1a17 100%);
+  --grad-hero: linear-gradient(150deg, #fbf7f2 0%, #f2ebe3 32%, #ebdccd 68%, #ddc7b0 100%);
   --grad-cta: linear-gradient(135deg, #c4a882, #b08d65);
   --grad-quote: linear-gradient(160deg, #2a2520 0%, #3d3630 50%, #2d2824 100%);
   --grad-line: linear-gradient(90deg, rgba(192, 160, 110, 0.8), transparent);
@@ -235,6 +235,34 @@ body {
 }
 
 /* ============================================================
+   MODAL DAS ÁREAS DE ATUAÇÃO
+   ============================================================ */
+@keyframes areaModalFade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes areaModalRise {
+  from { opacity: 0; transform: translateY(16px) scale(0.985); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.area-modal-backdrop {
+  animation: areaModalFade 0.28s ease both;
+}
+
+.area-modal-panel {
+  animation: areaModalRise 0.44s var(--ease-out-expo) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .area-modal-backdrop,
+  .area-modal-panel {
+    animation: none;
+  }
+}
+
+/* ============================================================
    RESPONSIVE GRID HELPERS
    ============================================================ */
 @media (max-width: 768px) {
@@ -244,6 +272,36 @@ body {
   .about-grid,
   .contact-grid {
     grid-template-columns: 1fr !important;
+  }
+
+  /* CTA "primeiro passo": empilha e recentraliza, foto abaixo do texto */
+  .cta-grid {
+    grid-template-columns: 1fr !important;
+    justify-items: center !important;
+    text-align: center !important;
+    gap: 48px !important;
+  }
+
+  .cta-photo {
+    justify-self: center !important;
+    width: min(280px, 72vw) !important;
+  }
+
+  /* "Espaços de Partilha": empilha com a foto acima do texto */
+  .grupos-grid {
+    grid-template-columns: 1fr !important;
+    justify-items: center !important;
+    text-align: center !important;
+    gap: 48px !important;
+  }
+
+  .grupos-photo {
+    justify-self: center !important;
+    width: min(280px, 72vw) !important;
+  }
+
+  .grupos-divider {
+    justify-content: center !important;
   }
 
   .atuacao-grid {
