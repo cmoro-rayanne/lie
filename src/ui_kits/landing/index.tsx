@@ -41,8 +41,8 @@ export default function LandingPage() {
         <About />
         <Quote />
         <Abordagem />
-        <Atuacao />
         <Grupos />
+        <Atuacao />
         <Projetos />
         {/* <Testimonials /> */}
         <Contact />

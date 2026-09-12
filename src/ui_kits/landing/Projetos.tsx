@@ -1,5 +1,5 @@
 import 'react';
-import projetosImg from '../../uploads/projetos-criativos.png';
+import projetosImg from '../../assets/fotos/web/IMG_1390-web.jpg';
 
 function Projetos() {
   const { SectionHeading, Divider } = window.ElianaLinoDesignSystem_6994f2;
@@ -82,7 +82,7 @@ function Projetos() {
             <div className="floating-image" style={{ position: 'relative', width: '100%', maxWidth: '420px', aspectRatio: '4/5', borderRadius: 'var(--radius-lg)', overflow: 'hidden', boxShadow: '0 20px 48px rgba(160, 120, 80, 0.12)' }}>
               <img 
                 src={projetosImg} 
-                alt="Instrumentos e projetos criativos de Eliana Lino" 
+                alt="Eliana Lino segurando seu livro Sol, Lua, Sol, Lua" 
                 style={{ 
                   width: '100%', 
                   height: '100%', 

@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 const NAV_LINKS = [
   { label: 'Sobre', href: '#sobre' },
   { label: 'Abordagem', href: '#abordagem' },
-  { label: 'Atuação', href: '#atuacao' },
   { label: 'Grupos', href: '#grupos' },
+  { label: 'Atuação', href: '#atuacao' },
   { label: 'Projetos', href: '#projetos' },
   { label: 'Contato', href: '#contato' },
 ];
@@ -34,7 +34,7 @@ function Navbar() {
     }}>
       <nav style={{ maxWidth: 'var(--container)', margin: '0 auto', padding: '0 var(--gutter)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <a href="#hero" style={{ textDecoration: 'none' }}>
-          <Logo variant="inline" size={scrolled ? 34 : 38} tone={scrolled ? 'light' : 'dark'} showTagline={false} />
+          <Logo variant="inline" size={scrolled ? 34 : 38} tone="light" showTagline={false} />
         </a>
 
         <ul className="nav-desktop" style={{ display: 'flex', alignItems: 'center', gap: '36px', listStyle: 'none', margin: 0, padding: 0 }}>
@@ -43,22 +43,22 @@ function Navbar() {
               <a href={l.href} style={{
                 fontFamily: 'var(--font-sans)', fontSize: '0.78rem', fontWeight: 400,
                 letterSpacing: '0.12em', textTransform: 'uppercase', textDecoration: 'none',
-                color: scrolled ? 'var(--text-body)' : 'rgba(255,255,255,0.82)',
+                color: 'var(--text-body)',
                 transition: 'color .3s ease',
               }}
-              onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => e.currentTarget.style.color = scrolled ? 'var(--accent)' : '#fff'}
-              onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => e.currentTarget.style.color = scrolled ? 'var(--text-body)' : 'rgba(255,255,255,0.82)'}
+              onMouseEnter={(e: React.MouseEvent<HTMLAnchorElement>) => e.currentTarget.style.color = 'var(--accent)'}
+              onMouseLeave={(e: React.MouseEvent<HTMLAnchorElement>) => e.currentTarget.style.color = 'var(--text-body)'}
               >{l.label}</a>
             </li>
           ))}
         </ul>
 
         <div className="nav-desktop">
-          <Button variant="secondary" size="sm" tone={scrolled ? 'light' : 'dark'} href="#contato">Agendar Consulta</Button>
+          <Button variant="secondary" size="sm" tone="light" href="#contato">Agendar Consulta</Button>
         </div>
 
         <button className="nav-burger" aria-label="Abrir menu" onClick={() => setOpen(!open)}
-          style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', padding: 4, color: scrolled ? 'var(--text-strong)' : '#fff' }}>
+          style={{ display: 'none', background: 'none', border: 'none', cursor: 'pointer', padding: 4, color: 'var(--text-strong)' }}>
           {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </nav>
