@@ -24,3 +24,6 @@ src/guidelines
 *.njsproj
 *.sln
 *.sw?
+# Fotos originais de camera (nao usadas no build; so a pasta web/ entra)
+src/assets/fotos/*.jpeg
+src/assets/fotos/*.jpg
