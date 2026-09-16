@@ -6,9 +6,21 @@ import React from 'react';
  */
 export function Tag({ children, tone = 'olive', style = {}, ...rest }) {
   const tones = {
-    olive: { bg: 'var(--color-olive-100)', color: 'var(--color-olive-600)', border: 'var(--color-olive-200)' },
-    terra: { bg: 'var(--color-terra-100)', color: 'var(--color-terra-600)', border: 'var(--color-terra-200)' },
-    sand:  { bg: 'var(--color-sand-100)',  color: 'var(--color-warm-700)',  border: 'var(--color-sand-300)' },
+    olive: {
+      bg: 'var(--color-olive-100)',
+      color: 'var(--color-olive-600)',
+      border: 'var(--color-olive-200)',
+    },
+    terra: {
+      bg: 'var(--color-terra-100)',
+      color: 'var(--color-terra-600)',
+      border: 'var(--color-terra-200)',
+    },
+    sand: {
+      bg: 'var(--color-sand-100)',
+      color: 'var(--color-warm-700)',
+      border: 'var(--color-sand-300)',
+    },
   };
   const t = tones[tone] || tones.olive;
   return (

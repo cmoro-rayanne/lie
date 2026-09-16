@@ -11,18 +11,24 @@ export function Divider({ variant = 'line', width = 48, tone = 'light', style = 
   if (variant === 'ornament') {
     return (
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px', ...style }} {...rest}>
-        <span style={{ flex: 1, height: '1px', background: 'linear-gradient(90deg, transparent, var(--color-terra-300), transparent)' }} />
+        <span
+          style={{
+            flex: 1,
+            height: '1px',
+            background: 'linear-gradient(90deg, transparent, var(--color-terra-300), transparent)',
+          }}
+        />
       </div>
     );
   }
 
   const grad = onDark
-    ? (variant === 'center'
-        ? 'linear-gradient(90deg, transparent, rgba(192,169,130,0.6), transparent)'
-        : 'linear-gradient(90deg, rgba(192,169,130,0.8), transparent)')
-    : (variant === 'center'
-        ? 'linear-gradient(90deg, transparent, var(--color-terra-300), transparent)'
-        : 'var(--grad-line)');
+    ? variant === 'center'
+      ? 'linear-gradient(90deg, transparent, rgba(192,169,130,0.6), transparent)'
+      : 'linear-gradient(90deg, rgba(192,169,130,0.8), transparent)'
+    : variant === 'center'
+      ? 'linear-gradient(90deg, transparent, var(--color-terra-300), transparent)'
+      : 'var(--grad-line)';
 
   return (
     <div

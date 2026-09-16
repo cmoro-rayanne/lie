@@ -24,13 +24,15 @@ export function Input({
     fontWeight: 300,
     color: 'var(--text-strong)',
     background: 'var(--color-sand-50)',
-    border: `1px solid ${error ? 'var(--error)' : (focus ? 'var(--color-terra-400)' : 'var(--border-soft)')}`,
+    border: `1px solid ${error ? 'var(--error)' : focus ? 'var(--color-terra-400)' : 'var(--border-soft)'}`,
     borderRadius: 'var(--radius-sm)',
     outline: 'none',
     boxShadow: focus ? '0 0 0 3px rgba(192,140,80,0.1)' : 'none',
     transition: 'border-color 0.3s ease, box-shadow 0.3s ease',
     ...(as === 'textarea' ? { resize: 'vertical', lineHeight: 1.6 } : {}),
-    ...(as === 'select' ? { color: 'var(--text-body)', appearance: 'none', cursor: 'pointer' } : {}),
+    ...(as === 'select'
+      ? { color: 'var(--text-body)', appearance: 'none', cursor: 'pointer' }
+      : {}),
     ...style,
   };
 
@@ -45,9 +47,12 @@ export function Input({
   } else if (as === 'select') {
     field = (
       <select id={id} style={fieldStyle} {...focusProps} {...rest}>
-        {children || options.map((o) => (
-          <option key={o.value} value={o.value}>{o.label}</option>
-        ))}
+        {children ||
+          options.map((o) => (
+            <option key={o.value} value={o.value}>
+              {o.label}
+            </option>
+          ))}
       </select>
     );
   } else {
@@ -57,22 +62,32 @@ export function Input({
   return (
     <div style={{ width: '100%' }}>
       {label && (
-        <label htmlFor={id} style={{
-          display: 'block',
-          fontFamily: 'var(--font-sans)',
-          fontSize: '0.72rem',
-          fontWeight: 500,
-          letterSpacing: '0.1em',
-          textTransform: 'uppercase',
-          color: 'var(--text-muted)',
-          marginBottom: '8px',
-        }}>
+        <label
+          htmlFor={id}
+          style={{
+            display: 'block',
+            fontFamily: 'var(--font-sans)',
+            fontSize: '0.72rem',
+            fontWeight: 500,
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+            color: 'var(--text-muted)',
+            marginBottom: '8px',
+          }}
+        >
           {label}
         </label>
       )}
       {field}
       {error && (
-        <p style={{ fontFamily: 'var(--font-sans)', fontSize: '0.72rem', color: 'var(--error)', marginTop: '6px' }}>
+        <p
+          style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: '0.72rem',
+            color: 'var(--error)',
+            marginTop: '6px',
+          }}
+        >
           {error}
         </p>
       )}

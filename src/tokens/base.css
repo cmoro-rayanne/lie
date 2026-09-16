@@ -2,7 +2,9 @@
    BASE — Eliana Lino
    Global resets and document defaults.
    ============================================================ */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -23,8 +25,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.font-serif { font-family: var(--font-serif); }
-.font-sans  { font-family: var(--font-sans); }
+.font-serif {
+  font-family: var(--font-serif);
+}
+.font-sans {
+  font-family: var(--font-sans);
+}
 
 /* Eyebrow / kicker — used above every section heading */
 .eyebrow {
@@ -59,8 +65,20 @@ body {
 }
 
 /* Selection + scrollbar — warm tinted */
-::selection { background-color: var(--color-terra-200); color: var(--color-warm-800); }
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--color-sand-50); }
-::-webkit-scrollbar-thumb { background: var(--color-terra-300); border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: var(--color-terra-400); }
+::selection {
+  background-color: var(--color-terra-200);
+  color: var(--color-warm-800);
+}
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-sand-50);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-terra-300);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-terra-400);
+}

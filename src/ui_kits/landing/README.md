@@ -5,6 +5,7 @@ An interactive, high-fidelity recreation of the Ilê single-page site (`cmoro-ra
 **Open `index.html`.** It loads `styles.css`, React + Babel, the compiled `_ds_bundle.js`, then the section files.
 
 Sections (each a `window`-exported component):
+
 - `Navbar.jsx` — fixed nav, transparent over hero → blurred sand on scroll; inline `Logo`; mobile menu.
 - `Hero.jsx` — dark gradient + grain + parallax `Logo` mark; stroked-italic quote headline; dual CTA.
 - `About.jsx` — photo frame + `SectionHeading` + `Divider` + bio.

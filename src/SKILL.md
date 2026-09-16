@@ -11,6 +11,7 @@ If creating visual artifacts (slides, mocks, throwaway prototypes, etc), copy as
 If the user invokes this skill without any other guidance, ask them what they want to build or design, ask some questions, and act as an expert designer who outputs HTML artifacts _or_ production code, depending on the need.
 
 Key starting points:
+
 - `styles.css` — the single global stylesheet to link; it pulls in all tokens and fonts (Cormorant Garamond + Inter from Google Fonts).
 - `tokens/` — colors, typography, spacing/radii/shadows/motion as CSS custom properties.
 - `components/` — React primitives (Button, IconButton, Logo, Card, StatCard, Tag, Avatar, Input, SectionHeading, Divider).

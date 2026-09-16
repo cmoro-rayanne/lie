@@ -39,10 +39,31 @@ export function Logo({
   const dotColor = mono || (onDark ? 'var(--color-gold)' : 'var(--color-terra-400)');
 
   const Word = ({ fs }) => (
-    <span style={{ fontFamily: 'var(--font-serif)', fontWeight: 500, fontSize: fs, lineHeight: 0.9, color: wordColor, letterSpacing: '0.01em' }}>Ilê</span>
+    <span
+      style={{
+        fontFamily: 'var(--font-serif)',
+        fontWeight: 500,
+        fontSize: fs,
+        lineHeight: 0.9,
+        color: wordColor,
+        letterSpacing: '0.01em',
+      }}
+    >
+      Ilê
+    </span>
   );
   const Tagline = ({ fs }) => (
-    <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 500, fontSize: fs, letterSpacing: '0.26em', textTransform: 'uppercase', color: tagColor, whiteSpace: 'nowrap' }}>
+    <span
+      style={{
+        fontFamily: 'var(--font-sans)',
+        fontWeight: 500,
+        fontSize: fs,
+        letterSpacing: '0.26em',
+        textTransform: 'uppercase',
+        color: tagColor,
+        whiteSpace: 'nowrap',
+      }}
+    >
       Psicologia e Consciência
     </span>
   );
@@ -62,7 +83,17 @@ export function Logo({
         <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1 }}>
           <Word fs={`${size * 0.5}px`} />
           {showTagline && (
-            <span style={{ fontFamily: 'var(--font-sans)', fontWeight: 500, fontSize: `${size * 0.1}px`, letterSpacing: '0.24em', textTransform: 'uppercase', color: tagColor, marginTop: '4px' }}>
+            <span
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontWeight: 500,
+                fontSize: `${size * 0.1}px`,
+                letterSpacing: '0.24em',
+                textTransform: 'uppercase',
+                color: tagColor,
+                marginTop: '4px',
+              }}
+            >
               Psicologia e Consciência
             </span>
           )}
@@ -73,13 +104,26 @@ export function Logo({
 
   // Mark only
   if (variant === 'mark') {
-    return <div style={style} {...rest}><RingMark size={size} mono={ringColor} /></div>;
+    return (
+      <div style={style} {...rest}>
+        <RingMark size={size} mono={ringColor} />
+      </div>
+    );
   }
 
   // Wordmark only (no rings)
   if (variant === 'wordmark') {
     return (
-      <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', gap: size * 0.14, ...style }} {...rest}>
+      <div
+        style={{
+          display: 'inline-flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: size * 0.14,
+          ...style,
+        }}
+        {...rest}
+      >
         <Word fs={`${size * 0.62}px`} />
         {showTagline && <Tagline fs={`${size * 0.12}px`} />}
         {showTagline && <Divider w={`${size * 1.7}px`} />}
@@ -90,11 +134,22 @@ export function Logo({
   // Stacked (rings + wordmark) and Full (+ tagline + divider) — the canonical vertical lockup
   const full = variant !== 'stacked';
   return (
-    <div style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', ...style }} {...rest}>
+    <div
+      style={{ display: 'inline-flex', flexDirection: 'column', alignItems: 'center', ...style }}
+      {...rest}
+    >
       <RingMark size={size} mono={ringColor} style={{ marginBottom: size * 0.03 }} />
       <Word fs={`${size * 0.32}px`} />
       {full && showTagline && (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: size * 0.1, marginTop: size * 0.06 }}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: size * 0.1,
+            marginTop: size * 0.06,
+          }}
+        >
           <Tagline fs={`${size * 0.06}px`} />
           <Divider w={`${size * 0.6}px`} />
         </div>

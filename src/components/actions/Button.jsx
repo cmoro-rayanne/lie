@@ -54,20 +54,28 @@ export function Button({
     primary: {
       background: disabled
         ? 'var(--color-sand-300)'
-        : (hover
-            ? 'linear-gradient(135deg, #cd9655, #a57341)'
-            : 'var(--grad-cta)'),
+        : hover
+          ? 'linear-gradient(135deg, #cd9655, #a57341)'
+          : 'var(--grad-cta)',
       color: disabled ? 'var(--color-warm-600)' : '#f5efe8',
       border: '1px solid rgba(192,160,110,0.3)',
       transform: hover && !disabled ? 'translateY(-2px)' : 'translateY(0)',
       boxShadow: hover && !disabled ? 'var(--shadow-cta)' : 'none',
     },
     secondary: {
-      background: hover ? (onDark ? 'rgba(255,255,255,0.06)' : 'var(--color-terra-400)') : 'transparent',
-      color: onDark ? (hover ? '#fff' : cream) : (hover ? '#fff' : 'var(--color-terra-600)'),
-      border: `1px solid ${onDark
-        ? (hover ? 'rgba(235,220,200,0.55)' : 'rgba(235,220,200,0.28)')
-        : 'var(--color-terra-400)'}`,
+      background: hover
+        ? onDark
+          ? 'rgba(255,255,255,0.06)'
+          : 'var(--color-terra-400)'
+        : 'transparent',
+      color: onDark ? (hover ? '#fff' : cream) : hover ? '#fff' : 'var(--color-terra-600)',
+      border: `1px solid ${
+        onDark
+          ? hover
+            ? 'rgba(235,220,200,0.55)'
+            : 'rgba(235,220,200,0.28)'
+          : 'var(--color-terra-400)'
+      }`,
       transform: 'translateY(0)',
     },
     ghost: {
@@ -81,9 +89,13 @@ export function Button({
   const composed = { ...base, ...variants[variant], ...style };
   const inner = (
     <>
-      {icon && iconPosition === 'left' ? <span style={{ display: 'inline-flex' }}>{icon}</span> : null}
+      {icon && iconPosition === 'left' ? (
+        <span style={{ display: 'inline-flex' }}>{icon}</span>
+      ) : null}
       {children}
-      {icon && iconPosition === 'right' ? <span style={{ display: 'inline-flex' }}>{icon}</span> : null}
+      {icon && iconPosition === 'right' ? (
+        <span style={{ display: 'inline-flex' }}>{icon}</span>
+      ) : null}
     </>
   );
 
@@ -94,11 +106,20 @@ export function Button({
 
   if (href && !disabled) {
     return (
-      <a href={href} style={composed} {...handlers} {...rest}>{inner}</a>
+      <a href={href} style={composed} {...handlers} {...rest}>
+        {inner}
+      </a>
     );
   }
   return (
-    <button type={type} onClick={onClick} disabled={disabled} style={composed} {...handlers} {...rest}>
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      style={composed}
+      {...handlers}
+      {...rest}
+    >
       {inner}
     </button>
   );

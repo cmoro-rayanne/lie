@@ -15,5 +15,5 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <LandingPage />
     <SpeedInsights />
-  </StrictMode>
+  </StrictMode>,
 );

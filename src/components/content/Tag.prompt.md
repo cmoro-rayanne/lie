@@ -2,7 +2,9 @@
 
 ```jsx
 <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-  <Tag>TCC</Tag><Tag>Mindfulness</Tag><Tag>Regulação Emocional</Tag>
+  <Tag>TCC</Tag>
+  <Tag>Mindfulness</Tag>
+  <Tag>Regulação Emocional</Tag>
 </div>
 ```
 
