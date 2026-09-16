@@ -1,0 +1,9 @@
+dist
+node_modules
+package-lock.json
+src/_ds_bundle.js
+src/_ds_manifest.json
+src/assets
+src/uploads
+src/guidelines
+**/*.card.html
