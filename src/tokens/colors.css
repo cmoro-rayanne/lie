@@ -5,7 +5,7 @@
    ============================================================ */
 :root {
   /* ── Sand — warm neutral surfaces & text ground ── */
-  --color-sand-50:  #faf8f4;
+  --color-sand-50: #faf8f4;
   --color-sand-100: #f3ede3;
   --color-sand-200: #e8ddd0;
   --color-sand-300: #d5c5b2;
@@ -35,7 +35,13 @@
   --color-warm-600: #5a5048;
 
   /* ── Gradient stops: hero (claro) / quote (escuro) ── */
-  --grad-hero: linear-gradient(150deg, #fbf7f2 0%, #f2ebe3 32%, #ebdccd 68%, #ddc7b0 100%); /* @kind color */
+  --grad-hero: linear-gradient(
+    150deg,
+    #fbf7f2 0%,
+    #f2ebe3 32%,
+    #ebdccd 68%,
+    #ddc7b0 100%
+  ); /* @kind color */
   --grad-quote: linear-gradient(135deg, #2d2520 0%, #3a2e28 50%, #4a3830 100%); /* @kind color */
   --grad-ink: linear-gradient(135deg, var(--color-warm-900) 0%, #3a2e28 50%, #4a3830 100%);
 
@@ -44,25 +50,25 @@
   --color-gold-soft: rgba(192, 169, 130, 0.6);
 
   /* Semantic aliases — what to reach for in product code */
-  --bg-page:        var(--color-sand-50);
-  --bg-subtle:      var(--color-sand-100);
-  --bg-warm:        var(--color-terra-100);
-  --surface-card:   var(--color-sand-50);
+  --bg-page: var(--color-sand-50);
+  --bg-subtle: var(--color-sand-100);
+  --bg-warm: var(--color-terra-100);
+  --surface-card: var(--color-sand-50);
   --surface-raised: #ffffff;
-  --surface-ink:    var(--color-warm-900);
+  --surface-ink: var(--color-warm-900);
 
-  --text-strong:    var(--color-warm-800);
-  --text-body:      var(--color-warm-700);
-  --text-muted:     var(--color-warm-600);
-  --text-on-ink:    #f5efe8;
+  --text-strong: var(--color-warm-800);
+  --text-body: var(--color-warm-700);
+  --text-muted: var(--color-warm-600);
+  --text-on-ink: #f5efe8;
 
-  --accent:         var(--color-terra-500);
-  --accent-hover:   var(--color-terra-400);
-  --accent-strong:  var(--color-terra-600);
-  --accent-go:      var(--color-olive-500);
+  --accent: var(--color-terra-500);
+  --accent-hover: var(--color-terra-400);
+  --accent-strong: var(--color-terra-600);
+  --accent-go: var(--color-olive-500);
 
-  --border-soft:    var(--color-sand-300);
-  --border-accent:  var(--color-terra-300);
+  --border-soft: var(--color-sand-300);
+  --border-accent: var(--color-terra-300);
 
   --grad-cta: linear-gradient(135deg, var(--color-terra-400), var(--color-terra-500));
   --grad-line: linear-gradient(90deg, var(--color-terra-300), transparent);

@@ -63,7 +63,15 @@ export function IconButton({
   };
 
   if (href) {
-    return <a href={href} aria-label={ariaLabel} style={composed} {...handlers} {...rest}>{children}</a>;
+    return (
+      <a href={href} aria-label={ariaLabel} style={composed} {...handlers} {...rest}>
+        {children}
+      </a>
+    );
   }
-  return <button aria-label={ariaLabel} onClick={onClick} style={composed} {...handlers} {...rest}>{children}</button>;
+  return (
+    <button aria-label={ariaLabel} onClick={onClick} style={composed} {...handlers} {...rest}>
+      {children}
+    </button>
+  );
 }

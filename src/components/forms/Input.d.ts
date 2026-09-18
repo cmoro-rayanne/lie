@@ -1,6 +1,9 @@
 import React from 'react';
 
-export interface InputOption { value: string; label: string; }
+export interface InputOption {
+  value: string;
+  label: string;
+}
 
 export interface InputProps extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'style'> {
   /** Render an `input`, `textarea`, or `select`. @default "input" */

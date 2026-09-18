@@ -2,9 +2,29 @@
 
 ```jsx
 <Card>
-  <div style={{ fontFamily: 'var(--font-serif)', fontSize: '1.6rem', color: 'var(--color-terra-400)', marginBottom: 20 }}>◎</div>
-  <h3 style={{ fontFamily: 'var(--font-serif)', fontWeight: 400, fontSize: '1.35rem', color: 'var(--text-strong)' }}>Ansiedade & Estresse</h3>
-  <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 300, color: 'var(--text-muted)' }}>Ferramentas para regular emoções…</p>
+  <div
+    style={{
+      fontFamily: 'var(--font-serif)',
+      fontSize: '1.6rem',
+      color: 'var(--color-terra-400)',
+      marginBottom: 20,
+    }}
+  >
+    ◎
+  </div>
+  <h3
+    style={{
+      fontFamily: 'var(--font-serif)',
+      fontWeight: 400,
+      fontSize: '1.35rem',
+      color: 'var(--text-strong)',
+    }}
+  >
+    Ansiedade & Estresse
+  </h3>
+  <p style={{ fontFamily: 'var(--font-sans)', fontWeight: 300, color: 'var(--text-muted)' }}>
+    Ferramentas para regular emoções…
+  </p>
 </Card>
 ```
 

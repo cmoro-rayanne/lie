@@ -12,11 +12,11 @@ How Ilê writes — match this voice in any copy you produce.
 
 - **Language:** Brazilian Portuguese, always. (`Agendar Consulta`, `Áreas de Atuação`, `Vamos conversar?`)
 - **Person:** First person from the psychologist (`meu trabalho`, `acompanho pessoas`, `meu compromisso`) addressing the reader as **você**. Warm, never clinical-cold.
-- **Tone:** Welcoming, grounded, gently elevated. Words recur around presence, listening, integration, consciousness: *escuta, acolhimento, presença, autoconhecimento, integração, totalidade, ritmo, caminhar*. Therapy is framed as a shared journey ("caminhar ao seu lado"), not a service transaction.
-- **Casing:** Sentence case for headlines; UPPERCASE only for eyebrows, nav links and button labels (always letter-spaced). Titles often carry one **italic terracotta** emphasis word ("Uma escuta para a *sua totalidade*").
+- **Tone:** Welcoming, grounded, gently elevated. Words recur around presence, listening, integration, consciousness: _escuta, acolhimento, presença, autoconhecimento, integração, totalidade, ritmo, caminhar_. Therapy is framed as a shared journey ("caminhar ao seu lado"), not a service transaction.
+- **Casing:** Sentence case for headlines; UPPERCASE only for eyebrows, nav links and button labels (always letter-spaced). Titles often carry one **italic terracotta** emphasis word ("Uma escuta para a _sua totalidade_").
 - **Punctuation:** Curly quotes “ ” for pull-quotes; middot · separators in eyebrows and credentials (`Psicologia Clínica · Autoconhecimento · Consciência`).
 - **Emoji:** None. The brand's "icons" are abstract serif glyphs (◎ ◈ ◇), never emoji. (One leaf 🌿 appears only as a legacy favicon in the source — avoid it.)
-- **Vibe in one line:** *a quiet, sunlit consulting room — paz e acolhimento.*
+- **Vibe in one line:** _a quiet, sunlit consulting room — paz e acolhimento._
 
 ---
 
@@ -24,7 +24,7 @@ How Ilê writes — match this voice in any copy you produce.
 
 - **Color.** Four warm families: **Sand** (neutral surfaces/text ground), **Terracotta** (primary accent — CTAs, links, emphasis, focus), **Olive** (secondary/grounding — tags, the conversion banner), **Warm** browns (ink + dark sections). No cool hues, no blue-purple gradients, no harsh contrast. Default page is `sand-50`; alternating sections use `sand-100` / `terra-100`; emphasis blocks go dark.
 - **Type.** Two families only: **Cormorant Garamond** (thin 300–500 serif) for all display/headings/quotes — often italic for emphasis — and **Inter** (300–600 sans) for reading copy and UI. Body copy is light-weight (300) with relaxed 1.7–1.9 line-height.
-- **Spacing.** 4px base scale. The signature is *respiro* — breathing room: fluid section padding `clamp(80px,10vw,140px)`, a 1240px container, 32px gutters.
+- **Spacing.** 4px base scale. The signature is _respiro_ — breathing room: fluid section padding `clamp(80px,10vw,140px)`, a 1240px container, 32px gutters.
 - **Backgrounds.** Light sections are flat warm neutrals. Dark sections (hero, quote blocks, footer) use warm-brown diagonal gradients layered with soft radial glows, a faint SVG grain, and thin concentric rings echoing the logo. No photos as full-bleed backgrounds; imagery sits in rounded `4/5` frames, warm-graded (`brightness .95 / saturate .9`).
 - **Corners & cards.** Radii: buttons/inputs `sm` (4px), stat rows `md` (8px), cards `lg` (16px), tags `pill`. Cards are sand with a 1px hairline border that **warms to terracotta + lifts -4px with a soft warm shadow** on hover, revealing a thin terracotta→olive accent bar along the top.
 - **Borders & dividers.** Hairline (1px) `sand-300`. The recurring flourish is a thin terracotta **gradient rule** that grows from the left under headings; centered variants fade at both ends.
@@ -49,6 +49,7 @@ How Ilê writes — match this voice in any copy you produce.
 `fonts.css` · `colors.css` · `typography.css` · `spacing.css` (radii, shadows, motion) · `animation.css` (keyframes) · `base.css` (resets + helpers).
 
 **Components** (`components/<group>/` — React primitives, `window.ElianaLinoDesignSystem_6994f2`):
+
 - `actions/` — **Button**, **IconButton**
 - `brand/` — **Logo**
 - `content/` — **Card**, **StatCard**, **Tag**, **Avatar**

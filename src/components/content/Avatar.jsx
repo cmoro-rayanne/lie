@@ -24,7 +24,15 @@ export function Avatar({ initials, src, alt = '', size = 48, style = {}, ...rest
       {src ? (
         <img src={src} alt={alt} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
       ) : (
-        <span style={{ fontFamily: 'var(--font-sans)', fontSize: Math.round(size * 0.32) / 16 + 'rem', fontWeight: 600, color: '#fff', letterSpacing: '0.05em' }}>
+        <span
+          style={{
+            fontFamily: 'var(--font-sans)',
+            fontSize: Math.round(size * 0.32) / 16 + 'rem',
+            fontWeight: 600,
+            color: '#fff',
+            letterSpacing: '0.05em',
+          }}
+        >
           {initials}
         </span>
       )}
