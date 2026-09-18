@@ -1,0 +1,12 @@
+---
+description: Standards and best practices for React 19 and TypeScript components
+globs: src/**/*.{ts,tsx}
+---
+
+# React & TypeScript Guidelines
+
+- Use functional components with strict TypeScript types. Avoid `any`.
+- Adhere to the project design tokens defined in CSS and UI kits.
+- Ensure full accessibility: include semantic HTML, ARIA landmarks, and keyboard focus states.
+- Run `npm test` and `npm run lint` before committing changes.
+

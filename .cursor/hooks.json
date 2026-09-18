@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeShellExecution": [
+      {
+        "command": "node",
+        "args": ["scripts/hooks/guard.cjs"]
+      }
+    ],
+    "afterFileEdit": [
+      {
+        "command": "node",
+        "args": ["scripts/hooks/lint.cjs"]
+      }
+    ]
+  }
+}
