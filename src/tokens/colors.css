@@ -34,13 +34,13 @@
   --color-warm-700: #3d3630;
   --color-warm-600: #5a5048;
 
-  /* ── Gradient stops: hero (claro) / quote (escuro) ── */
+  /* ── Gradient stops: hero (verde oliva claro) / quote (escuro) ── */
   --grad-hero: linear-gradient(
     150deg,
-    #fbf7f2 0%,
-    #f2ebe3 32%,
-    #ebdccd 68%,
-    #ddc7b0 100%
+    #f6f7f1 0%,
+    #eff0ea 30%,
+    #dfe3d4 65%,
+    #c9cfb6 100%
   ); /* @kind color */
   --grad-quote: linear-gradient(135deg, #2d2520 0%, #3a2e28 50%, #4a3830 100%); /* @kind color */
   --grad-ink: linear-gradient(135deg, var(--color-warm-900) 0%, #3a2e28 50%, #4a3830 100%);

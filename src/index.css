@@ -275,7 +275,7 @@ body {
   --error: #c0392b;
 
   /* Gradients */
-  --grad-hero: linear-gradient(150deg, #fbf7f2 0%, #f2ebe3 32%, #ebdccd 68%, #ddc7b0 100%);
+  --grad-hero: linear-gradient(150deg, #f6f7f1 0%, #eff0ea 30%, #dfe3d4 65%, #c9cfb6 100%);
   --grad-cta: linear-gradient(135deg, #c4a882, #b08d65);
   --grad-quote: linear-gradient(160deg, #2a2520 0%, #3d3630 50%, #2d2824 100%);
   --grad-line: linear-gradient(90deg, rgba(192, 160, 110, 0.8), transparent);

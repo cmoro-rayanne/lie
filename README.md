@@ -1,5 +1,7 @@
 # React + TypeScript + Vite
 
+[![Harness Score: L4](./badge.svg)](https://paladini.github.io/harness-score/)
+
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
 Currently, two official plugins are available:
