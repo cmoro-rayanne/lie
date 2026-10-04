@@ -235,10 +235,10 @@ Execução estritamente sequencial. Um agente (ou worker de lote) faz uma task p
 - Skill: NONE
 
 **Done when**:
-- [ ] `newToken().token` decodifica de base64url para 32 bytes
-- [ ] `hash` é `hashToken(token)` e tem 64 caracteres hexadecimais
-- [ ] `hashToken` é determinístico; tokens diferentes geram hashes diferentes
-- [ ] Testes passam: `npm test -- server/auth/tokens`
+- [x] `newToken().token` decodifica de base64url para 32 bytes
+- [x] `hash` é `hashToken(token)` e tem 64 caracteres hexadecimais
+- [x] `hashToken` é determinístico; tokens diferentes geram hashes diferentes
+- [x] Testes passam: `npm test -- server/auth/tokens`
 
 **Tests**: unit
 **Gate**: quick
