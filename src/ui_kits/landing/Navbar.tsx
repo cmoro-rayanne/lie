@@ -21,6 +21,15 @@ function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [open]);
+
   return (
     <header
       style={{
@@ -98,7 +107,9 @@ function Navbar() {
 
         <button
           className="nav-burger"
-          aria-label="Abrir menu"
+          aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={open}
+          aria-controls="menu-mobile"
           onClick={() => setOpen(!open)}
           style={{
             display: 'none',
@@ -114,6 +125,7 @@ function Navbar() {
       </nav>
 
       <div
+        id="menu-mobile"
         className="mobile-menu"
         style={{
           position: 'fixed',

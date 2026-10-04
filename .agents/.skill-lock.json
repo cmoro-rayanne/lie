@@ -1,0 +1,47 @@
+{
+  "version": 2,
+  "skills": {
+    "tlc-spec-driven": {
+      "name": "tlc-spec-driven",
+      "source": "local",
+      "contentHash": "9f4c793556001f3210a2d9fe3b41bf24e82e581c522d8dd50f65addfee169a29",
+      "installedAt": "2026-10-04T13:43:36.683Z",
+      "updatedAt": "2026-10-04T13:43:36.725Z",
+      "agents": [
+        "cursor",
+        "claude-code",
+        "windsurf"
+      ],
+      "method": "copy",
+      "global": false
+    },
+    "tlc-spec-lean": {
+      "name": "tlc-spec-lean",
+      "source": "local",
+      "contentHash": "28368cb86a9d441fce24426eb502a39a5e7f9ffe0ad5d682fead2ce76c5b085b",
+      "installedAt": "2026-10-04T13:44:48.819Z",
+      "updatedAt": "2026-10-04T13:44:48.856Z",
+      "agents": [
+        "cursor",
+        "claude-code",
+        "windsurf"
+      ],
+      "method": "copy",
+      "global": false
+    },
+    "accessibility": {
+      "name": "accessibility",
+      "source": "local",
+      "contentHash": "706129400c8c91a9264582940b36007116faffcaf27bb0780bdab87337b4f881",
+      "installedAt": "2026-10-04T13:46:14.620Z",
+      "updatedAt": "2026-10-04T13:46:14.634Z",
+      "agents": [
+        "cursor",
+        "claude-code",
+        "windsurf"
+      ],
+      "method": "copy",
+      "global": false
+    }
+  }
+}

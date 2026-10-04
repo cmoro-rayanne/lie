@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ctaImg from '../../assets/fotos/web/IMG_1108-web.jpg';
 
 // Número que recebe as mensagens do formulário (formato internacional, só dígitos).
@@ -14,6 +14,15 @@ const SUBJECTS = [
 ];
 
 // --- Validação de conteúdo ---
+const FIELD_IDS: Record<string, string> = {
+  name: 'contato-nome',
+  email: 'contato-email',
+  phone: 'contato-telefone',
+  subject: 'contato-assunto',
+  message: 'contato-mensagem',
+};
+const FIELD_ORDER = ['name', 'email', 'phone', 'subject', 'message'];
+
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 const LINK_RE =
   /(https?:\/\/|www\.|<a\s|\[url|\b[a-z0-9-]+\.(?:com|net|org|ru|xyz|top|info|biz|click|link|shop)\b)/gi;
@@ -27,6 +36,12 @@ function Contact() {
   const { ref, inView } = window.useInView(0.1);
   const [sent, setSent] = useState(false);
   const [waUrl, setWaUrl] = useState('');
+  const sentTitleRef = useRef<HTMLHeadingElement>(null);
+
+  // Ao enviar, o formulário some: leva o foco para a confirmação e a anuncia.
+  useEffect(() => {
+    if (sent) sentTitleRef.current?.focus();
+  }, [sent]);
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -77,8 +92,7 @@ function Contact() {
       next.message = 'Mensagem parece conter texto repetido.';
     else if (CYRILLIC_RE.test(trimmedMessage)) next.message = 'Use apenas caracteres latinos.';
 
-    setErrors(next);
-    return Object.keys(next).length === 0;
+    return next;
   };
 
   // Monta o texto da mensagem do WhatsApp a partir dos campos preenchidos.
@@ -98,7 +112,13 @@ function Contact() {
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!validate()) return;
+    const next = validate();
+    setErrors(next);
+    const firstInvalid = FIELD_ORDER.find((k) => next[k]);
+    if (firstInvalid) {
+      document.getElementById(FIELD_IDS[firstInvalid])?.focus();
+      return;
+    }
 
     const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildMessage())}`;
     setWaUrl(url);
@@ -157,12 +177,37 @@ function Contact() {
     },
   ];
 
+  // Mensagem de erro ligada ao campo via aria-describedby (anunciada ao receber foco/erro).
+  const fieldError = (key: string) =>
+    errors[key] ? (
+      <p
+        id={`${FIELD_IDS[key]}-erro`}
+        role="alert"
+        style={{
+          fontFamily: 'var(--font-sans)',
+          fontSize: '0.78rem',
+          color: 'var(--error)',
+          marginTop: 6,
+        }}
+      >
+        {errors[key]}
+      </p>
+    ) : null;
+
+  const a11yProps = (key: string) => ({
+    'aria-invalid': errors[key] ? true : undefined,
+    'aria-describedby': errors[key] ? `${FIELD_IDS[key]}-erro` : undefined,
+    className: 'field-input',
+  });
+
+  const errorStyle = (key: string) => (errors[key] ? { border: '1px solid var(--error)' } : {});
+
   return (
     <>
       {/* Olive CTA banner */}
       <section
         style={{
-          background: 'var(--accent-go)',
+          background: 'var(--color-olive-600)',
           padding: 'clamp(60px,8vw,100px) 0',
           textAlign: 'center',
           position: 'relative',
@@ -204,7 +249,7 @@ function Contact() {
                   fontWeight: 500,
                   letterSpacing: '0.28em',
                   textTransform: 'uppercase',
-                  color: 'rgba(255,255,255,0.65)',
+                  color: 'rgba(255,255,255,0.9)',
                   marginBottom: 20,
                 }}
               >
@@ -228,7 +273,7 @@ function Contact() {
                   fontFamily: 'var(--font-sans)',
                   fontSize: '1rem',
                   fontWeight: 300,
-                  color: 'rgba(255,255,255,0.78)',
+                  color: 'rgba(255,255,255,0.92)',
                   marginBottom: 40,
                 }}
               >
@@ -461,12 +506,15 @@ function Contact() {
                   ◇
                 </div>
                 <h3
+                  ref={sentTitleRef}
+                  tabIndex={-1}
                   style={{
                     fontFamily: 'var(--font-serif)',
                     fontSize: '1.6rem',
                     fontWeight: 400,
                     color: 'var(--text-strong)',
                     marginBottom: 12,
+                    outline: 'none',
                   }}
                 >
                   Tudo pronto!
@@ -518,49 +566,79 @@ function Contact() {
                   className="form-row"
                   style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}
                 >
-                  <Input
-                    placeholder="Seu nome completo"
-                    autoComplete="name"
-                    maxLength={80}
-                    value={name}
-                    error={errors.name}
-                    onChange={(e: any) => setName(e.target.value)}
-                  />
-                  <Input
-                    type="email"
-                    placeholder="Seu e-mail (opcional)"
-                    autoComplete="email"
-                    maxLength={120}
-                    value={email}
-                    error={errors.email}
-                    onChange={(e: any) => setEmail(e.target.value)}
-                  />
+                  <div>
+                    <Input
+                      id={FIELD_IDS.name}
+                      label="Nome"
+                      placeholder="Seu nome completo"
+                      autoComplete="name"
+                      maxLength={80}
+                      value={name}
+                      style={errorStyle('name')}
+                      {...a11yProps('name')}
+                      onChange={(e: any) => setName(e.target.value)}
+                    />
+                    {fieldError('name')}
+                  </div>
+                  <div>
+                    <Input
+                      id={FIELD_IDS.email}
+                      label="E-mail"
+                      type="email"
+                      placeholder="Seu e-mail (opcional)"
+                      autoComplete="email"
+                      maxLength={120}
+                      value={email}
+                      style={errorStyle('email')}
+                      {...a11yProps('email')}
+                      onChange={(e: any) => setEmail(e.target.value)}
+                    />
+                    {fieldError('email')}
+                  </div>
                 </div>
-                <Input
-                  type="tel"
-                  placeholder="Telefone (opcional)"
-                  autoComplete="tel"
-                  value={phone}
-                  error={errors.phone}
-                  onChange={(e: any) => setPhone(formatPhone(e.target.value))}
-                  maxLength={15}
-                />
-                <Input
-                  as="select"
-                  value={subject}
-                  error={errors.subject}
-                  onChange={(e: any) => setSubject(e.target.value)}
-                  options={SUBJECTS}
-                />
-                <Input
-                  as="textarea"
-                  rows={5}
-                  placeholder="Conte um pouco sobre o que você está buscando…"
-                  maxLength={2000}
-                  value={message}
-                  error={errors.message}
-                  onChange={(e: any) => setMessage(e.target.value)}
-                />
+                <div>
+                  <Input
+                    id={FIELD_IDS.phone}
+                    label="Telefone"
+                    type="tel"
+                    placeholder="Telefone (opcional)"
+                    autoComplete="tel"
+                    value={phone}
+                    style={errorStyle('phone')}
+                    {...a11yProps('phone')}
+                    onChange={(e: any) => setPhone(formatPhone(e.target.value))}
+                    maxLength={15}
+                  />
+                  {fieldError('phone')}
+                </div>
+                <div>
+                  <Input
+                    id={FIELD_IDS.subject}
+                    label="Assunto"
+                    as="select"
+                    value={subject}
+                    style={errorStyle('subject')}
+                    {...a11yProps('subject')}
+                    onChange={(e: any) => setSubject(e.target.value)}
+                    options={SUBJECTS}
+                  />
+                  {fieldError('subject')}
+                </div>
+                <div>
+                  <Input
+                    id={FIELD_IDS.message}
+                    label="Mensagem"
+                    as="textarea"
+                    rows={5}
+                    placeholder="Conte um pouco sobre o que você está buscando…"
+                    maxLength={2000}
+                    value={message}
+                    style={errorStyle('message')}
+                    {...a11yProps('message')}
+                    onChange={(e: any) => setMessage(e.target.value)}
+                  />
+                  {fieldError('message')}
+                </div>
 
                 <Button
                   type="submit"

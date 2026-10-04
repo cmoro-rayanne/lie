@@ -75,19 +75,19 @@ function Footer() {
           </div>
 
           <div>
-            <h4
+            <h3
               style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: '0.68rem',
                 fontWeight: 600,
                 letterSpacing: '0.24em',
                 textTransform: 'uppercase',
-                color: 'rgba(192,169,130,0.6)',
+                color: 'rgba(214,190,150,0.8)',
                 marginBottom: 20,
               }}
             >
               Navegação
-            </h4>
+            </h3>
             <ul
               style={{
                 listStyle: 'none',
@@ -125,19 +125,19 @@ function Footer() {
           </div>
 
           <div>
-            <h4
+            <h3
               style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: '0.68rem',
                 fontWeight: 600,
                 letterSpacing: '0.24em',
                 textTransform: 'uppercase',
-                color: 'rgba(192,169,130,0.6)',
+                color: 'rgba(214,190,150,0.8)',
                 marginBottom: 20,
               }}
             >
               Contato
-            </h4>
+            </h3>
             <a
               href="mailto:contato@elianalino.com.br"
               style={{
@@ -190,7 +190,7 @@ function Footer() {
               fontFamily: 'var(--font-sans)',
               fontSize: '0.75rem',
               fontWeight: 300,
-              color: 'rgba(192,169,130,0.65)',
+              color: 'rgba(214,190,150,0.8)',
             }}
           >
             © {year} Ilê · Eliana Lino · CRP 9424/12. Todos os direitos reservados.
@@ -200,7 +200,7 @@ function Footer() {
               fontFamily: 'var(--font-sans)',
               fontSize: '0.72rem',
               fontWeight: 300,
-              color: 'rgba(192,169,130,0.65)',
+              color: 'rgba(214,190,150,0.8)',
               display: 'inline-flex',
               alignItems: 'center',
               gap: 6,
