@@ -685,10 +685,10 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] Com `status = 'loading'`, nenhum texto dos filhos aparece no DOM (AUTH-14)
-- [ ] Com `status = 'out'`, navega para `/admin/entrar` e não renderiza filhos (AUTH-15)
-- [ ] Com `status = 'in'`, renderiza filhos
-- [ ] Testes passam: `npm test -- src/admin/ProtectedRoute`
+- [x] Com `status = 'loading'`, nenhum texto dos filhos aparece no DOM (AUTH-14)
+- [x] Com `status = 'out'`, navega para `/admin/entrar` e não renderiza filhos (AUTH-15)
+- [x] Com `status = 'in'`, renderiza filhos
+- [x] Testes passam: `npm test -- src/admin/ProtectedRoute`
 
 **Tests**: unit (`src/admin/ProtectedRoute.test.tsx`)
 **Gate**: quick
