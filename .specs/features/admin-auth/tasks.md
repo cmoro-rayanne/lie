@@ -553,16 +553,16 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] `forgot-password` responde 200 com a mesma mensagem para conta existente e inexistente (AUTH-20)
-- [ ] Conta existente recebe token com `expires_at` 30 minutos adiante e e-mail com o link (AUTH-21)
-- [ ] Novo pedido invalida o token anterior ainda não usado (AUTH-22)
-- [ ] Falha no envio é logada e a resposta continua 200 (AUTH-23)
-- [ ] E-mail inválido responde 400 `"Informe um e-mail válido"` (AUTH-24)
-- [ ] `reset-password` com token válido responde 200, troca o hash, marca `used_at` e remove todas as sessões (AUTH-25)
-- [ ] Token inexistente, usado ou expirado responde 410 `"Este link não é mais válido. Solicite um novo"` sem alterar a senha (AUTH-26)
-- [ ] Senha fraca responde 400 e o token continua válido (AUTH-27/AC3)
-- [ ] Falha no aviso de troca não desfaz a redefinição (AUTH-28)
-- [ ] Testes passam: `npm test -- api/admin/forgot-password api/admin/reset-password`
+- [x] `forgot-password` responde 200 com a mesma mensagem para conta existente e inexistente (AUTH-20)
+- [x] Conta existente recebe token com `expires_at` 30 minutos adiante e e-mail com o link (AUTH-21)
+- [x] Novo pedido invalida o token anterior ainda não usado (AUTH-22)
+- [x] Falha no envio é logada e a resposta continua 200 (AUTH-23)
+- [x] E-mail inválido responde 400 `"Informe um e-mail válido"` (AUTH-24)
+- [x] `reset-password` com token válido responde 200, troca o hash, marca `used_at` e remove todas as sessões (AUTH-25)
+- [x] Token inexistente, usado ou expirado responde 410 `"Este link não é mais válido. Solicite um novo"` sem alterar a senha (AUTH-26)
+- [x] Senha fraca responde 400 e o token continua válido (AUTH-27/AC3)
+- [x] Falha no aviso de troca não desfaz a redefinição (AUTH-28)
+- [x] Testes passam: `npm test -- api/admin/forgot-password api/admin/reset-password`
 
 **Tests**: integration (`api/admin/forgot-password.test.ts`, `api/admin/reset-password.test.ts`)
 **Gate**: full
