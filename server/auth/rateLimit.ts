@@ -15,10 +15,16 @@ export async function isLimited(
   return (await repo.countFailures(key, since)) >= max;
 }
 
-/** IP do cliente: primeiro valor de x-forwarded-for (Vercel), ou x-real-ip. */
+/**
+ * IP do cliente. Usa o ÚLTIMO valor de x-forwarded-for: é o hop que a plataforma anexa.
+ * O primeiro valor vem do próprio cliente e pode ser forjado para contornar o limite.
+ */
 export function clientIp(request: Request): string {
   const forwarded = request.headers.get('x-forwarded-for');
-  if (forwarded) return forwarded.split(',')[0].trim();
+  if (forwarded) {
+    const last = forwarded.split(',').pop()?.trim();
+    if (last) return last;
+  }
   return request.headers.get('x-real-ip') ?? 'desconhecido';
 }
 

@@ -2,7 +2,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { createMemoryRepo } from '../repo/memory';
 import type { AdminRepo } from '../repo/types';
-import { clear, isLimited, recordFailure } from './rateLimit';
+import { clear, clientIp, isLimited, recordFailure } from './rateLimit';
 
 const FIFTEEN_MIN_MS = 15 * 60 * 1000;
 const START = new Date('2026-10-04T12:00:00.000Z');
@@ -40,6 +40,27 @@ describe('limite de tentativas de login', () => {
 
     await clear(repo, EMAIL);
     expect(await isLimited(repo, EMAIL)).toBe(false);
+  });
+
+  it('clientIp usa o último hop de x-forwarded-for, não o forjável pelo cliente (AUTH-10)', () => {
+    const req = new Request('https://ilelino.example/api/admin/login', {
+      headers: { 'x-forwarded-for': '1.1.1.1, 2.2.2.2' },
+    });
+    expect(clientIp(req)).toBe('2.2.2.2');
+  });
+
+  it('clientIp com um único valor em x-forwarded-for devolve esse valor', () => {
+    const req = new Request('https://ilelino.example/api/admin/login', {
+      headers: { 'x-forwarded-for': '203.0.113.7' },
+    });
+    expect(clientIp(req)).toBe('203.0.113.7');
+  });
+
+  it('clientIp sem x-forwarded-for usa x-real-ip', () => {
+    const req = new Request('https://ilelino.example/api/admin/login', {
+      headers: { 'x-real-ip': '198.51.100.9' },
+    });
+    expect(clientIp(req)).toBe('198.51.100.9');
   });
 
   it('falhas com mais de 15 minutos não contam', async () => {

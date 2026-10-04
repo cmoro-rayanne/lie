@@ -150,6 +150,29 @@ describe('POST /api/admin/login', () => {
     expect(verifyPassword).not.toHaveBeenCalled();
   });
 
+  it('forjar o primeiro hop de x-forwarded-for não contorna o limite do IP real (AUTH-10)', async () => {
+    const { POST } = await setup();
+    // O último hop (2.2.2.2) é o que a plataforma anexa; o primeiro muda a cada tentativa.
+    for (let i = 0; i < 20; i++) {
+      await POST(
+        loginRequestFrom(`10.0.0.${i}, 2.2.2.2`, {
+          email: `pessoa${i}@exemplo.com`,
+          password: 'senhaerrada9',
+        }),
+      );
+    }
+
+    const blocked = await POST(
+      loginRequestFrom('1.1.1.1, 2.2.2.2', { email: 'nova@exemplo.com', password: 'senhaerrada9' }),
+    );
+    expect(blocked.status).toBe(429);
+
+    const otherRealIp = await POST(
+      loginRequestFrom('2.2.2.2, 3.3.3.3', { email: 'outra@exemplo.com', password: 'senhaerrada9' }),
+    );
+    expect(otherRealIp.status).toBe(401);
+  });
+
   it('falhas de outro IP não contam no limite do IP (IP, design Risks)', async () => {
     const { POST } = await setup();
     for (let i = 0; i < 20; i++) {
