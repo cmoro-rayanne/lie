@@ -813,10 +813,10 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] Cabeçalho mostra nome e e-mail do usuário (AUTH-30)
-- [ ] Botão sair chama logout e navega para `/admin/entrar`
-- [ ] Sem sessão, a página não renderiza o conteúdo do painel (AUTH-14)
-- [ ] Testes passam: `npm test -- src/admin/pages/DashboardPage`
+- [x] Cabeçalho mostra nome e e-mail do usuário (AUTH-30)
+- [x] Botão sair chama logout e navega para `/admin/entrar`
+- [x] Sem sessão, a página não renderiza o conteúdo do painel (AUTH-14)
+- [x] Testes passam: `npm test -- src/admin/pages/DashboardPage`
 
 **Tests**: unit (`src/admin/pages/DashboardPage.test.tsx`)
 **Gate**: quick
