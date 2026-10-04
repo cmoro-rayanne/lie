@@ -39,10 +39,14 @@ describe('isolamento do painel no build (AUTH-17)', () => {
       });
       expect(existsSync(resolve(dist, 'index.html'))).toBe(true);
 
+      const html = readFileSync(resolve(dist, 'index.html'), 'utf8');
       const mainSource = readFileSync(mainChunkPath(), 'utf8');
       const adminSource = readFileSync(adminChunkPath(), 'utf8');
 
+      // O HTML da landing referencia o script de entrada e não carrega conteúdo do painel.
+      expect(html).toMatch(/<script[^>]+type="module"[^>]+src="\/?assets\/[^"]+\.js"/);
       for (const text of ADMIN_ONLY_STRINGS) {
+        expect(html).not.toContain(text);
         expect(mainSource).not.toContain(text);
         expect(adminSource).toContain(text);
       }

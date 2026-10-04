@@ -69,6 +69,20 @@ describe('serviço de sessão', () => {
     expect(found?.id).toBe(user.id);
   });
 
+  it('uso da sessão não renova expires_at: não há renovação deslizante (AUTH-12)', async () => {
+    const user = await seedUser(repo);
+    const { cookie } = await createSession(repo, user.id);
+    const hash = hashToken(tokenFrom(cookie));
+    const before = (await repo.findSession(hash))?.expiresAt.getTime();
+
+    vi.setSystemTime(new Date(START.getTime() + 3 * 24 * 60 * 60 * 1000));
+    expect((await getSessionUser(repo, requestWith(cookie)))?.id).toBe(user.id);
+
+    const after = (await repo.findSession(hash))?.expiresAt.getTime();
+    expect(before).toBe(START.getTime() + SEVEN_DAYS_MS);
+    expect(after).toBe(before);
+  });
+
   it('getSessionUser devolve null para sessão expirada há 1 segundo (AUTH-16)', async () => {
     const user = await seedUser(repo);
     const { cookie } = await createSession(repo, user.id);
