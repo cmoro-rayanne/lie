@@ -1,6 +1,12 @@
 import { getRepo } from '../../server/deps';
 import { DUMMY_HASH, verifyPassword } from '../../server/auth/password';
-import { clear, isLimited, recordFailure } from '../../server/auth/rateLimit';
+import {
+  clear,
+  clientIp,
+  isLimited,
+  LOGIN_IP_MAX_FAILURES,
+  recordFailure,
+} from '../../server/auth/rateLimit';
 import { createSession } from '../../server/auth/session';
 import { fail, json, withErrors } from '../../server/http';
 import type { AdminRepo } from '../../server/repo/types';
@@ -26,12 +32,15 @@ export function createLoginHandler(deps: LoginDeps) {
     }
     const { email, password } = parsed.data;
 
+    const ipKey = `login-ip:${clientIp(request)}`;
     if (await isLimited(repo, email)) return fail(429, LIMIT_MESSAGE);
+    if (await isLimited(repo, ipKey, LOGIN_IP_MAX_FAILURES)) return fail(429, LIMIT_MESSAGE);
 
     const user = await repo.findUserByEmail(email);
     const valid = await verifyPassword(password, user?.passwordHash ?? DUMMY_HASH);
     if (user === null || !valid) {
       await recordFailure(repo, email);
+      await recordFailure(repo, ipKey);
       return fail(401, INVALID_MESSAGE);
     }
 

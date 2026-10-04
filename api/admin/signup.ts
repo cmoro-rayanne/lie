@@ -1,7 +1,7 @@
 import { getConfig } from '../../server/config';
 import { getRepo } from '../../server/deps';
 import { hashPassword } from '../../server/auth/password';
-import { isLimited, recordFailure } from '../../server/auth/rateLimit';
+import { clientIp, isLimited, recordFailure } from '../../server/auth/rateLimit';
 import { createSession } from '../../server/auth/session';
 import { fail, json, withErrors } from '../../server/http';
 import type { AdminRepo } from '../../server/repo/types';
@@ -45,12 +45,6 @@ export function createSignupHandler(deps: SignupDeps) {
 
 function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
-}
-
-function clientIp(request: Request): string {
-  const forwarded = request.headers.get('x-forwarded-for');
-  if (forwarded) return forwarded.split(',')[0].trim();
-  return request.headers.get('x-real-ip') ?? 'desconhecido';
 }
 
 export const POST = withErrors(
