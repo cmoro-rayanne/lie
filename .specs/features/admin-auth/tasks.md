@@ -157,10 +157,10 @@ Execução estritamente sequencial. Um agente (ou worker de lote) faz uma task p
 - Skill: NONE
 
 **Done when**:
-- [ ] Com as cinco variáveis definidas, retorna objeto tipado com os mesmos valores
-- [ ] Com `ADMIN_INVITE_CODE` ausente, lança erro cuja mensagem contém `ADMIN_INVITE_CODE`
-- [ ] Com `APP_URL` sem protocolo, lança erro (URL inválida)
-- [ ] Testes passam: `npm test -- server/config`
+- [x] Com as cinco variáveis definidas, retorna objeto tipado com os mesmos valores
+- [x] Com `ADMIN_INVITE_CODE` ausente, lança erro cuja mensagem contém `ADMIN_INVITE_CODE`
+- [x] Com `APP_URL` sem protocolo, lança erro (URL inválida)
+- [x] Testes passam: `npm test -- server/config`
 
 **Tests**: unit
 **Gate**: quick
