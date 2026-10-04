@@ -392,10 +392,10 @@ Execução estritamente sequencial. Um agente (ou worker de lote) faz uma task p
 - Skill: NONE
 
 **Done when**:
-- [ ] Quatro falhas não bloqueiam; a quinta bloqueia (AUTH-10)
-- [ ] Após `clear(key)`, a chave volta a ser liberada
-- [ ] Falhas com mais de 15 minutos não contam
-- [ ] Testes passam: `npm test -- server/auth/rateLimit`
+- [x] Quatro falhas não bloqueiam; a quinta bloqueia (AUTH-10)
+- [x] Após `clear(key)`, a chave volta a ser liberada
+- [x] Falhas com mais de 15 minutos não contam
+- [x] Testes passam: `npm test -- server/auth/rateLimit`
 
 **Tests**: unit
 **Gate**: quick
