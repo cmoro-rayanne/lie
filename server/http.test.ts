@@ -31,7 +31,7 @@ describe('json', () => {
 
 describe('withErrors (AUTH-31)', () => {
   it('converte exceção em 503 com mensagem genérica, sem vazar o erro técnico', async () => {
-    const handler = withErrors(async () => {
+    const handler = withErrors(async (_request: Request) => {
       throw new Error('connection to db-host:5432 refused');
     });
     const res = await handler(new Request('https://ilelino.example/api/admin/login'));
@@ -43,7 +43,7 @@ describe('withErrors (AUTH-31)', () => {
 
   it('registra a exceção com console.error contendo a mensagem original', async () => {
     const spy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    const handler = withErrors(async () => {
+    const handler = withErrors(async (_request: Request) => {
       throw new Error('connection to db-host:5432 refused');
     });
     await handler(new Request('https://ilelino.example/api/admin/login'));
@@ -54,7 +54,7 @@ describe('withErrors (AUTH-31)', () => {
 
   it('devolve a mesma Response quando o handler já responde', async () => {
     const original = json(201, { ok: true });
-    const handler = withErrors(async () => original);
+    const handler = withErrors(async (_request: Request) => original);
     const res = await handler(new Request('https://ilelino.example/api/admin/signup'));
     expect(res).toBe(original);
   });
