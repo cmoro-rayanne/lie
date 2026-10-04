@@ -635,10 +635,10 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] `navigate('/admin/entrar')` atualiza `window.location.pathname` e notifica o hook
-- [ ] `navigate(..., { replace: true })` usa `replaceState`
-- [ ] Evento `popstate` atualiza o valor retornado por `usePathname`
-- [ ] Testes passam: `npm test -- src/admin/router`
+- [x] `navigate('/admin/entrar')` atualiza `window.location.pathname` e notifica o hook
+- [x] `navigate(..., { replace: true })` usa `replaceState`
+- [x] Evento `popstate` atualiza o valor retornado por `usePathname`
+- [x] Testes passam: `npm test -- src/admin/router`
 
 **Tests**: unit (`src/admin/router.test.tsx`)
 **Gate**: quick
