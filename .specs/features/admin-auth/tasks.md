@@ -710,11 +710,11 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] Login com sucesso navega para `/admin`
-- [ ] Erro 401 mostra `"E-mail ou senha incorretos"`
-- [ ] Erro 429 mostra `"Muitas tentativas. Tente novamente em 15 minutos"`
-- [ ] Usuário já logado é redirecionado para `/admin` (AUTH-18)
-- [ ] Testes passam: `npm test -- src/admin/pages/LoginPage`
+- [x] Login com sucesso navega para `/admin`
+- [x] Erro 401 mostra `"E-mail ou senha incorretos"`
+- [x] Erro 429 mostra `"Muitas tentativas. Tente novamente em 15 minutos"`
+- [x] Usuário já logado é redirecionado para `/admin` (AUTH-18)
+- [x] Testes passam: `npm test -- src/admin/pages/LoginPage`
 
 **Tests**: unit (`src/admin/pages/LoginPage.test.tsx`)
 **Gate**: quick
