@@ -417,11 +417,11 @@ Execução estritamente sequencial. Um agente (ou worker de lote) faz uma task p
 - Skill: NONE
 
 **Done when**:
-- [ ] O corpo enviado contém o link `APP_URL/admin/redefinir-senha?token=<token>` (AUTH-21)
-- [ ] O cabeçalho `Authorization` usa `Bearer` com `RESEND_API_KEY`
-- [ ] Resposta não-2xx faz a função lançar erro com o status
-- [ ] `sendPasswordChanged` não inclui token nem link
-- [ ] Testes passam: `npm test -- server/mail`
+- [x] O corpo enviado contém o link `APP_URL/admin/redefinir-senha?token=<token>` (AUTH-21)
+- [x] O cabeçalho `Authorization` usa `Bearer` com `RESEND_API_KEY`
+- [x] Resposta não-2xx faz a função lançar erro com o status
+- [x] `sendPasswordChanged` não inclui token nem link
+- [x] Testes passam: `npm test -- server/mail`
 
 **Tests**: unit
 **Gate**: quick
