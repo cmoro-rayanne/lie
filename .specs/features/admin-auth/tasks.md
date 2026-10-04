@@ -289,9 +289,9 @@ Execução estritamente sequencial. Um agente (ou worker de lote) faz uma task p
 - Skill: NONE
 
 **Done when**:
-- [ ] Interface cobre: `createUser`, `findUserByEmail`, `findUserById`, `createSession`, `findSession`, `deleteSession`, `deleteSessionsForUser`, `replaceResetToken`, `findResetToken`, `resetPasswordTx`, `recordFailure`, `countFailures`, `clearFailures`
-- [ ] `resetPasswordTx` recebe hash do token e hash de senha novo e devolve `'ok' | 'invalid'`
-- [ ] `tsc` sem erro
+- [x] Interface cobre: `createUser`, `findUserByEmail`, `findUserById`, `createSession`, `findSession`, `deleteSession`, `deleteSessionsForUser`, `replaceResetToken`, `findResetToken`, `resetPasswordTx`, `recordFailure`, `countFailures`, `clearFailures`
+- [x] `resetPasswordTx` recebe hash do token e hash de senha novo e devolve `'ok' | 'invalid'`
+- [x] `tsc` sem erro
 
 **Tests**: none (interface)
 **Gate**: build
