@@ -786,12 +786,12 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] Após carregar, `window.location.search` não contém `token` (AUTH-29/AC5)
-- [ ] O POST envia `token` no corpo, não na URL da requisição (AUTH-29/AC5)
-- [ ] Sucesso mostra confirmação e link para `/admin/entrar`
-- [ ] Erro 410 mostra `"Este link não é mais válido. Solicite um novo"` com link para `/admin/esqueci-senha`
-- [ ] Senha fraca mostra erro no campo e mantém o formulário
-- [ ] Testes passam: `npm test -- src/admin/pages/ResetPasswordPage`
+- [x] Após carregar, `window.location.search` não contém `token` (AUTH-29/AC5)
+- [x] O POST envia `token` no corpo, não na URL da requisição (AUTH-29/AC5)
+- [x] Sucesso mostra confirmação e link para `/admin/entrar`
+- [x] Erro 410 mostra `"Este link não é mais válido. Solicite um novo"` com link para `/admin/esqueci-senha`
+- [x] Senha fraca mostra erro no campo e mantém o formulário
+- [x] Testes passam: `npm test -- src/admin/pages/ResetPasswordPage`
 
 **Tests**: unit (`src/admin/pages/ResetPasswordPage.test.tsx`)
 **Gate**: quick
