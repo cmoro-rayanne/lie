@@ -11,11 +11,14 @@ class MockIntersectionObserver {
   unobserve = vi.fn();
 }
 
-Object.defineProperty(window, 'IntersectionObserver', {
-  writable: true,
-  configurable: true,
-  value: MockIntersectionObserver,
-});
+// Testes de servidor usam ambiente `node`, onde `window` não existe.
+if (typeof window !== 'undefined') {
+  Object.defineProperty(window, 'IntersectionObserver', {
+    writable: true,
+    configurable: true,
+    value: MockIntersectionObserver,
+  });
+}
 
 Object.defineProperty(globalThis, 'IntersectionObserver', {
   writable: true,
