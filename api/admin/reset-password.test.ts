@@ -181,4 +181,28 @@ describe('POST /api/admin/reset-password', () => {
     expect(JSON.parse(text)).toEqual({ message: 'Serviço temporariamente indisponível' });
     expect(text).not.toContain('db-host');
   });
+
+  it('o token de redefinição não aparece em nenhum log do servidor, nem no caminho de erro (AUTH-29)', async () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    const { mailer } = fakeMailer();
+    const { repo } = await setup(mailer);
+    const { token } = newToken();
+    const broken: AdminRepo = {
+      ...repo,
+      resetPasswordTx: async () => {
+        throw new Error('connection to db-host:5432 refused');
+      },
+    };
+    const reset = withErrors(createResetPasswordHandler({ repo: () => broken, mailer: () => mailer }));
+    const res = await reset(resetRequest({ token, password: NEW_PASSWORD }));
+
+    expect(res.status).toBe(503);
+    expect(errorSpy).toHaveBeenCalled();
+    const logged = [...errorSpy.mock.calls, ...logSpy.mock.calls]
+      .flat()
+      .map((arg) => (arg instanceof Error ? `${arg.message}\n${arg.stack ?? ''}` : String(arg)))
+      .join('\n');
+    expect(logged).not.toContain(token);
+  });
 });
