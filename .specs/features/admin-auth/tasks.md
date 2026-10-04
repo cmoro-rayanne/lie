@@ -500,12 +500,12 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] Credenciais certas respondem 200 e definem `admin_session` (AUTH-08)
-- [ ] E-mail inexistente e senha errada respondem 401 com mensagem idêntica `"E-mail ou senha incorretos"` (AUTH-09)
-- [ ] Após 5 falhas do mesmo e-mail, a sexta tentativa responde 429 sem chamar `verifyPassword` (AUTH-10)
-- [ ] Login de sucesso zera as falhas do e-mail
-- [ ] E-mail inexistente executa `verifyPassword` contra `DUMMY_HASH` (AUTH-13); o teste confere a chamada pelo resultado e pela resposta 401 idêntica ao caso de senha errada
-- [ ] Testes passam: `npm test -- api/admin/login`
+- [x] Credenciais certas respondem 200 e definem `admin_session` (AUTH-08)
+- [x] E-mail inexistente e senha errada respondem 401 com mensagem idêntica `"E-mail ou senha incorretos"` (AUTH-09)
+- [x] Após 5 falhas do mesmo e-mail, a sexta tentativa responde 429 sem chamar `verifyPassword` (AUTH-10)
+- [x] Login de sucesso zera as falhas do e-mail
+- [x] E-mail inexistente executa `verifyPassword` contra `DUMMY_HASH` (AUTH-13); o teste confere a chamada pelo resultado e pela resposta 401 idêntica ao caso de senha errada
+- [x] Testes passam: `npm test -- api/admin/login`
 
 **Tests**: integration (`api/admin/login.test.ts`)
 **Gate**: full
