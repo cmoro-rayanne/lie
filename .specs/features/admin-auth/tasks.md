@@ -365,12 +365,12 @@ Execução estritamente sequencial. Um agente (ou worker de lote) faz uma task p
 - Skill: NONE
 
 **Done when**:
-- [ ] `createSession` grava `expires_at` exatamente 7 dias após `created_at` (AUTH-12)
-- [ ] `getSessionUser` com sessão expirada há 1 segundo retorna `null` (AUTH-16)
-- [ ] `getSessionUser` com cookie de token inexistente retorna `null` (AUTH-19)
-- [ ] `destroySession` remove a sessão do repositório e devolve cookie com `Max-Age=0` (AUTH-11)
-- [ ] Cookie gerado contém `HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=604800`
-- [ ] Testes passam: `npm test -- server/auth/session`
+- [x] `createSession` grava `expires_at` exatamente 7 dias após `created_at` (AUTH-12)
+- [x] `getSessionUser` com sessão expirada há 1 segundo retorna `null` (AUTH-16)
+- [x] `getSessionUser` com cookie de token inexistente retorna `null` (AUTH-19)
+- [x] `destroySession` remove a sessão do repositório e devolve cookie com `Max-Age=0` (AUTH-11)
+- [x] Cookie gerado contém `HttpOnly; Secure; SameSite=Lax; Path=/; Max-Age=604800`
+- [x] Testes passam: `npm test -- server/auth/session`
 
 **Tests**: unit
 **Gate**: quick
