@@ -527,11 +527,11 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] `me` sem cookie responde 401 e não retorna dados (AUTH-14)
-- [ ] `me` com sessão válida responde 200 com `{ name, email }` sem `id` nem hash (AUTH-30)
-- [ ] `me` com cookie de sessão expirada responde 401 e `Set-Cookie` com `Max-Age=0` (AUTH-16, AUTH-19)
-- [ ] `logout` remove a sessão do repositório e responde 200 com `Max-Age=0` (AUTH-11)
-- [ ] Testes passam: `npm test -- api/admin/logout api/admin/me`
+- [x] `me` sem cookie responde 401 e não retorna dados (AUTH-14)
+- [x] `me` com sessão válida responde 200 com `{ name, email }` sem `id` nem hash (AUTH-30)
+- [x] `me` com cookie de sessão expirada responde 401 e `Set-Cookie` com `Max-Age=0` (AUTH-16, AUTH-19)
+- [x] `logout` remove a sessão do repositório e responde 200 com `Max-Age=0` (AUTH-11)
+- [x] Testes passam: `npm test -- api/admin/logout api/admin/me`
 
 **Tests**: integration (`api/admin/logout.test.ts`, `api/admin/me.test.ts`)
 **Gate**: full
