@@ -864,9 +864,9 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] Lista as cinco variáveis com descrição, sem valores
-- [ ] Explica que `npm run dev` não serve `/api` e indica `vercel dev`
-- [ ] Gate build passa
+- [x] Lista as cinco variáveis com descrição, sem valores
+- [x] Explica que `npm run dev` não serve `/api` e indica `vercel dev`
+- [x] Gate build passa
 
 **Tests**: none (documentação)
 **Gate**: build
