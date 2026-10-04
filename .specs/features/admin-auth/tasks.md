@@ -762,9 +762,9 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] Após envio, aparece `"Se o e-mail estiver cadastrado, você receberá um link em instantes"`
-- [ ] E-mail inválido mostra `"Informe um e-mail válido"` sem chamar a API
-- [ ] Testes passam: `npm test -- src/admin/pages/ForgotPasswordPage`
+- [x] Após envio, aparece `"Se o e-mail estiver cadastrado, você receberá um link em instantes"`
+- [x] E-mail inválido mostra `"Informe um e-mail válido"` sem chamar a API
+- [x] Testes passam: `npm test -- src/admin/pages/ForgotPasswordPage`
 
 **Tests**: unit (`src/admin/pages/ForgotPasswordPage.test.tsx`)
 **Gate**: quick
