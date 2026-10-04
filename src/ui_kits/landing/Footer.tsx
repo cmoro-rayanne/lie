@@ -75,7 +75,7 @@ function Footer() {
           </div>
 
           <div>
-            <h4
+            <h3
               style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: '0.68rem',
@@ -87,7 +87,7 @@ function Footer() {
               }}
             >
               Navegação
-            </h4>
+            </h3>
             <ul
               style={{
                 listStyle: 'none',
@@ -125,7 +125,7 @@ function Footer() {
           </div>
 
           <div>
-            <h4
+            <h3
               style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: '0.68rem',
@@ -137,7 +137,7 @@ function Footer() {
               }}
             >
               Contato
-            </h4>
+            </h3>
             <a
               href="mailto:contato@elianalino.com.br"
               style={{
