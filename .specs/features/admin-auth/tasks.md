@@ -209,11 +209,11 @@ Execução estritamente sequencial. Um agente (ou worker de lote) faz uma task p
 - Skill: NONE
 
 **Done when**:
-- [ ] Hash começa com `scrypt$16384$8$1$` e o sal decodificado tem 16 bytes (AUTH-06)
-- [ ] Dois hashes da mesma senha são diferentes (sal aleatório)
-- [ ] `verifyPassword` retorna true para a senha certa e false para outra
-- [ ] `verifyPassword(qualquerSenha, DUMMY_HASH)` retorna false sem lançar erro (AUTH-13)
-- [ ] Testes passam: `npm test -- server/auth/password`
+- [x] Hash começa com `scrypt$16384$8$1$` e o sal decodificado tem 16 bytes (AUTH-06)
+- [x] Dois hashes da mesma senha são diferentes (sal aleatório)
+- [x] `verifyPassword` retorna true para a senha certa e false para outra
+- [x] `verifyPassword(qualquerSenha, DUMMY_HASH)` retorna false sem lançar erro (AUTH-13)
+- [x] Testes passam: `npm test -- server/auth/password`
 
 **Tests**: unit
 **Gate**: quick
