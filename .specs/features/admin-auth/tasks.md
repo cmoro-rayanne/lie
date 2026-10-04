@@ -182,12 +182,12 @@ Execução estritamente sequencial. Um agente (ou worker de lote) faz uma task p
 - Skill: NONE
 
 **Done when**:
-- [ ] Senha com 9 caracteres falha; com 10 caracteres e letra e número passa (AUTH-04)
-- [ ] Senha de 10 caracteres só com letras falha (AUTH-04)
-- [ ] E-mail `ana@exemplo` falha; `ana@exemplo.com` passa (AUTH-05)
-- [ ] Nome de 1 caractere falha; nome de 121 caracteres falha (AUTH-05)
-- [ ] `normalizeEmail('  Ana@Exemplo.COM ')` retorna `ana@exemplo.com` (AUTH-07)
-- [ ] Testes passam: `npm test -- server/validation`
+- [x] Senha com 9 caracteres falha; com 10 caracteres e letra e número passa (AUTH-04)
+- [x] Senha de 10 caracteres só com letras falha (AUTH-04)
+- [x] E-mail `ana@exemplo` falha; `ana@exemplo.com` passa (AUTH-05)
+- [x] Nome de 1 caractere falha; nome de 121 caracteres falha (AUTH-05)
+- [x] `normalizeEmail('  Ana@Exemplo.COM ')` retorna `ana@exemplo.com` (AUTH-07)
+- [x] Testes passam: `npm test -- server/validation`
 
 **Tests**: unit
 **Gate**: quick
