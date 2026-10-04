@@ -260,12 +260,12 @@ Execução estritamente sequencial. Um agente (ou worker de lote) faz uma task p
 - Skill: NONE
 
 **Done when**:
-- [ ] `fail(400, 'msg', 'password')` responde 400 com corpo `{ message: 'msg', field: 'password' }`
-- [ ] `withErrors` converte exceção em 503 com `{ message: 'Serviço temporariamente indisponível' }`, sem vazar o erro (AUTH-31)
-- [ ] `withErrors` registra a exceção com `console.error` (verificado com spy e conteúdo da mensagem)
-- [ ] `withErrors` não altera respostas que já são `Response`
-- [ ] Testes passam: `npm test -- server/http`
-- [ ] Gate build passa ao fim da fase
+- [x] `fail(400, 'msg', 'password')` responde 400 com corpo `{ message: 'msg', field: 'password' }`
+- [x] `withErrors` converte exceção em 503 com `{ message: 'Serviço temporariamente indisponível' }`, sem vazar o erro (AUTH-31)
+- [x] `withErrors` registra a exceção com `console.error` (verificado com spy e conteúdo da mensagem)
+- [x] `withErrors` não altera respostas que já são `Response`
+- [x] Testes passam: `npm test -- server/http`
+- [x] Gate build passa ao fim da fase
 
 **Tests**: unit
 **Gate**: build (último da fase)
