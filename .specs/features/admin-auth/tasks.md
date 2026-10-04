@@ -341,9 +341,9 @@ Execução estritamente sequencial. Um agente (ou worker de lote) faz uma task p
 - Skill: NONE
 
 **Done when**:
-- [ ] Implementa todos os métodos de `AdminRepo`
-- [ ] `resetPasswordTx` tem a mesma semântica do Neon (`'invalid'` para token usado, expirado ou inexistente)
-- [ ] `tsc` sem erro
+- [x] Implementa todos os métodos de `AdminRepo`
+- [x] `resetPasswordTx` tem a mesma semântica do Neon (`'invalid'` para token usado, expirado ou inexistente)
+- [x] `tsc` sem erro
 
 **Tests**: none (test double; exercitado por T15 a T18)
 **Gate**: build
