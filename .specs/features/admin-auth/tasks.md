@@ -313,11 +313,11 @@ Execução estritamente sequencial. Um agente (ou worker de lote) faz uma task p
 - Skill: NONE
 
 **Done when**:
-- [ ] Inserir dois usuários com o mesmo e-mail lança erro de unicidade (código 23505)
-- [ ] `resetPasswordTx` com token já usado retorna `'invalid'` e não altera a senha
-- [ ] `resetPasswordTx` com token válido altera o hash, marca `used_at` e apaga as sessões do usuário na mesma transação
-- [ ] `countFailures` conta apenas registros dentro da janela de 15 minutos
-- [ ] Testes passam contra o banco de testes: `npm test -- server/repo` com `TEST_DATABASE_URL` definido
+- [x] Inserir dois usuários com o mesmo e-mail lança erro de unicidade (código 23505)
+- [x] `resetPasswordTx` com token já usado retorna `'invalid'` e não altera a senha
+- [x] `resetPasswordTx` com token válido altera o hash, marca `used_at` e apaga as sessões do usuário na mesma transação
+- [x] `countFailures` conta apenas registros dentro da janela de 15 minutos
+- [x] Testes passam contra o banco de testes: `npm test -- server/repo` com `TEST_DATABASE_URL` definido
 
 **Tests**: integration (`server/repo/neon.test.ts`)
 **Gate**: full

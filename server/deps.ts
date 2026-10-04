@@ -1,9 +1,14 @@
+import { getConfig } from './config';
+import { createNeonRepo } from './repo/neon';
 import type { AdminRepo } from './repo/types';
 
+let repo: AdminRepo | undefined;
+
 /**
- * Ponto de troca do repositório das rotas. Enquanto o Neon (T9) não existe, lança erro e
- * o `withErrors` responde 503. Quando a T9 entrar, esta função passa a devolver o repositório Neon.
+ * Ponto de troca do repositório das rotas. Usa o Neon com `DATABASE_URL`; se a configuração
+ * estiver incompleta, `getConfig()` lança e o `withErrors` responde 503.
  */
 export function getRepo(): AdminRepo {
-  throw new Error('Repositório Neon ainda não configurado');
+  repo ??= createNeonRepo(getConfig().databaseUrl);
+  return repo;
 }
