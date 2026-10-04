@@ -34,9 +34,34 @@ export default function LandingPage() {
         @media (min-width: 769px) {
           .mobile-menu { display: none !important; }
         }
+        .skip-link {
+          position: fixed;
+          top: -100px;
+          left: 16px;
+          z-index: 3000;
+          padding: 10px 18px;
+          background: var(--color-warm-900);
+          color: #fff;
+          font-family: var(--font-sans);
+          font-size: 0.8rem;
+          text-decoration: none;
+          border-radius: var(--radius-sm);
+        }
+        .skip-link:focus { top: 16px; }
+        a:focus-visible, button:focus-visible, [role="button"]:focus-visible {
+          outline: 2px solid var(--color-terra-600);
+          outline-offset: 3px;
+        }
+        .field-input:focus-visible {
+          border-color: var(--color-terra-600) !important;
+          box-shadow: 0 0 0 3px rgba(124, 91, 60, 0.35) !important;
+        }
       `}</style>
+      <a href="#conteudo" className="skip-link">
+        Pular para o conteúdo
+      </a>
       <Navbar />
-      <main>
+      <main id="conteudo" tabIndex={-1} style={{ outline: 'none' }}>
         <Hero />
         <About />
         <Quote />

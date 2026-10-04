@@ -39,10 +39,27 @@ const AREAS: Area[] = [
 function AreaModal({ area, onClose }: { area: Area; onClose: () => void }) {
   const { X } = window.Icons;
   const closeRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
+      // Mantém o Tab dentro do diálogo (aria-modal não impede o foco de sair sozinho).
+      if (e.key === 'Tab' && panelRef.current) {
+        const focusable = panelRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      }
     };
     document.addEventListener('keydown', onKey);
     const prevOverflow = document.body.style.overflow;
@@ -74,6 +91,7 @@ function AreaModal({ area, onClose }: { area: Area; onClose: () => void }) {
       }}
     >
       <div
+        ref={panelRef}
         role="dialog"
         aria-modal="true"
         aria-labelledby="area-modal-title"
@@ -260,17 +278,7 @@ function Atuacao() {
             >
               <Card
                 padding="48px 40px"
-                role="button"
-                tabIndex={0}
-                aria-haspopup="dialog"
-                aria-label={`${a.num} · ${a.title} — ler mais`}
                 onClick={(e: React.MouseEvent<HTMLDivElement>) => open(a, e.currentTarget)}
-                onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    open(a, e.currentTarget);
-                  }
-                }}
                 style={{
                   height: '100%',
                   display: 'flex',
@@ -331,12 +339,24 @@ function Atuacao() {
                   {a.lead}
                 </p>
 
-                <span
+                <button
+                  type="button"
+                  aria-haspopup="dialog"
+                  onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                    // Evita abrir duas vezes: o clique sobe até o Card.
+                    e.stopPropagation();
+                    open(a, e.currentTarget);
+                  }}
                   style={{
                     marginTop: 'auto',
+                    alignSelf: 'flex-start',
                     display: 'inline-flex',
                     alignItems: 'center',
                     gap: 6,
+                    padding: 0,
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
                     fontFamily: 'var(--font-sans)',
                     fontSize: '0.72rem',
                     fontWeight: 500,
@@ -346,7 +366,19 @@ function Atuacao() {
                   }}
                 >
                   Saiba mais <ChevronRight size={14} />
-                </span>
+                  <span
+                    className="visually-hidden"
+                    style={{
+                      position: 'absolute',
+                      width: 1,
+                      height: 1,
+                      overflow: 'hidden',
+                      clip: 'rect(0 0 0 0)',
+                    }}
+                  >
+                    sobre {a.title}
+                  </span>
+                </button>
               </Card>
             </div>
           ))}

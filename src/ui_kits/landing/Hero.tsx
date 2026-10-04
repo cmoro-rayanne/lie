@@ -10,8 +10,9 @@ function Hero() {
 
   useEffect(() => {
     const t = setTimeout(() => setLoaded(true), 80);
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const onMove = (e: MouseEvent) => {
-      if (!decoRef.current) return;
+      if (!decoRef.current || reduceMotion) return;
       const x = (e.clientX / window.innerWidth - 0.5) * 18;
       const y = (e.clientY / window.innerHeight - 0.5) * 10;
       decoRef.current.style.transform = `translate(-50%, -50%) translate(${x}px, ${y}px)`;
@@ -179,26 +180,28 @@ function Hero() {
               fontSize: 'var(--text-h2)',
               fontWeight: 300,
               lineHeight: 1.12,
-              color: 'var(--color-warm-900)',
               letterSpacing: '-0.01em',
-              ...fade('0.2s'),
             }}
           >
-            “Uma boa escuta pode ressignificar as
-          </h1>
-          <h1
-            style={{
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'var(--text-h2)',
-              fontWeight: 300,
-              lineHeight: 1.12,
-              color: 'transparent',
-              fontStyle: 'italic',
-              WebkitTextStroke: '1px rgba(30,26,23,0.9)',
-              ...fade('0.38s'),
-            }}
-          >
-            experiências vividas e as relações que construímos.”
+            <span
+              style={{
+                display: 'block',
+                color: 'var(--color-warm-900)',
+                ...fade('0.2s'),
+              }}
+            >
+              “Uma boa escuta pode ressignificar as
+            </span>
+            <span
+              style={{
+                display: 'block',
+                color: 'var(--color-warm-900)',
+                fontStyle: 'italic',
+                ...fade('0.38s'),
+              }}
+            >
+              experiências vividas e as relações que construímos.”
+            </span>
           </h1>
         </div>
         <div
@@ -260,7 +263,7 @@ function Hero() {
         <span
           style={{
             fontFamily: 'var(--font-sans)',
-            fontSize: '0.6rem',
+            fontSize: '0.72rem',
             letterSpacing: '0.26em',
             textTransform: 'uppercase',
           }}
