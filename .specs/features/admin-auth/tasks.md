@@ -736,11 +736,11 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] Erro com `field: 'password'` aparece no campo de senha
-- [ ] Erro 403 aparece no campo de código de convite
-- [ ] Erro 409 mostra `"Já existe uma conta com este e-mail"`
-- [ ] Sucesso (201) navega para `/admin`
-- [ ] Testes passam: `npm test -- src/admin/pages/SignupPage`
+- [x] Erro com `field: 'password'` aparece no campo de senha
+- [x] Erro 403 aparece no campo de código de convite
+- [x] Erro 409 mostra `"Já existe uma conta com este e-mail"`
+- [x] Sucesso (201) navega para `/admin`
+- [x] Testes passam: `npm test -- src/admin/pages/SignupPage`
 
 **Tests**: unit (`src/admin/pages/SignupPage.test.tsx`)
 **Gate**: quick
