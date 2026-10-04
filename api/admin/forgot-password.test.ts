@@ -118,4 +118,25 @@ describe('POST /api/admin/forgot-password', () => {
     expect(await res.json()).toMatchObject({ message: 'Informe um e-mail válido' });
     expect(resets).toHaveLength(0);
   });
+
+  it('banco indisponível responde 503 com mensagem genérica, sem detalhe técnico (AUTH-31)', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const { mailer } = fakeMailer();
+    const repo = createMemoryRepo();
+    const broken = {
+      ...repo,
+      findUserByEmail: async () => {
+        throw new Error('connection to db-host:5432 refused');
+      },
+    };
+    const POST = withErrors(
+      createForgotPasswordHandler({ repo: () => broken, mailer: () => mailer, appUrl: () => APP_URL }),
+    );
+    const res = await POST(forgotRequest({ email: EMAIL }));
+
+    expect(res.status).toBe(503);
+    const text = await res.text();
+    expect(JSON.parse(text)).toEqual({ message: 'Serviço temporariamente indisponível' });
+    expect(text).not.toContain('db-host');
+  });
 });

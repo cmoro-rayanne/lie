@@ -162,4 +162,23 @@ describe('POST /api/admin/reset-password', () => {
     expect(res.status).toBe(200);
     expect(await passwordOf(repo, NEW_PASSWORD)).toBe(true);
   });
+
+  it('banco indisponível responde 503 com mensagem genérica, sem detalhe técnico (AUTH-31)', async () => {
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    const { mailer } = fakeMailer();
+    const { repo } = await setup(mailer);
+    const broken: AdminRepo = {
+      ...repo,
+      resetPasswordTx: async () => {
+        throw new Error('connection to db-host:5432 refused');
+      },
+    };
+    const reset = withErrors(createResetPasswordHandler({ repo: () => broken, mailer: () => mailer }));
+    const res = await reset(resetRequest({ token: 'a'.repeat(43), password: NEW_PASSWORD }));
+
+    expect(res.status).toBe(503);
+    const text = await res.text();
+    expect(JSON.parse(text)).toEqual({ message: 'Serviço temporariamente indisponível' });
+    expect(text).not.toContain('db-host');
+  });
 });
