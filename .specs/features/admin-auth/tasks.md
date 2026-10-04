@@ -610,10 +610,10 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] Resposta 2xx retorna o corpo JSON tipado
-- [ ] Resposta não-2xx lança `ApiError` com `status` e `message` do corpo
-- [ ] `field` é preservado quando presente
-- [ ] Testes passam: `npm test -- src/admin/api`
+- [x] Resposta 2xx retorna o corpo JSON tipado
+- [x] Resposta não-2xx lança `ApiError` com `status` e `message` do corpo
+- [x] `field` é preservado quando presente
+- [x] Testes passam: `npm test -- src/admin/api`
 
 **Tests**: unit (`src/admin/api.test.ts`)
 **Gate**: quick
