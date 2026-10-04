@@ -471,14 +471,14 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] Cadastro válido responde 201, define `admin_session`, e o usuário gravado tem e-mail normalizado e senha em `scrypt$...` (AUTH-01, AUTH-06, AUTH-07)
-- [ ] Código errado responde 403 com `"Código de convite inválido"` e não cria usuário (AUTH-02)
-- [ ] E-mail já existente responde 409 com `"Já existe uma conta com este e-mail"` (AUTH-03)
-- [ ] Senha de 9 caracteres responde 400 com `field: 'password'` (AUTH-04)
-- [ ] Nome de 1 caractere responde 400 com `field: 'name'` (AUTH-05)
-- [ ] Após 5 códigos errados do mesmo IP, responde 429 (limite por IP, risco do design)
-- [ ] Erro do repositório responde 503 sem detalhe técnico (AUTH-31)
-- [ ] Testes passam: `npm test -- api/admin/signup`
+- [x] Cadastro válido responde 201, define `admin_session`, e o usuário gravado tem e-mail normalizado e senha em `scrypt$...` (AUTH-01, AUTH-06, AUTH-07)
+- [x] Código errado responde 403 com `"Código de convite inválido"` e não cria usuário (AUTH-02)
+- [x] E-mail já existente responde 409 com `"Já existe uma conta com este e-mail"` (AUTH-03)
+- [x] Senha de 9 caracteres responde 400 com `field: 'password'` (AUTH-04)
+- [x] Nome de 1 caractere responde 400 com `field: 'name'` (AUTH-05)
+- [x] Após 5 códigos errados do mesmo IP, responde 429 (limite por IP, risco do design)
+- [x] Erro do repositório responde 503 sem detalhe técnico (AUTH-31)
+- [x] Testes passam: `npm test -- api/admin/signup`
 
 **Tests**: integration (`api/admin/signup.test.ts`)
 **Gate**: full
