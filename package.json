@@ -12,6 +12,7 @@
     "test:watch": "vitest",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "db:migrate": "node scripts/db-migrate.mjs",
     "harness": "harness-score",
     "harness:gate": "harness-score --min-level 4",
     "harness:badge": "harness-score --badge badge.svg"
@@ -27,6 +28,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
+    "@neondatabase/serverless": "^1.2.0",
     "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.40.0",

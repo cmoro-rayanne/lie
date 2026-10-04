@@ -106,10 +106,10 @@ Execução estritamente sequencial. Um agente (ou worker de lote) faz uma task p
 - Skill: NONE
 
 **Done when**:
-- [ ] `npm install` conclui sem erro e `@neondatabase/serverless` aparece em `dependencies`
-- [ ] `.env.example` lista `DATABASE_URL`, `RESEND_API_KEY`, `APP_URL`, `ADMIN_INVITE_CODE`, `MAIL_FROM` sem valores reais
-- [ ] `.env` continua no `.gitignore`
-- [ ] Gate build passa
+- [x] `npm install` conclui sem erro e `@neondatabase/serverless` aparece em `dependencies`
+- [x] `.env.example` lista `DATABASE_URL`, `RESEND_API_KEY`, `APP_URL`, `ADMIN_INVITE_CODE`, `MAIL_FROM` sem valores reais
+- [x] `.env` continua no `.gitignore`
+- [x] Gate build passa
 
 **Tests**: none (config)
 **Gate**: build
