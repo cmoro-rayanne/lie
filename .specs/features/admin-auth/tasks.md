@@ -443,9 +443,9 @@ Execução estritamente sequencial. Um agente (ou worker de lote) faz uma task p
 - Skill: NONE
 
 **Done when**:
-- [ ] `npm run build` passa
-- [ ] `npx eslint server scripts` sem erro nos arquivos da fase
-- [ ] `npm test` passa, ou o relatório registra a falha de `server/repo` por `TEST_DATABASE_URL` ausente (bloqueio, não pulo)
+- [x] `npm run build` passa
+- [x] `npx eslint server scripts` sem erro nos arquivos da fase
+- [x] `npm test` passa, ou o relatório registra a falha de `server/repo` por `TEST_DATABASE_URL` ausente (bloqueio, não pulo)
 
 **Tests**: none (verificação de fase)
 **Gate**: build
@@ -584,9 +584,9 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] `npm run build` passa
-- [ ] `npx eslint api server` sem erro nos arquivos da fase
-- [ ] `npm test` passa, ou o relatório registra a falha de `server/repo` por `TEST_DATABASE_URL` ausente
+- [x] `npm run build` passa
+- [x] `npx eslint api server` sem erro nos arquivos da fase
+- [x] `npm test` passa, ou o relatório registra a falha de `server/repo` por `TEST_DATABASE_URL` ausente
 
 **Tests**: none (verificação de fase)
 **Gate**: build
