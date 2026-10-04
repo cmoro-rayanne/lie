@@ -131,11 +131,11 @@ Execução estritamente sequencial. Um agente (ou worker de lote) faz uma task p
 - Skill: NONE
 
 **Done when**:
-- [ ] `users.email` é `unique` e `check (email = lower(email))`
-- [ ] `sessions` e `password_reset_tokens` têm `on delete cascade` para `users`
-- [ ] `failed_logins` tem índice em `(key, attempted_at)`
-- [ ] `scripts/db-migrate.mjs` lê `DATABASE_URL` e falha com mensagem clara se ausente
-- [ ] Gate build passa
+- [x] `users.email` é `unique` e `check (email = lower(email))`
+- [x] `sessions` e `password_reset_tokens` têm `on delete cascade` para `users`
+- [x] `failed_logins` tem índice em `(key, attempted_at)`
+- [x] `scripts/db-migrate.mjs` lê `DATABASE_URL` e falha com mensagem clara se ausente
+- [x] Gate build passa
 
 **Tests**: none (schema)
 **Gate**: build
