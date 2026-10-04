@@ -660,10 +660,10 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] Com `me` 200, `status` vira `'in'` e expõe `user`
-- [ ] Com `me` 401, `status` vira `'out'`
-- [ ] `logout()` chama `POST /api/admin/logout` e muda `status` para `'out'`
-- [ ] Testes passam: `npm test -- src/admin/auth`
+- [x] Com `me` 200, `status` vira `'in'` e expõe `user`
+- [x] Com `me` 401, `status` vira `'out'`
+- [x] `logout()` chama `POST /api/admin/logout` e muda `status` para `'out'`
+- [x] Testes passam: `npm test -- src/admin/auth`
 
 **Tests**: unit (`src/admin/auth.test.tsx`)
 **Gate**: quick
