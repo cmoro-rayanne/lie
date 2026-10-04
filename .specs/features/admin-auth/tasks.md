@@ -838,11 +838,11 @@ Cada rota exporta `POST` (ou `GET`) em Web-standard. Lógica injetável para tes
 - Skill: NONE
 
 **Done when**:
-- [ ] `AdminApp` em `/admin/entrar` renderiza a tela de login
-- [ ] `src/main.tsx` não importa `AdminApp` estaticamente
-- [ ] `vercel.json` contém a regra `/((?!api/).*)` → `/index.html`
-- [ ] Build gera chunk separado para o painel em `dist/assets`
-- [ ] Testes passam: `npm test -- src/admin/AdminApp`
+- [x] `AdminApp` em `/admin/entrar` renderiza a tela de login
+- [x] `src/main.tsx` não importa `AdminApp` estaticamente
+- [x] `vercel.json` contém a regra `/((?!api/).*)` → `/index.html`
+- [x] Build gera chunk separado para o painel em `dist/assets`
+- [x] Testes passam: `npm test -- src/admin/AdminApp`
 
 **Tests**: unit (`src/admin/AdminApp.test.tsx`)
 **Gate**: build
