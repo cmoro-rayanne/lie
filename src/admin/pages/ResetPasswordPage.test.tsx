@@ -27,7 +27,7 @@ function submitPassword(password: string) {
 }
 
 beforeEach(() => {
-  window.history.replaceState(null, '', `/admin/redefinir-senha?token=${TOKEN}`);
+  window.history.replaceState(null, '', `/admin/redefinir-senha#token=${TOKEN}`);
 });
 
 afterEach(() => {
@@ -41,6 +41,7 @@ describe('ResetPasswordPage (/admin/redefinir-senha)', () => {
     render(<ResetPasswordPage />);
 
     expect(window.location.search).not.toContain('token');
+    expect(window.location.hash).toBe('');
     expect(window.location.href).not.toContain(TOKEN);
     expect(window.location.pathname).toBe('/admin/redefinir-senha');
   });

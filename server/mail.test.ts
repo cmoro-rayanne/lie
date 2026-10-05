@@ -2,7 +2,7 @@
 import { describe, expect, it, vi } from 'vitest';
 import { createMailer } from './mail';
 
-const LINK = 'https://ilelino.example/admin/redefinir-senha?token=TOKEN-DE-TESTE';
+const LINK = 'https://ilelino.example/admin/redefinir-senha#token=TOKEN-DE-TESTE';
 const CONFIG = { apiKey: 're_chave_teste', from: 'Ilê <nao-responda@ilelino.example>' };
 
 function setup(status = 200) {

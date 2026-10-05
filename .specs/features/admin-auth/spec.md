@@ -114,7 +114,7 @@ O site é uma landing estática sem backend, então não há como a psicóloga g
 **Acceptance Criteria**:
 
 1. WHEN um e-mail é enviado em "Esqueci minha senha" THEN the system SHALL responder HTTP 200 com a mensagem "Se o e-mail estiver cadastrado, você receberá um link em instantes" independentemente de a conta existir.
-2. IF a conta existe THEN the system SHALL gerar token de redefinição, gravar seu hash com validade de 30 minutos e enviar e-mail contendo o link `APP_URL/admin/redefinir-senha?token=<token>`.
+2. IF a conta existe THEN the system SHALL gerar token de redefinição, gravar seu hash com validade de 30 minutos e enviar e-mail contendo o link `APP_URL/admin/redefinir-senha#token=<token>`.
 3. IF já existe token ativo para a conta THEN the system SHALL invalidá-lo antes de criar o novo.
 4. IF o envio do e-mail falhar THEN the system SHALL registrar o erro no log do servidor e ainda responder HTTP 200 com a mesma mensagem, sem vazar o erro ao cliente.
 5. IF o e-mail não tiver formato válido THEN the system SHALL responder HTTP 400 com a mensagem "Informe um e-mail válido".
@@ -135,7 +135,7 @@ O site é uma landing estática sem backend, então não há como a psicóloga g
 2. IF o token não existe, já foi usado ou expirou THEN the system SHALL responder HTTP 410 com a mensagem "Este link não é mais válido. Solicite um novo" e não alterar a senha.
 3. IF a nova senha não atende às regras (mínimo 10 caracteres, letra e número) THEN the system SHALL responder HTTP 400 e manter o token válido para nova tentativa.
 4. WHEN a senha é redefinida THEN the system SHALL enviar e-mail informando a alteração; falha no envio não desfaz a redefinição.
-5. WHEN a página `/admin/redefinir-senha` é carregada THEN the client SHALL ler o token do parâmetro `token` da URL, remover o parâmetro da barra de endereço com `history.replaceState` e enviá-lo somente no corpo do POST; the system SHALL NOT registrar a URL completa com token em logs de requisição.
+5. WHEN a página `/admin/redefinir-senha` é carregada THEN the client SHALL ler o token do fragmento da URL (`#token=<token>`), remover o fragmento da barra de endereço com `history.replaceState` e enviá-lo somente no corpo do POST; the system SHALL NOT registrar a URL completa com token em logs de requisição.
 
 **Independent Test**: Usar o link uma vez com sucesso; tentar usar de novo e ver 410.
 

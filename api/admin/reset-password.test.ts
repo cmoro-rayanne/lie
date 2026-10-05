@@ -54,7 +54,7 @@ async function requestToken(forgot: (r: Request) => Promise<Response>, resets: A
       body: JSON.stringify({ email: EMAIL }),
     }),
   );
-  return new URL(resets[resets.length - 1].link).searchParams.get('token') ?? '';
+  return new URLSearchParams(new URL(resets[resets.length - 1].link).hash.slice(1)).get('token') ?? '';
 }
 
 function resetRequest(body: unknown): Request {

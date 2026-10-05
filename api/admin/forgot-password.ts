@@ -36,7 +36,7 @@ export function createForgotPasswordHandler(deps: ForgotDeps) {
         expiresAt: new Date(now.getTime() + TOKEN_TTL_MS),
       });
       try {
-        await mailer.sendPasswordReset(user.email, user.name, `${appUrl}/admin/redefinir-senha?token=${token}`);
+        await mailer.sendPasswordReset(user.email, user.name, `${appUrl}/admin/redefinir-senha#token=${token}`);
       } catch (error) {
         console.error(error);
       }

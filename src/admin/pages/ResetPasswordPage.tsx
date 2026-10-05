@@ -59,8 +59,9 @@ const linkStyle: CSSProperties = {
 
 export function ResetPasswordPage() {
   const { Input, Button } = window.ElianaLinoDesignSystem_6994f2;
-  // O token é lido uma vez, na montagem, e a URL é limpa logo depois.
-  const [token] = useState<string | null>(() => new URLSearchParams(window.location.search).get('token'));
+  // O token vem no fragmento (#token=...), que não é enviado ao servidor nem costuma entrar em logs.
+  // É lido uma vez, na montagem, e a URL é limpa logo depois.
+  const [token] = useState<string | null>(() => new URLSearchParams(window.location.hash.slice(1)).get('token'));
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState<string | undefined>(undefined);
   const [generalError, setGeneralError] = useState<string | null>(null);

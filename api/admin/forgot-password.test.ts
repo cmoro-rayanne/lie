@@ -47,7 +47,7 @@ function forgotRequest(body: unknown): Request {
 }
 
 function tokenFrom(link: string): string {
-  return new URL(link).searchParams.get('token') ?? '';
+  return new URLSearchParams(new URL(link).hash.slice(1)).get('token') ?? '';
 }
 
 describe('POST /api/admin/forgot-password', () => {
@@ -74,7 +74,7 @@ describe('POST /api/admin/forgot-password', () => {
     const res = await POST(forgotRequest({ email: EMAIL }));
 
     expect(res.status).toBe(200);
-    expect(resets[0].link).toMatch(new RegExp(`^${APP_URL}/admin/redefinir-senha\\?token=[A-Za-z0-9_-]+$`));
+    expect(resets[0].link).toMatch(new RegExp(`^${APP_URL}/admin/redefinir-senha#token=[A-Za-z0-9_-]+$`));
     const token = tokenFrom(resets[0].link);
     expect(Buffer.from(token, 'base64url').length).toBe(32);
 
