@@ -207,3 +207,22 @@ Cópia isolada em `git worktree --detach` a partir de `8556370`, `node_modules` 
 **Issues found**: gaps 1 a 3. Os dois sobreviventes (M7, M8) e a falta de teste para o `x-forwarded-for` são o que impede PASS. Os ACs de SQL real são aceitos com base na prova do worker, sem reexecução aqui.
 
 **Next steps**: (1) decidir o formato do link de redefinição e a cláusula de URL (gap 1); (2) testes de fiação dos exports `POST`/`GET` (gap 2); (3) confirmar o cabeçalho de IP da Vercel e testar com cabeçalho forjado (gap 3); (4) teste de SQL real para `replaceResetToken` (gap 4); (5) rodar `npm run build` e `npx eslint` no `HEAD`; (6) re-verificar. O veredito esperado depois dos gaps 1 a 3 é PASS, com os ACs de banco dependendo da prova do worker.
+
+---
+
+## Status após correções (2026-10-05)
+
+| Gap | Status | Commit |
+| --- | ------ | ------ |
+| 1. AUTH-29, URL com token em log | Fechado: token movido para o fragmento `#token=`; teste de URL fora dos logs | `be0fd40`, `3423f0c` |
+| 2. AUTH-31, fiação 503 | Fechado: testes pelos exports reais das rotas | `3bd7fa5` |
+| 3. `x-forwarded-for` forjável | Código corrigido (último IP); falta confirmar na Vercel que o cabeçalho é sobrescrito | `814d53b` |
+| 4. AUTH-22, SQL real de `replaceResetToken` | Teste existe em `server/repo/neon.test.ts`, mas não foi executado (sem `TEST_DATABASE_URL` nesta sessão) | — |
+| 5. AUTH-04, mensagens exatas | Fechado: asserções por igualdade | `47ac7e2` |
+| 6. Env ausente diverge da spec | Fechado: falha na inicialização com nome da variável | `66b2a20` |
+| 7. AUTH-12, sem renovação deslizante | Fechado | `d603355` |
+| 8. AUTH-17, duas strings | Fechado | `d603355` |
+| 9. Drift de `tasks.md` | Fechado | `95264c6` |
+| 10. Build e lint não rodados | Fechado: `npm run build` e `npm run lint` passam | — |
+
+**Pendências:** gap 3 depende de confirmar o cabeçalho da Vercel em produção; gap 4 depende de rodar `server/repo/neon.test.ts` com um banco de teste.
