@@ -87,7 +87,7 @@ describe('POST /api/admin/signup', () => {
     expect(res.status).toBe(400);
     const body = (await res.json()) as { message: string; field: string };
     expect(body.field).toBe('password');
-    expect(body.message).toContain('10 caracteres');
+    expect(body.message).toBe('A senha deve ter pelo menos 10 caracteres');
     expect(await repo.findUserByEmail('eliana@exemplo.com')).toBeNull();
   });
 
@@ -98,7 +98,7 @@ describe('POST /api/admin/signup', () => {
     expect(res.status).toBe(400);
     const body = (await res.json()) as { message: string; field: string };
     expect(body.field).toBe('password');
-    expect(body.message).toContain('letra e número');
+    expect(body.message).toBe('A senha deve conter letra e número');
   });
 
   it('nome de 1 caractere responde 400 com field name (AUTH-05)', async () => {
