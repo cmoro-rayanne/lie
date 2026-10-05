@@ -205,4 +205,33 @@ describe('POST /api/admin/reset-password', () => {
       .join('\n');
     expect(logged).not.toContain(token);
   });
+
+  it('a URL com ?token= não aparece em nenhum log do servidor no caminho de erro (AUTH-29)', async () => {
+    const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const logSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    const { mailer } = fakeMailer();
+    const { repo } = await setup(mailer);
+    const { token } = newToken();
+    const broken: AdminRepo = {
+      ...repo,
+      resetPasswordTx: async () => {
+        throw new Error('connection to db-host:5432 refused');
+      },
+    };
+    const reset = withErrors(createResetPasswordHandler({ repo: () => broken, mailer: () => mailer }));
+    const request = new Request(`https://ilelino.example/api/admin/reset-password?token=${token}`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ token, password: NEW_PASSWORD }),
+    });
+    const res = await reset(request);
+
+    expect(res.status).toBe(503);
+    const logged = [...errorSpy.mock.calls, ...logSpy.mock.calls]
+      .flat()
+      .map((arg) => (arg instanceof Error ? `${arg.message}\n${arg.stack ?? ''}` : String(arg)))
+      .join('\n');
+    expect(logged).not.toContain(token);
+    expect(logged).not.toContain('?token=');
+  });
 });
