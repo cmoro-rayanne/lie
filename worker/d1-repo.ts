@@ -1,4 +1,12 @@
-import type { AttemptsRepo, ContentRepo, ContentState, HistoryItem, Publisher } from './ports';
+import type {
+  AccountRepo,
+  AccountRow,
+  AttemptsRepo,
+  ContentRepo,
+  ContentState,
+  HistoryItem,
+  Publisher,
+} from './ports';
 
 const HISTORY_KEEP = 30;
 
@@ -108,5 +116,67 @@ export class DeployHookPublisher implements Publisher {
     if (!this.url) return false;
     const res = await fetch(this.url, { method: 'POST', signal: AbortSignal.timeout(8000) });
     return res.ok;
+  }
+}
+
+export class D1AccountRepo implements AccountRepo {
+  constructor(private readonly db: D1Database) {}
+
+  async get(): Promise<AccountRow | null> {
+    const r = await this.db
+      .prepare('SELECT name, email, password_hash, password_salt FROM admin_account WHERE id = 1')
+      .first<{
+        name: string;
+        email: string | null;
+        password_hash: string | null;
+        password_salt: string | null;
+      }>();
+    if (!r) return null;
+    return {
+      name: r.name,
+      email: r.email,
+      passwordHash: r.password_hash,
+      passwordSalt: r.password_salt,
+    };
+  }
+
+  async saveProfile(name: string, email: string | null, nowMs: number): Promise<void> {
+    await this.db
+      .prepare(
+        'INSERT INTO admin_account (id, name, email, updated_at) VALUES (1, ?1, ?2, ?3) ON CONFLICT (id) DO UPDATE SET name = ?1, email = ?2, updated_at = ?3',
+      )
+      .bind(name, email, nowMs)
+      .run();
+  }
+
+  /** Senha nova encerra também os pedidos de redefinição pendentes. */
+  async savePassword(hash: string, salt: string, nowMs: number): Promise<void> {
+    await this.db.batch([
+      this.db
+        .prepare(
+          "INSERT INTO admin_account (id, name, password_hash, password_salt, updated_at) VALUES (1, '', ?1, ?2, ?3) ON CONFLICT (id) DO UPDATE SET password_hash = ?1, password_salt = ?2, updated_at = ?3",
+        )
+        .bind(hash, salt, nowMs),
+      this.db.prepare('DELETE FROM password_resets'),
+    ]);
+  }
+
+  async createReset(tokenHash: string, expiresAtMs: number): Promise<void> {
+    await this.db.batch([
+      this.db.prepare('DELETE FROM password_resets'),
+      this.db
+        .prepare('INSERT INTO password_resets (token_hash, expires_at) VALUES (?1, ?2)')
+        .bind(tokenHash, expiresAtMs),
+    ]);
+  }
+
+  async consumeReset(tokenHash: string, nowMs: number): Promise<boolean> {
+    const r = await this.db
+      .prepare(
+        'UPDATE password_resets SET used_at = ?2 WHERE token_hash = ?1 AND used_at IS NULL AND expires_at > ?2 RETURNING token_hash',
+      )
+      .bind(tokenHash, nowMs)
+      .first<{ token_hash: string }>();
+    return r !== null;
   }
 }
