@@ -28,6 +28,9 @@ jobs:
       - name: Type check and build
         run: npm run build
 
+      - name: Type check worker
+        run: npm run typecheck:worker
+
       - name: Run unit tests
         run: npm test
 

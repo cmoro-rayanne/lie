@@ -1,4 +1,5 @@
 import 'react';
+import { content } from '../../content';
 
 function Quote() {
   return (
@@ -68,7 +69,7 @@ function Quote() {
             margin: '0 0 32px',
           }}
         >
-          O autoconhecimento é a viagem mais corajosa que um ser humano pode fazer.
+          {content.quote.text}
         </blockquote>
         <p
           style={{
@@ -80,7 +81,7 @@ function Quote() {
             color: 'rgba(192,169,130,0.6)',
           }}
         >
-          — Eliana Lino · Psicóloga Clínica
+          — {content.quote.author}
         </p>
       </div>
     </section>

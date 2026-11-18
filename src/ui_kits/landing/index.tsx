@@ -13,12 +13,10 @@ import Footer, { WhatsAppFab } from './Footer';
 
 // Import design system CSS
 import '../../styles.css';
-import { Analytics } from '@vercel/analytics/react';
 
 export default function LandingPage() {
   return (
     <>
-      <Analytics />
       <style>{`
         body { background: var(--bg-page); }
         @media (max-width: 860px) {

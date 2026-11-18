@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
+import { content } from '../../content';
+import { Emphasis } from '../../content/Emphasis';
 
 type Area = {
   num: string;
@@ -9,29 +11,10 @@ type Area = {
   body: string;
 };
 
-const AREAS: Area[] = [
-  {
-    num: '01',
-    title: 'Jornada Individual',
-    subtitle: 'Desenvolvimento e Maturidade',
-    lead: 'Acompanhamento individual para adolescentes, jovens e adultos em processos de autoconhecimento, amadurecimento e transformação.',
-    body: 'Um espaço para reconhecer padrões, conflitos e bloqueios, fortalecer a relação consigo mesmo e encontrar formas mais autênticas de se expressar e viver.',
-  },
-  {
-    num: '02',
-    title: 'Pathwork',
-    subtitle: 'Grupos de Consciência para Adultos e Jovens',
-    lead: 'Grupos de autoconhecimento inspirados nos ensinamentos do Pathwork de Eva Pierrakos.',
-    body: 'Um espaço para investigar emoções, padrões, conflitos e resistências, ampliando a consciência e desenvolvendo mais verdade, presença e autorresponsabilidade.',
-  },
-  {
-    num: '03',
-    title: 'O Despertar do Feminino',
-    subtitle: 'Corpo · Ciclos · Linhagem · Essência',
-    lead: 'Um espaço para mulheres que desejam se reconectar com seu corpo, seus ciclos, sua força e sua verdade interior.',
-    body: 'Uma jornada que integra limpeza do ventre, reconexão com o feminino e constelação familiar, favorecendo um olhar consciente sobre histórias, vínculos e padrões que atravessam a experiência feminina.',
-  },
-];
+const AREAS: Area[] = content.areas.items.map((item, i) => ({
+  num: String(i + 1).padStart(2, '0'),
+  ...item,
+}));
 
 /* ------------------------------------------------------------------
    Modal com o texto completo da área
@@ -257,9 +240,8 @@ function Atuacao() {
             transition: 'opacity .9s ease, transform .9s ease',
           }}
         >
-          <SectionHeading align="center" eyebrow="Áreas de Atuação">
-            Como posso <em style={{ color: 'var(--accent)', fontStyle: 'italic' }}>caminhar</em> ao
-            seu lado
+          <SectionHeading align="center" eyebrow={content.areas.eyebrow}>
+            <Emphasis text={content.areas.title} />
           </SectionHeading>
         </div>
 

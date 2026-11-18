@@ -22,3 +22,19 @@ Object.defineProperty(globalThis, 'IntersectionObserver', {
   configurable: true,
   value: MockIntersectionObserver,
 });
+
+// jsdom não implementa matchMedia (usado no Hero para respeitar "reduzir movimento").
+Object.defineProperty(window, 'matchMedia', {
+  writable: true,
+  configurable: true,
+  value: (query: string) => ({
+    matches: false,
+    media: query,
+    onchange: null,
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  }),
+});

@@ -14,7 +14,8 @@
     "format:check": "prettier --check .",
     "harness": "harness-score",
     "harness:gate": "harness-score --min-level 4",
-    "harness:badge": "harness-score --badge badge.svg"
+    "harness:badge": "harness-score --badge badge.svg",
+    "typecheck:worker": "tsc -p worker/tsconfig.json"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
@@ -27,7 +28,6 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^5.4.0",
-    "@vercel/speed-insights": "^2.0.0",
     "clsx": "^2.1.1",
     "framer-motion": "^12.40.0",
     "lucide-react": "^1.22.0",
@@ -38,13 +38,13 @@
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20261118.1",
     "@eslint/js": "^10.0.1",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.3",
     "@types/node": "^24.12.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "@vercel/analytics": "^2.0.1",
     "@vitejs/plugin-react": "^6.0.1",
     "autoprefixer": "^10.5.0",
     "eslint": "^10.3.0",
@@ -60,7 +60,8 @@
     "typescript": "~6.0.2",
     "typescript-eslint": "^8.59.2",
     "vite": "^8.0.12",
-    "vitest": "^5.0.1"
+    "vitest": "^5.0.1",
+    "wrangler": "^4.164.0"
   },
   "engines": {
     "node": ">=24.0.0"
