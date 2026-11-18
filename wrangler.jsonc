@@ -1,0 +1,22 @@
+{
+  // Site estático + painel de conteúdo (docs/specs/0001-painel-conteudo.md).
+  // Build: npm run build · Deploy: npx wrangler deploy
+  "name": "elianalino-site",
+  "main": "worker/index.ts",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+    // Só a API e as fotos passam pelo código; o resto continua estático.
+    "run_worker_first": ["/api/*", "/img/*"],
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "elianalino-conteudo",
+      "database_id": "c5f076cf-7f87-475a-8cc3-82fa36217052",
+      "migrations_dir": "migrations",
+    },
+  ],
+  "r2_buckets": [{ "binding": "IMAGENS", "bucket_name": "elianalino-imagens" }],
+}
