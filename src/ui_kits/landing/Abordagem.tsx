@@ -1,19 +1,6 @@
 import 'react';
-
-const STEPS = [
-  {
-    title: 'Olhar Integral',
-    text: 'A experiência clínica me ensinou que o ser humano deve ser compreendido em sua totalidade. Cada atendimento respeita a sua história singular, seus recursos atuais e seu ritmo de desenvolvimento.',
-  },
-  {
-    title: 'Bases e Abordagens',
-    text: 'Minha prática profissional integra diferentes campos de estudo que sustentam e dão profundidade ao trabalho: a Gestalt-terapia, a Psicologia Corporal, a Psicologia Transpessoal, a Constelação Familiar e o Pathwork.',
-  },
-  {
-    title: 'A Inspiração do Pathwork',
-    text: 'Uma das grandes bases deste percurso é a visão de desenvolvimento baseada na integração das diferentes dimensões da personalidade e no encontro com a sua verdade interior.',
-  },
-];
+import { content } from '../../content';
+import { Emphasis } from '../../content/Emphasis';
 
 function Abordagem() {
   const { Card, SectionHeading } = window.ElianaLinoDesignSystem_6994f2;
@@ -36,8 +23,8 @@ function Abordagem() {
             transition: 'opacity .9s ease, transform .9s ease',
           }}
         >
-          <SectionHeading align="center" eyebrow="Abordagem Terapêutica">
-            O Caminho de <em style={{ color: 'var(--accent)', fontStyle: 'italic' }}>Integração</em>
+          <SectionHeading align="center" eyebrow={content.approach.eyebrow}>
+            <Emphasis text={content.approach.title} />
           </SectionHeading>
           <p
             style={{
@@ -48,7 +35,7 @@ function Abordagem() {
               marginTop: '16px',
             }}
           >
-            Mente, corpo, emoções e espiritualidade caminham juntos.
+            {content.approach.subtitle}
           </p>
         </div>
 
@@ -57,9 +44,9 @@ function Abordagem() {
           className="about-grid"
           style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '32px' }}
         >
-          {STEPS.map((s, i) => (
+          {content.approach.cards.map((s, i) => (
             <div
-              key={s.title}
+              key={i}
               style={{
                 opacity: inView ? 1 : 0,
                 transform: inView ? 'translateY(0)' : 'translateY(40px)',

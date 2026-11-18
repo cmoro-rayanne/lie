@@ -1,5 +1,7 @@
 import 'react';
 import sobreEliana from '../../assets/fotos/web/IMG_1486-web.jpg';
+import { content } from '../../content';
+import { Emphasis } from '../../content/Emphasis';
 
 function About() {
   const { SectionHeading, Divider } = window.ElianaLinoDesignSystem_6994f2;
@@ -40,8 +42,8 @@ function About() {
             }}
           >
             <img
-              src={sobreEliana}
-              alt="Eliana Lino"
+              src={content.images.about.src ?? sobreEliana}
+              alt={content.images.about.alt}
               style={{
                 width: '100%',
                 height: '100%',
@@ -86,9 +88,8 @@ function About() {
             transition: 'opacity 1s ease .2s, transform 1s var(--ease-out-expo) .2s',
           }}
         >
-          <SectionHeading eyebrow="Sobre mim">
-            Uma escuta para a{' '}
-            <em style={{ color: 'var(--accent)', fontStyle: 'italic' }}>sua totalidade</em>
+          <SectionHeading eyebrow={content.about.eyebrow}>
+            <Emphasis text={content.about.title} />
           </SectionHeading>
           <p
             style={{
@@ -98,35 +99,24 @@ function About() {
               margin: '16px 0 28px',
             }}
           >
-            Olhar para a história com presença e acolhimento.
+            {content.about.subtitle}
           </p>
           <Divider className={inView ? 'animate-line-grow' : ''} style={{ marginBottom: 28 }} />
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '1rem',
-              fontWeight: 300,
-              lineHeight: 1.9,
-              color: 'var(--text-body)',
-              marginBottom: 20,
-            }}
-          >
-            Sou psicóloga clínica e acompanho pessoas em processos de autoconhecimento,
-            desenvolvimento emocional e transformação pessoal. Acredito que cada pessoa possui uma
-            sabedoria interna capaz de orientar seu próprio caminho de crescimento.
-          </p>
-          <p
-            style={{
-              fontFamily: 'var(--font-sans)',
-              fontSize: '1rem',
-              fontWeight: 300,
-              lineHeight: 1.9,
-              color: 'var(--text-body)',
-            }}
-          >
-            Meu papel é oferecer um espaço seguro de escuta, presença e investigação para que todas
-            as suas dimensões sejam reconhecidas, compreendidas e integradas no seu próprio ritmo.
-          </p>
+          {content.about.paragraphs.map((text, i, all) => (
+            <p
+              key={i}
+              style={{
+                fontFamily: 'var(--font-sans)',
+                fontSize: '1rem',
+                fontWeight: 300,
+                lineHeight: 1.9,
+                color: 'var(--text-body)',
+                marginBottom: i < all.length - 1 ? 20 : undefined,
+              }}
+            >
+              {text}
+            </p>
+          ))}
         </div>
       </div>
     </section>

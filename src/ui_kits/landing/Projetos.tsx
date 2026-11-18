@@ -1,5 +1,7 @@
 import 'react';
 import projetosImg from '../../assets/fotos/web/IMG_1390-web.jpg';
+import { content } from '../../content';
+import { Emphasis } from '../../content/Emphasis';
 
 function Projetos() {
   const { SectionHeading, Divider } = window.ElianaLinoDesignSystem_6994f2;
@@ -84,9 +86,8 @@ function Projetos() {
                 'opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 1s cubic-bezier(0.16, 1, 0.3, 1)',
             }}
           >
-            <SectionHeading eyebrow="Projetos Criativos">
-              Expressão e{' '}
-              <em style={{ color: 'var(--accent)', fontStyle: 'italic' }}>Criatividade</em>
+            <SectionHeading eyebrow={content.projects.eyebrow}>
+              <Emphasis text={content.projects.title} />
             </SectionHeading>
 
             <p
@@ -97,40 +98,26 @@ function Projetos() {
                 margin: '16px 0 24px',
               }}
             >
-              Instrumentos que ampliam a reflexão e o autoconhecimento.
+              {content.projects.subtitle}
             </p>
 
             <Divider className={inView ? 'animate-line-grow' : ''} style={{ marginBottom: 28 }} />
 
-            <p
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '1rem',
-                fontWeight: 300,
-                lineHeight: 1.85,
-                color: 'var(--text-body)',
-                marginBottom: 20,
-              }}
-            >
-              A dimensão criativa é parte fundamental da minha forma de trabalhar. Sou autora de um
-              livro que narra o diálogo sensível entre uma menina indígena e seu avô à beira do rio
-              sobre a vida — um convite para reencontrar a criança interior que habita em cada um de
-              nós.
-            </p>
-
-            <p
-              style={{
-                fontFamily: 'var(--font-sans)',
-                fontSize: '1rem',
-                fontWeight: 300,
-                lineHeight: 1.85,
-                color: 'var(--text-body)',
-              }}
-            >
-              Dessa veia artística nasceram também um livro de poesias e outras ferramentas
-              terapêuticas coletivas, como cartas e um caderno de revisão diária, criados para
-              expandir os processos de expressão e cura.
-            </p>
+            {content.projects.paragraphs.map((text, i, all) => (
+              <p
+                key={i}
+                style={{
+                  fontFamily: 'var(--font-sans)',
+                  fontSize: '1rem',
+                  fontWeight: 300,
+                  lineHeight: 1.85,
+                  color: 'var(--text-body)',
+                  marginBottom: i < all.length - 1 ? 20 : undefined,
+                }}
+              >
+                {text}
+              </p>
+            ))}
           </div>
 
           {/* Right Column: Floating Artwork Mockup */}
@@ -157,8 +144,8 @@ function Projetos() {
               }}
             >
               <img
-                src={projetosImg}
-                alt="Eliana Lino segurando seu livro Sol, Lua, Sol, Lua"
+                src={content.images.projects.src ?? projetosImg}
+                alt={content.images.projects.alt}
                 style={{
                   width: '100%',
                   height: '100%',

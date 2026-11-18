@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Logo } from '../../components/brand/Logo';
+import { content } from '../../content';
 
 function Hero() {
   const { Button } = window.ElianaLinoDesignSystem_6994f2;
@@ -165,7 +166,7 @@ function Hero() {
             ...fade('0.1s'),
           }}
         >
-          Psicologia Clínica · Autoconhecimento · Consciência
+          {content.hero.eyebrow}
         </p>
         <div
           style={
@@ -190,7 +191,7 @@ function Hero() {
                 ...fade('0.2s'),
               }}
             >
-              “Uma boa escuta pode ressignificar as
+              {content.hero.title}
             </span>
             <span
               style={{
@@ -200,7 +201,7 @@ function Hero() {
                 ...fade('0.38s'),
               }}
             >
-              experiências vividas e as relações que construímos.”
+              {content.hero.titleItalic}
             </span>
           </h1>
         </div>
@@ -227,8 +228,7 @@ function Hero() {
             ...fade('0.65s'),
           }}
         >
-          Um espaço de escuta, presença e investigação para que você reconheça, compreenda e integre
-          suas dimensões no seu próprio ritmo.
+          {content.hero.text}
         </p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', ...fade('0.82s') }}>
           <Button variant="primary" size="lg" href="#sobre">

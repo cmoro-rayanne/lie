@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import gruposImg from '../../assets/fotos/web/IMG_1131-web.jpg';
+import { content } from '../../content';
+import { Emphasis } from '../../content/Emphasis';
 
 function Grupos() {
   // const { SectionHeading } = window.ElianaLinoDesignSystem_6994f2;
@@ -96,8 +98,8 @@ function Grupos() {
               }}
             >
               <img
-                src={gruposImg}
-                alt="Eliana Lino sentada no chão com cartas terapêuticas dispostas à sua frente"
+                src={content.images.groups.src ?? gruposImg}
+                alt={content.images.groups.alt}
                 style={{
                   width: '100%',
                   height: '100%',
@@ -156,7 +158,7 @@ function Grupos() {
                   marginBottom: 20,
                 }}
               >
-                Grupos Terapêuticos
+                {content.groups.eyebrow}
               </p>
 
               {/* Main Title */}
@@ -170,16 +172,14 @@ function Grupos() {
                   margin: '0 0 16px',
                 }}
               >
-                Espaços de{' '}
-                <em
-                  style={{
+                <Emphasis
+                  text={content.groups.title}
+                  emStyle={{
                     color: 'var(--color-sand-100)',
                     fontStyle: 'italic',
                     fontFamily: 'var(--font-serif)',
                   }}
-                >
-                  Partilha
-                </em>
+                />
               </h2>
 
               {/* Subtitle */}
@@ -193,7 +193,7 @@ function Grupos() {
                   maxWidth: 600,
                 }}
               >
-                O poder do encontro e da experiência compartilhada.
+                {content.groups.subtitle}
               </p>
             </div>
 
@@ -236,10 +236,7 @@ function Grupos() {
                   margin: 0,
                 }}
               >
-                Além dos atendimentos individuais, facilito grupos de desenvolvimento humano e
-                autoconhecimento. Nesses espaços, a experiência compartilhada possibilita encontros
-                profundos consigo mesmo e com os outros, ampliando a consciência, a autenticidade e
-                a capacidade de construir relações mais verdadeiras.
+                {content.groups.text}
               </p>
             </div>
           </div>

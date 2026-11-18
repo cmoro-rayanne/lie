@@ -1,16 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import ctaImg from '../../assets/fotos/web/IMG_1108-web.jpg';
-
-// Número que recebe as mensagens do formulário (formato internacional, só dígitos).
-const WHATSAPP_NUMBER = '5548999212332';
+import { content, whatsappUrl } from '../../content';
 
 const SUBJECTS = [
   { value: '', label: 'Assunto — por onde começar?' },
-  { value: 'ansiedade', label: 'Ansiedade ou estresse' },
-  { value: 'autoconhecimento', label: 'Autoconhecimento' },
-  { value: 'transicao', label: 'Transição de vida / carreira' },
-  { value: 'feminino', label: 'O despertar do feminino' },
-  { value: 'outro', label: 'Outro assunto' },
+  ...content.contact.subjects.map((label) => ({ value: label, label })),
 ];
 
 // --- Validação de conteúdo ---
@@ -99,7 +93,7 @@ function Contact() {
   const buildMessage = () => {
     const subjectLabel = SUBJECTS.find((s) => s.value === subject)?.label || subject;
     const lines = [
-      'Olá, Eliana! Vim pelo site.',
+      content.contact.waGreeting,
       '',
       `*Nome:* ${name.trim()}`,
       `*Assunto:* ${subjectLabel}`,
@@ -120,7 +114,7 @@ function Contact() {
       return;
     }
 
-    const url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(buildMessage())}`;
+    const url = `${whatsappUrl}?text=${encodeURIComponent(buildMessage())}`;
     setWaUrl(url);
 
     // Chamada síncrona dentro do handler do submit — o navegador trata como
@@ -144,14 +138,14 @@ function Contact() {
       label: 'Telefone / WhatsApp',
       value: (
         <a
-          href="https://wa.me/5548999212332"
+          href={whatsappUrl}
           target="_blank"
           rel="noopener noreferrer"
           style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s ease' }}
           onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent)')}
           onMouseLeave={(e) => (e.currentTarget.style.color = 'inherit')}
         >
-          (48) 99921-2332
+          {content.contact.phoneDisplay}
         </a>
       ),
     },
@@ -160,20 +154,19 @@ function Contact() {
       label: 'E-mail',
       value: (
         <a
-          href="mailto:contato@elianalino.com.br"
+          href={`mailto:${content.contact.email}`}
           style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.3s ease' }}
           onMouseEnter={(e) => (e.currentTarget.style.color = 'var(--accent)')}
           onMouseLeave={(e) => (e.currentTarget.style.color = 'inherit')}
         >
-          contato@elianalino.com.br
+          {content.contact.email}
         </a>
       ),
     },
     {
       icon: <MapPin size={18} />,
       label: 'Endereço',
-      value:
-        'Rodovia Dr. Antônio Luiz Moura Gonzaga, 3339 - Rio Tavares, Florianópolis - SC, 88048-301 Sala 102, bloco C',
+      value: content.contact.address,
     },
   ];
 
@@ -253,7 +246,7 @@ function Contact() {
                   marginBottom: 20,
                 }}
               >
-                Pronto para começar?
+                {content.cta.eyebrow}
               </p>
               <h2
                 style={{
@@ -266,7 +259,7 @@ function Contact() {
                   letterSpacing: '-0.01em',
                 }}
               >
-                O primeiro passo começa com uma conversa.
+                {content.cta.title}
               </h2>
               <p
                 style={{
@@ -277,10 +270,10 @@ function Contact() {
                   marginBottom: 40,
                 }}
               >
-                Agende uma conversa de acolhimento e descubra como a terapia pode caminhar com você.
+                {content.cta.text}
               </p>
               <a
-                href="https://wa.me/5548999212332"
+                href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{
@@ -331,8 +324,8 @@ function Contact() {
                 }}
               >
                 <img
-                  src={ctaImg}
-                  alt="Eliana Lino sorrindo durante uma conversa"
+                  src={content.images.cta.src ?? ctaImg}
+                  alt={content.images.cta.alt}
                   style={{
                     width: '100%',
                     height: '100%',
@@ -395,7 +388,9 @@ function Contact() {
               transition: 'opacity 1s ease, transform 1s var(--ease-out-expo)',
             }}
           >
-            <SectionHeading eyebrow="Contato">Vamos conversar?</SectionHeading>
+            <SectionHeading eyebrow={content.contact.eyebrow}>
+              {content.contact.title}
+            </SectionHeading>
             <Divider
               className={inView ? 'animate-line-grow' : ''}
               style={{ margin: '24px 0 32px' }}
@@ -410,8 +405,7 @@ function Contact() {
                 marginBottom: 40,
               }}
             >
-              Preencha o formulário ou entre em contato diretamente. Respondo todas as mensagens em
-              até 24 horas.
+              {content.contact.intro}
             </p>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 24, marginBottom: 40 }}>
               {INFO.map((it) => (
@@ -464,7 +458,7 @@ function Contact() {
               <IconButton
                 variant="soft"
                 aria-label="Instagram"
-                href="https://www.instagram.com/eliana_lino/"
+                href={content.contact.instagram}
                 target="_blank"
               >
                 <Instagram size={18} />

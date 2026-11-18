@@ -1,5 +1,6 @@
 import React from 'react';
 import logoHorizontal from '../../uploads/logo-horizontal.png';
+import { content, whatsappUrl } from '../../content';
 
 const FOOTER_LINKS = [
   { label: 'Sobre', href: '#sobre' },
@@ -37,8 +38,7 @@ function Footer() {
               margin: '0 auto',
             }}
           >
-            “Mais do que seguir uma metodologia, meu compromisso é acompanhar você em seu processo
-            singular de crescimento, realização e expansão da própria vida.”
+            {content.footer.quote}
           </p>
         </div>
 
@@ -69,8 +69,7 @@ function Footer() {
                 marginTop: 16,
               }}
             >
-              Acompanhando pessoas em processos de autoconhecimento, desenvolvimento emocional e
-              transformação pessoal.
+              {content.footer.tagline}
             </p>
           </div>
 
@@ -139,7 +138,7 @@ function Footer() {
               Contato
             </h3>
             <a
-              href="mailto:contato@elianalino.com.br"
+              href={`mailto:${content.contact.email}`}
               style={{
                 fontFamily: 'var(--font-sans)',
                 fontSize: '0.88rem',
@@ -152,14 +151,14 @@ function Footer() {
                 marginBottom: 24,
               }}
             >
-              <Mail size={14} /> contato@elianalino.com.br
+              <Mail size={14} /> {content.contact.email}
             </a>
             <div style={{ display: 'flex', gap: 10 }}>
               <IconButton
                 size="sm"
                 tone="dark"
                 aria-label="Instagram"
-                href="https://www.instagram.com/eliana_lino/"
+                href={content.contact.instagram}
                 target="_blank"
               >
                 <Instagram size={15} />
@@ -193,7 +192,7 @@ function Footer() {
               color: 'rgba(214,190,150,0.8)',
             }}
           >
-            © {year} Ilê · Eliana Lino · CRP 9424/12. Todos os direitos reservados.
+            © {year} {content.footer.copyright}
           </p>
           <p
             style={{
@@ -245,7 +244,7 @@ export function WhatsAppFab() {
   const [h, setH] = React.useState<boolean>(false);
   return (
     <a
-      href="https://wa.me/5548999212332"
+      href={whatsappUrl}
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Agendar pelo WhatsApp"
