@@ -4,6 +4,8 @@
   "name": "elianalino-site",
   "main": "worker/index.ts",
   "compatibility_date": "2026-11-01",
+  // Exigido pelo envio de e-mail por SMTP (worker-mailer).
+  "compatibility_flags": ["nodejs_compat"],
   "assets": {
     "directory": "./dist",
     "binding": "ASSETS",

@@ -21,7 +21,7 @@ Node >= 24 (ver `.nvmrc`). Valide mudanças com `npm run build`, `npm run lint` 
   3. `ui_kits/landing/icons` e `helpers` registram `window.Icons` e `window.useInView`.
 - `src/ui_kits/landing/` — **as seções reais do site** (Navbar, Hero, About, Abordagem, Atuacao, Grupos, Projetos, Quote, Contact, Footer). `index.tsx` compõe a página e contém os media queries responsivos.
 - `src/content/` — **textos, contatos e fotos do site**. As seções leem de `content` (`index.ts`); o contrato está em `schema.ts` e o conteúdo de reserva em `embedded.ts`. No build, `vite-plugin-site-content.ts` troca o embutido pelo que foi publicado no painel. Campo novo: contrato, embutido, seção, `public/admin/admin.js` e `worker/errors.ts`.
-- `worker/`, `migrations/`, `public/admin/` — API e painel de conteúdo (D1 + R2, senha única). Ver `docs/specs/0001-painel-conteudo.md`.
+- `worker/`, `migrations/`, `public/admin/` — API e painel de conteúdo (D1 + R2, senha única, conta e recuperação de senha por e-mail). Ver `docs/specs/0001-painel-conteudo.md` e `0002-conta-e-senha.md`.
 - `src/components/` — primitivas do design system (Button, Card, Input, SectionHeading…). O código em execução vem de `_ds_bundle.js`; os `.jsx` / `.d.ts` / `.prompt.md` são fonte e documentação.
 - `src/tokens/*.css` + `src/styles.css` — tokens de design (cores, tipografia, espaçamento, animação). `src/index.css` importa Tailwind v4 e repete tokens em `@theme`; ao mudar uma cor, atualize os dois lugares.
 - `src/assets/fotos/web/` — fotos otimizadas usadas no build. Os originais de câmera em `src/assets/fotos/` são ignorados pelo git.

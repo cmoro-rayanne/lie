@@ -1,4 +1,8 @@
 import type {
+  AccountRepo,
+  AccountRow,
+  MailMessage,
+  Mailer,
   AttemptsRepo,
   ContentRepo,
   ContentState,
@@ -72,5 +76,41 @@ export class MemoryAttempts implements AttemptsRepo {
   }
   async add(ip: string, at: number) {
     this.rows.push({ ip, at });
+  }
+}
+
+export class MemoryAccount implements AccountRepo {
+  row: AccountRow | null = null;
+  resets: { tokenHash: string; expiresAt: number; usedAt: number | null }[] = [];
+
+  async get() {
+    return this.row ? { ...this.row } : null;
+  }
+  async saveProfile(name: string, email: string | null) {
+    this.row = { passwordHash: null, passwordSalt: null, ...this.row, name, email };
+  }
+  async savePassword(hash: string, salt: string) {
+    this.row = { name: '', email: null, ...this.row, passwordHash: hash, passwordSalt: salt };
+    this.resets = [];
+  }
+  async createReset(tokenHash: string, expiresAt: number) {
+    this.resets = [{ tokenHash, expiresAt, usedAt: null }];
+  }
+  async consumeReset(tokenHash: string, nowMs: number) {
+    const r = this.resets.find(
+      (x) => x.tokenHash === tokenHash && x.usedAt === null && x.expiresAt > nowMs,
+    );
+    if (!r) return false;
+    r.usedAt = nowMs;
+    return true;
+  }
+}
+
+export class FakeMailer implements Mailer {
+  configured = true;
+  sent: MailMessage[] = [];
+  async send(message: MailMessage) {
+    this.sent.push(message);
+    return true;
   }
 }

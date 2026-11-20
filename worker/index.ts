@@ -1,18 +1,36 @@
 import { embedded } from '../src/content/embedded';
 import { SiteContent } from '../src/content/schema';
-import { SESSION_COOKIE, SESSION_SECONDS, login, readCookie, verifySession } from './auth';
+import { AccountService, checkPassword, sessionSecret } from './account';
+import {
+  MAX_FAILURES,
+  SESSION_COOKIE,
+  SESSION_SECONDS,
+  WINDOW_MS,
+  createSession,
+  login,
+  readCookie,
+  verifySession,
+} from './auth';
 import { ContentService } from './content-service';
-import { D1AttemptsRepo, D1ContentRepo, DeployHookPublisher } from './d1-repo';
+import { D1AccountRepo, D1AttemptsRepo, D1ContentRepo, DeployHookPublisher } from './d1-repo';
 import { IMAGE_KEY, checkImage, imagesInUse, newImageKey } from './images';
+import { SmtpMailer } from './smtp';
 
 export interface Env {
   DB: D1Database;
   IMAGENS: R2Bucket;
   ASSETS: Fetcher;
-  /** Senha do painel (secret). */
+  /** Senha inicial do painel (secret); vale até alguém definir outra no painel. */
   ADMIN_PASSWORD?: string;
   /** URL do Deploy Hook do Workers Builds (secret). */
   DEPLOY_HOOK_URL?: string;
+  /** Servidor de e-mail que envia o link de "esqueci minha senha" (secrets). */
+  SMTP_HOST?: string;
+  SMTP_PORT?: string;
+  SMTP_USER?: string;
+  SMTP_PASS?: string;
+  /** Remetente; em branco, usa SMTP_USER. */
+  MAIL_FROM?: string;
 }
 
 const JSON_HEADERS = {
@@ -45,6 +63,20 @@ function service(env: Env): ContentService {
   );
 }
 
+function accountService(env: Env): AccountService {
+  const mailer = new SmtpMailer({
+    host: env.SMTP_HOST,
+    port: env.SMTP_PORT,
+    user: env.SMTP_USER,
+    pass: env.SMTP_PASS,
+    from: env.MAIL_FROM,
+  });
+  return new AccountService(new D1AccountRepo(env.DB), mailer, env.ADMIN_PASSWORD ?? '');
+}
+
+const MUITAS_TENTATIVAS = 'Muitas tentativas. Aguarde 15 minutos e tente de novo.';
+const FORGOT_LIMIT = 5;
+
 async function handle(req: Request, env: Env): Promise<Response> {
   const url = new URL(req.url);
   const path = url.pathname;
@@ -73,19 +105,50 @@ async function handle(req: Request, env: Env): Promise<Response> {
   // Escritas só do próprio site (cookie é SameSite=Strict; isto é a segunda barreira).
   if (method !== 'GET' && !sameOrigin(req)) return erro(403, 'Origem não permitida.');
 
-  const password = env.ADMIN_PASSWORD ?? '';
+  const account = accountService(env);
+  const credential = await account.credential();
+  const secret = sessionSecret(credential);
+  const attempts = new D1AttemptsRepo(env.DB);
+  const ip = req.headers.get('cf-connecting-ip') ?? 'desconhecido';
+  const now = Date.now();
+  // Cada tipo de tentativa tem a sua contagem por IP.
+  const blocked = async (kind: string, limit = MAX_FAILURES) =>
+    (await attempts.count(`${kind}:${ip}`, now - WINDOW_MS)) >= limit;
 
   if (method === 'POST' && path === '/api/login') {
     const body = (await req.json().catch(() => null)) as { senha?: unknown } | null;
     const given = typeof body?.senha === 'string' ? body.senha : '';
-    const ip = req.headers.get('cf-connecting-ip') ?? 'desconhecido';
-    const result = await login(new D1AttemptsRepo(env.DB), ip, given, password, Date.now());
+    const result = await login(attempts, ip, () => checkPassword(credential, given), secret, now);
     if (!result.ok) {
       return result.reason === 'bloqueado'
-        ? erro(429, 'Muitas tentativas. Aguarde 15 minutos e tente de novo.')
+        ? erro(429, MUITAS_TENTATIVAS)
         : erro(401, 'Senha incorreta.');
     }
     return json({ ok: true }, 200, { 'set-cookie': sessionCookie(result.token, SESSION_SECONDS) });
+  }
+
+  if (method === 'POST' && path === '/api/forgot') {
+    if (await blocked('esqueci', FORGOT_LIMIT)) return erro(429, MUITAS_TENTATIVAS);
+    await attempts.add(`esqueci:${ip}`, now);
+    const body = (await req.json().catch(() => null)) as { email?: unknown } | null;
+    await account.requestReset(body?.email, url.origin);
+    // Mesma resposta exista ou não o e-mail, para não revelar qual é o cadastrado.
+    return json({
+      mensagem:
+        'Se este for o e-mail de recuperação cadastrado, enviamos um link para redefinir a senha. Ele vale por 30 minutos.',
+    });
+  }
+
+  if (method === 'POST' && path === '/api/reset') {
+    if (await blocked('redefinir')) return erro(429, MUITAS_TENTATIVAS);
+    const body = (await req.json().catch(() => null)) as {
+      token?: unknown;
+      senhaNova?: unknown;
+    } | null;
+    const r = await account.resetPassword(body?.token, body?.senhaNova);
+    if (r.ok) return json({ ok: true });
+    if (r.kind === 'senha') await attempts.add(`redefinir:${ip}`, now);
+    return erro(r.kind === 'senha' ? 410 : 422, r.error);
   }
   if (method === 'POST' && path === '/api/logout') {
     return json({ ok: true }, 200, { 'set-cookie': sessionCookie('', 0) });
@@ -93,7 +156,7 @@ async function handle(req: Request, env: Env): Promise<Response> {
 
   // --- Exigem sessão ---
   const token = readCookie(req.headers.get('cookie'), SESSION_COOKIE);
-  if (!(await verifySession(token, password, Math.floor(Date.now() / 1000)))) {
+  if (!(await verifySession(token, secret, Math.floor(now / 1000)))) {
     return erro(401, 'Entre com a senha para continuar.');
   }
 
@@ -101,6 +164,28 @@ async function handle(req: Request, env: Env): Promise<Response> {
 
   if (method === 'GET' && path === '/api/me') return json({ ok: true });
   if (method === 'GET' && path === '/api/content') return json(await svc.getDraft());
+
+  if (method === 'GET' && path === '/api/account') return json(await account.view());
+
+  if (method === 'PUT' && (path === '/api/account' || path === '/api/account/password')) {
+    if (await blocked('conta')) return erro(429, MUITAS_TENTATIVAS);
+    const body = ((await req.json().catch(() => null)) ?? {}) as Record<string, unknown>;
+    const changingPassword = path.endsWith('/password');
+    const r = changingPassword
+      ? await account.changePassword(body)
+      : await account.updateProfile(body);
+    if (!r.ok) {
+      if (r.kind === 'senha') await attempts.add(`conta:${ip}`, now);
+      return erro(r.kind === 'senha' ? 403 : 422, r.error);
+    }
+    if (!changingPassword) return json({ ok: true });
+    // Senha nova encerra as outras sessões; esta continua com um cookie novo.
+    const fresh = await createSession(
+      sessionSecret(await account.credential()),
+      Math.floor(now / 1000),
+    );
+    return json({ ok: true }, 200, { 'set-cookie': sessionCookie(fresh, SESSION_SECONDS) });
+  }
 
   if (method === 'PUT' && path === '/api/content') {
     const body = (await req.json().catch(() => null)) as {

@@ -1,4 +1,4 @@
-/* Painel de conteúdo do site (docs/specs/0001-painel-conteudo.md). Sem dependências. Limites iguais aos de src/content/schema.ts. */
+/* Painel de conteúdo do site (docs/specs/0001-painel-conteudo.md e 0002-conta-e-senha.md). Sem dependências. Limites iguais aos de src/content/schema.ts. */
 (() => {
   'use strict';
 
@@ -13,6 +13,7 @@
     ['contato', 'Contato'],
     ['fotos', 'Fotos'],
     ['versoes', 'Versões'],
+    ['conta', 'Minha conta'],
   ];
 
   const s = {
@@ -808,6 +809,185 @@
     );
   }
 
+  // ---------- minha conta ----------
+  // Campo solto (não faz parte do conteúdo do site, então não marca "alterações não salvas").
+  function campoSolto(
+    id,
+    rotulo,
+    { type = 'text', value = '', max, ajuda, autocomplete = 'off' } = {},
+  ) {
+    const input = el('input', { id, type, maxlength: max, value, autocomplete });
+    const bloco = el(
+      'div',
+      { class: 'campo' },
+      el('label', { class: 'campo__rotulo', for: id }, el('span', { text: rotulo })),
+      input,
+      ajuda ? el('span', { class: 'campo__ajuda', text: ajuda }) : null,
+    );
+    return { input, bloco };
+  }
+
+  const REGRA_SENHA = 'Ao menos 10 caracteres, com letras e números.';
+
+  function abaConta() {
+    const caixa = el(
+      'section',
+      null,
+      el('h2', { text: 'Minha conta' }),
+      el('p', { text: 'Carregando…' }),
+    );
+    const avisa = (tipo, texto) => {
+      s.aviso = { tipo, texto };
+      renderAviso();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    const desenha = (conta) => {
+      const nome = campoSolto('conta-nome', 'Seu nome', {
+        value: conta.nome,
+        max: 80,
+        autocomplete: 'name',
+      });
+      const email = campoSolto('conta-email', 'E-mail de recuperação', {
+        type: 'email',
+        value: conta.email,
+        max: 120,
+        autocomplete: 'email',
+        ajuda:
+          'É para este e-mail que vai o link de “Esqueci minha senha”. Em branco, a recuperação fica desligada.',
+      });
+      const senhaDados = campoSolto('conta-senha-dados', 'Senha atual', {
+        type: 'password',
+        autocomplete: 'current-password',
+        ajuda: 'Só é pedida quando você muda o e-mail de recuperação.',
+      });
+      const atual = campoSolto('conta-senha-atual', 'Senha atual', {
+        type: 'password',
+        autocomplete: 'current-password',
+      });
+      const nova = campoSolto('conta-senha-nova', 'Senha nova', {
+        type: 'password',
+        autocomplete: 'new-password',
+        ajuda: REGRA_SENHA,
+      });
+      const repete = campoSolto('conta-senha-repete', 'Repita a senha nova', {
+        type: 'password',
+        autocomplete: 'new-password',
+      });
+
+      const salvarDados = el('button', {
+        class: 'btn btn--principal',
+        type: 'submit',
+        text: 'Salvar dados',
+      });
+      const formDados = el(
+        'form',
+        {
+          onsubmit: async (ev) => {
+            ev.preventDefault();
+            salvarDados.disabled = true;
+            try {
+              const r = await api('PUT', '/api/account', {
+                nome: nome.input.value,
+                email: email.input.value,
+                senhaAtual: senhaDados.input.value,
+              });
+              if (r.ok) {
+                s.aviso = { tipo: 'ok', texto: 'Dados da conta salvos.' };
+                await carrega();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              } else avisa('erro', r.data.erro || 'Não foi possível salvar.');
+            } catch (e) {
+              if (!e.handled) avisa('erro', 'Sem conexão. Tente de novo.');
+            }
+            salvarDados.disabled = false;
+          },
+        },
+        el('div', { class: 'grade grade--2' }, nome.bloco, email.bloco),
+        senhaDados.bloco,
+        salvarDados,
+      );
+
+      const trocar = el('button', {
+        class: 'btn btn--principal',
+        type: 'submit',
+        text: 'Trocar senha',
+      });
+      const formSenha = el(
+        'form',
+        {
+          onsubmit: async (ev) => {
+            ev.preventDefault();
+            if (nova.input.value !== repete.input.value)
+              return avisa('erro', 'As duas senhas novas não são iguais.');
+            trocar.disabled = true;
+            try {
+              const r = await api('PUT', '/api/account/password', {
+                senhaAtual: atual.input.value,
+                senhaNova: nova.input.value,
+              });
+              if (r.ok) {
+                s.aviso = {
+                  tipo: 'ok',
+                  texto:
+                    'Senha trocada. Outros aparelhos que estavam com o painel aberto precisam entrar de novo.',
+                };
+                await carrega();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              } else avisa('erro', r.data.erro || 'Não foi possível trocar a senha.');
+            } catch (e) {
+              if (!e.handled) avisa('erro', 'Sem conexão. Tente de novo.');
+            }
+            trocar.disabled = false;
+          },
+        },
+        atual.bloco,
+        el('div', { class: 'grade grade--2' }, nova.bloco, repete.bloco),
+        trocar,
+      );
+
+      troca(
+        caixa,
+        el('h2', { text: 'Minha conta' }),
+        el('p', {
+          class: 'sub',
+          text: 'Seus dados de acesso ao painel. O que você muda aqui vale na hora e não aparece no site.',
+        }),
+        conta.envioDeEmail
+          ? null
+          : el(
+              'div',
+              { class: 'aviso aviso--atencao' },
+              el('strong', {
+                text: 'O envio de e-mail ainda não foi configurado, então “Esqueci minha senha” não funciona. Avise o suporte.',
+              }),
+            ),
+        el('div', { class: 'sub-titulo', text: 'Dados' }),
+        formDados,
+        el('div', { class: 'sub-titulo', text: 'Senha' }),
+        conta.senhaPropria
+          ? null
+          : el('p', {
+              class: 'campo__ajuda',
+              text: 'Você ainda usa a senha inicial. Troque por uma senha só sua.',
+            }),
+        formSenha,
+      );
+      renderAviso();
+    };
+    const carrega = async () => {
+      try {
+        const r = await api('GET', '/api/account');
+        if (!r.ok) throw new Error(r.data.erro || 'Não foi possível carregar a conta.');
+        desenha(r.data);
+      } catch (e) {
+        if (!e.handled)
+          troca(caixa, el('h2', { text: 'Minha conta' }), el('p', { text: e.message }));
+      }
+    };
+    carrega();
+    return caixa;
+  }
+
   function abaVersoes() {
     const caixa = el(
       'section',
@@ -1049,6 +1229,7 @@
       contato: abaContato,
       fotos: abaFotos,
       versoes: abaVersoes,
+      conta: abaConta,
     };
     conteudo.append(abas[s.tab]());
     refs.estado = el('span', { class: 'estado', 'aria-live': 'polite' });
@@ -1113,16 +1294,12 @@
     renderAviso();
   }
 
-  function renderLogin(msg) {
+  // Tela simples fora do painel (entrar, esqueci a senha, redefinir).
+  function telaDeEntrada(titulo, texto, campos, botaoTexto, aoEnviar, rodape) {
     refs.estado = null;
-    const erro = el('p', { role: 'alert', style: 'color:#b3261e;margin:0', text: msg || '' });
-    const input = el('input', {
-      type: 'password',
-      id: 'senha',
-      autocomplete: 'current-password',
-      required: true,
-    });
-    const botao = el('button', { class: 'btn btn--principal', type: 'submit', text: 'Entrar' });
+    const erro = el('p', { role: 'alert', class: 'entrar__erro' });
+    const ok = el('p', { role: 'status', class: 'entrar__ok' });
+    const botao = el('button', { class: 'btn btn--principal', type: 'submit', text: botaoTexto });
     const form = el(
       'form',
       {
@@ -1130,37 +1307,122 @@
           ev.preventDefault();
           botao.disabled = true;
           erro.textContent = '';
+          ok.textContent = '';
           try {
-            const r = await api('POST', '/api/login', { senha: input.value });
-            if (!r.ok) {
-              erro.textContent = r.data.erro || 'Não foi possível entrar.';
-              botao.disabled = false;
-              input.select();
-              return;
-            }
-            await iniciar();
+            await aoEnviar({ erro, ok, botao });
           } catch (e) {
             erro.textContent = 'Sem conexão. Tente de novo.';
-            botao.disabled = false;
           }
+          botao.disabled = false;
         },
       },
-      el('h1', { text: 'Painel Ilê' }),
-      el('p', { text: 'Entre para editar o conteúdo do site.' }),
-      el(
-        'div',
-        { class: 'campo' },
-        el('label', { class: 'campo__rotulo', for: 'senha' }, el('span', { text: 'Senha' })),
-        input,
-      ),
+      el('h1', { text: titulo }),
+      el('p', { text: texto }),
+      campos.map((c) => c.bloco),
       erro,
+      ok,
       botao,
+      rodape,
     );
     app.replaceChildren(el('div', { class: 'entrar' }, form));
-    input.focus();
+    campos[0].input.focus();
+    return { erro, ok };
+  }
+
+  const linkDeTela = (texto, aoClicar) =>
+    el('button', { type: 'button', class: 'entrar__link', text: texto, onclick: aoClicar });
+
+  function renderLogin(msg) {
+    const senha = campoSolto('senha', 'Senha', {
+      type: 'password',
+      autocomplete: 'current-password',
+    });
+    senha.input.required = true;
+    const { erro } = telaDeEntrada(
+      'Painel Ilê',
+      'Entre para editar o conteúdo do site.',
+      [senha],
+      'Entrar',
+      async ({ erro }) => {
+        const r = await api('POST', '/api/login', { senha: senha.input.value });
+        if (!r.ok) {
+          erro.textContent = r.data.erro || 'Não foi possível entrar.';
+          senha.input.select();
+          return;
+        }
+        await iniciar();
+      },
+      linkDeTela('Esqueci minha senha', () => renderEsqueci()),
+    );
+    erro.textContent = msg || '';
+  }
+
+  function renderEsqueci() {
+    const email = campoSolto('email', 'E-mail de recuperação', {
+      type: 'email',
+      autocomplete: 'email',
+      max: 120,
+    });
+    email.input.required = true;
+    telaDeEntrada(
+      'Esqueci minha senha',
+      'Informe o e-mail de recuperação cadastrado em Minha conta. Enviamos um link para você escolher uma senha nova.',
+      [email],
+      'Enviar link',
+      async ({ erro, ok }) => {
+        const r = await api('POST', '/api/forgot', { email: email.input.value });
+        if (r.ok) ok.textContent = r.data.mensagem;
+        else erro.textContent = r.data.erro || 'Não foi possível enviar. Tente de novo.';
+      },
+      linkDeTela('Voltar para a entrada', () => renderLogin()),
+    );
+  }
+
+  function renderRedefinir(token) {
+    const nova = campoSolto('senha-nova', 'Senha nova', {
+      type: 'password',
+      autocomplete: 'new-password',
+      ajuda: REGRA_SENHA,
+    });
+    const repete = campoSolto('senha-repete', 'Repita a senha nova', {
+      type: 'password',
+      autocomplete: 'new-password',
+    });
+    nova.input.required = true;
+    repete.input.required = true;
+    telaDeEntrada(
+      'Escolha uma senha nova',
+      'Depois de salvar, entre no painel com a senha nova.',
+      [nova, repete],
+      'Salvar senha nova',
+      async ({ erro }) => {
+        if (nova.input.value !== repete.input.value) {
+          erro.textContent = 'As duas senhas não são iguais.';
+          return;
+        }
+        const r = await api('POST', '/api/reset', { token, senhaNova: nova.input.value });
+        if (!r.ok) {
+          erro.textContent = r.data.erro || 'Não foi possível salvar a senha.';
+          return;
+        }
+        renderLogin();
+        document.querySelector('.entrar__ok').textContent = 'Senha nova salva. Entre com ela.';
+      },
+      linkDeTela('Voltar para a entrada', () => renderLogin()),
+    );
+  }
+
+  // Link do e-mail: /admin/#redefinir=<token>. O token sai do endereço assim que é lido.
+  function tokenDoLink() {
+    const m = /^#redefinir=([a-f0-9]{64})$/.exec(location.hash);
+    if (!m) return null;
+    history.replaceState(null, '', location.pathname);
+    return m[1];
   }
 
   async function iniciar() {
+    const token = tokenDoLink();
+    if (token) return renderRedefinir(token);
     try {
       const me = await api('GET', '/api/me');
       if (!me.ok) return renderLogin();

@@ -479,3 +479,35 @@ details.cartao[open] > summary {
   justify-content: flex-end;
   order: -1;
 }
+
+/* entrar, esqueci a senha, redefinir */
+.entrar .campo {
+  margin: 0;
+}
+.entrar__erro,
+.entrar__ok {
+  margin: 0;
+}
+.entrar__erro {
+  color: var(--erro);
+}
+.entrar__ok {
+  color: var(--ok);
+}
+.entrar__erro:empty,
+.entrar__ok:empty {
+  display: none;
+}
+.entrar__link {
+  border: 0;
+  background: none;
+  padding: 0;
+  justify-self: start;
+  color: var(--terra);
+  text-decoration: underline;
+  cursor: pointer;
+}
+/* minha conta */
+main form {
+  margin-bottom: 1.5rem;
+}

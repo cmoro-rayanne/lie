@@ -37,3 +37,33 @@ export interface AttemptsRepo {
   count(ip: string, sinceMs: number): Promise<number>;
   add(ip: string, atMs: number): Promise<void>;
 }
+
+export interface AccountRow {
+  name: string;
+  email: string | null;
+  passwordHash: string | null;
+  passwordSalt: string | null;
+}
+
+export interface AccountRepo {
+  get(): Promise<AccountRow | null>;
+  saveProfile(name: string, email: string | null, nowMs: number): Promise<void>;
+  savePassword(hash: string, salt: string, nowMs: number): Promise<void>;
+  /** Guarda o pedido de redefinição e descarta os anteriores. */
+  createReset(tokenHash: string, expiresAtMs: number): Promise<void>;
+  /** Marca o pedido como usado se ele existe, não venceu e ainda não foi usado. */
+  consumeReset(tokenHash: string, nowMs: number): Promise<boolean>;
+}
+
+export interface MailMessage {
+  to: string;
+  subject: string;
+  text: string;
+}
+
+export interface Mailer {
+  /** false = sem servidor de e-mail configurado. */
+  readonly configured: boolean;
+  /** Devolve false se o envio falhou. */
+  send(message: MailMessage): Promise<boolean>;
+}

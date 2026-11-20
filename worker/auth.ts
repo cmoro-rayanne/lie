@@ -87,19 +87,23 @@ export function readCookie(header: string | null, name: string): string | undefi
 export type LoginResult =
   { ok: true; token: string } | { ok: false; reason: 'senha' | 'bloqueado' };
 
+/**
+ * `check` confere a senha digitada; `secret` assina a sessão (ver `sessionSecret` em account.ts).
+ */
 export async function login(
   attempts: AttemptsRepo,
   ip: string,
-  given: string,
-  password: string,
+  check: () => Promise<boolean>,
+  secret: string,
   nowMs: number,
 ): Promise<LoginResult> {
-  if (!password) return { ok: false, reason: 'senha' };
-  if ((await attempts.count(ip, nowMs - WINDOW_MS)) >= MAX_FAILURES)
+  if (!secret) return { ok: false, reason: 'senha' };
+  if ((await attempts.count(ip, nowMs - WINDOW_MS)) >= MAX_FAILURES) {
     return { ok: false, reason: 'bloqueado' };
-  if (!(await safeCompare(given, password))) {
+  }
+  if (!(await check())) {
     await attempts.add(ip, nowMs);
     return { ok: false, reason: 'senha' };
   }
-  return { ok: true, token: await createSession(password, Math.floor(nowMs / 1000)) };
+  return { ok: true, token: await createSession(secret, Math.floor(nowMs / 1000)) };
 }

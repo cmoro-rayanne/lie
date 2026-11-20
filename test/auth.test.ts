@@ -12,6 +12,9 @@ import { MemoryAttempts } from './helpers';
 
 const NOW = 1_800_000_000;
 
+const entrar = (a: MemoryAttempts, ip: string, given: string, nowMs: number) =>
+  login(a, ip, async () => given === 'segredo', 'segredo', nowMs);
+
 describe('sessão', () => {
   it('aceita sessão válida e recusa expirada', async () => {
     const t = await createSession('segredo', NOW);
@@ -40,28 +43,26 @@ describe('safeCompare', () => {
 describe('login', () => {
   it('senha certa gera sessão; errada não gera', async () => {
     const a = new MemoryAttempts();
-    const ok = await login(a, '1.1.1.1', 'segredo', 'segredo', NOW * 1000);
+    const ok = await entrar(a, '1.1.1.1', 'segredo', NOW * 1000);
     expect(ok.ok).toBe(true);
-    const ruim = await login(a, '1.1.1.1', 'errada', 'segredo', NOW * 1000);
+    const ruim = await entrar(a, '1.1.1.1', 'errada', NOW * 1000);
     expect(ruim).toEqual({ ok: false, reason: 'senha' });
   });
-  it('sem ADMIN_PASSWORD configurada ninguém entra', async () => {
-    expect(await login(new MemoryAttempts(), 'ip', '', '', NOW * 1000)).toEqual({
+  it('sem senha configurada ninguém entra', async () => {
+    expect(await login(new MemoryAttempts(), 'ip', async () => true, '', NOW * 1000)).toEqual({
       ok: false,
       reason: 'senha',
     });
   });
   it('bloqueia depois de 8 erros, até a janela passar, mesmo com a senha certa', async () => {
     const a = new MemoryAttempts();
-    for (let i = 0; i < MAX_FAILURES; i += 1) await login(a, '2.2.2.2', 'x', 'segredo', NOW * 1000);
-    expect(await login(a, '2.2.2.2', 'segredo', 'segredo', NOW * 1000)).toEqual({
+    for (let i = 0; i < MAX_FAILURES; i += 1) await entrar(a, '2.2.2.2', 'x', NOW * 1000);
+    expect(await entrar(a, '2.2.2.2', 'segredo', NOW * 1000)).toEqual({
       ok: false,
       reason: 'bloqueado',
     });
-    expect((await login(a, '3.3.3.3', 'segredo', 'segredo', NOW * 1000)).ok).toBe(true);
-    expect((await login(a, '2.2.2.2', 'segredo', 'segredo', NOW * 1000 + WINDOW_MS + 1)).ok).toBe(
-      true,
-    );
+    expect((await entrar(a, '3.3.3.3', 'segredo', NOW * 1000)).ok).toBe(true);
+    expect((await entrar(a, '2.2.2.2', 'segredo', NOW * 1000 + WINDOW_MS + 1)).ok).toBe(true);
   });
 });
 
